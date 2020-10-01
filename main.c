@@ -20,7 +20,7 @@ int main(void) {
             ClearBackground(RAYWHITE);
 
             // Escreve um texto, recebe o TEXTO, POSIÇÃO EM X, POSIÇÃO EM Y, TAMANHO DA FONTE, COR DA FONTE
-            DrawText("Janela simples!", screenWidth - 170, screenHeight - 50, 20, LIGHTGRAY);
+            DrawText("oi", screenWidth - 170, screenHeight - 50, 20, LIGHTGRAY);
 
         EndDrawing();
     }
