@@ -53,3 +53,7 @@ dkms.conf
 
 # Necessary files for VS Code
 .vscode/
+resources/characters
+*
+!*/
+!.gitkeep
