@@ -55,3 +55,7 @@ dkms.conf
 .vscode/
 resources/characters
 !.gitkeep
+/src
+mainTest.c
+
+game
