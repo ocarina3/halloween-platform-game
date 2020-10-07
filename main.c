@@ -1,5 +1,7 @@
 #include "raylib.h"
 
+#include "screens/screens.h"
+
 int main(void) {
     // Inicializa a largura e altura da janela como constantes
     const int screenWidth = 800;
