@@ -1,33 +1,112 @@
+/*******************************************************************************************
+*
+*   raylib - Standard Game template
+*
+*   <Game title>
+*   <Game description>
+*
+*   This game has been created using raylib (www.raylib.com)
+*   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+*
+*   Copyright (c) 2014-2020 Ramon Santamaria (@raysan5)
+*
+********************************************************************************************/
+
 #include "raylib.h"
+#include "screens/screens.h"    // NOTE: Defines global variable: currentScreen
 
-#include "screens/screens.h"
-
-int main(void) {
-    // Inicializa a largura e altura da janela como constantes
+//----------------------------------------------------------------------------------
+// Main entry point
+//----------------------------------------------------------------------------------
+int main(void)
+{
+    // Initialization (Note windowTitle is unused on Android)
+    //---------------------------------------------------------
     const int screenWidth = 800;
     const int screenHeight = 450;
 
-    InitWindow(screenWidth, screenHeight, "Exemplo de Janela");
+    InitWindow(screenWidth, screenHeight, "raylib template - standard game");
 
-    SetTargetFPS(60); // Rodará a 60 FPS
+    // TODO: Load global data here (assets that must be available in all screens, i.e. fonts)
+    
+    // Define and init first screen
+    currentScreen = LEVEL_ONE;   // NOTE: currentScreen is defined in screens.h as a global variable
+    initLevelOneScreen();
+    
+    SetTargetFPS(60);
+    //----------------------------------------------------------
 
-    // Loop principal do game
-    // Roda o game enquanto o usuário não apertar ESC
-    while (!WindowShouldClose()) {
+    // Main game loop
+    while (!WindowShouldClose())    // Detect window close button or ESC key
+    {
+        // Update
+        //----------------------------------------------------------------------------------
+        switch(currentScreen) 
+        {
+            case LEVEL_ONE: 
+            {
+                updateLevelOneScreen();
+                
+                if (finishLevelOneScreen())
+                {
+                    unloadLevelOneScreen();
+                    currentScreen = LEVEL_TWO;
+                    initLevelTwoScreen();
+                }
+            } break;
+            case LEVEL_TWO:
+            {
+                updateLevelTwoScreen();
+                
+                if (finishLevelTwoScreen())
+                {
+                    unloadLevelTwoScreen();
+                    currentScreen = LEVEL_THREE;
+                    initLevelThreeScreen();
+                } 
+            } break;
+            case LEVEL_THREE:
+            { 
+                updateLevelThreeScreen();
+                
+                if (finishLevelThreeScreen())
+                {
+                    unloadLevelThreeScreen();
+                    currentScreen = LEVEL_ONE;
+                    initLevelOneScreen();
+                }   
+            } break;
+            default: break;
+        }
+        //----------------------------------------------------------------------------------
         
-        // Inicializa a janela
+        // Draw
+        //----------------------------------------------------------------------------------
         BeginDrawing();
-
-            // Cor do background da janela
+        
             ClearBackground(RAYWHITE);
-
-            // Escreve um texto, recebe o TEXTO, POSIÇÃO EM X, POSIÇÃO EM Y, TAMANHO DA FONTE, COR DA FONTE
-            DrawText("Janela Simples", screenWidth - 170, screenHeight - 50, 20, LIGHTGRAY);
-
+            
+            switch(currentScreen) 
+            {
+                case LEVEL_ONE: drawLevelOneScreen(); break;
+                case LEVEL_TWO: drawLevelTwoScreen(); break;
+                case LEVEL_THREE: drawLevelThreeScreen(); break;
+                default: break;
+            }
+        
+            //DrawFPS(10, 10);
+        
         EndDrawing();
+        //----------------------------------------------------------------------------------
     }
 
-    CloseWindow();        // Fecha a janela
+    // De-Initialization
+    //--------------------------------------------------------------------------------------
+    
+    // TODO: Unload all global loaded data (i.e. fonts) here!
+    
+    CloseWindow();        // Close window and OpenGL context
+    //--------------------------------------------------------------------------------------
 
     return 0;
 }
