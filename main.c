@@ -25,7 +25,7 @@ int main(void)
     const int screenWidth = 800;
     const int screenHeight = 450;
 
-    InitWindow(screenWidth, screenHeight, "raylib template - standard game");
+    InitWindow(screenWidth, screenHeight, "raylib - testing transitions between screens");
 
     // TODO: Load global data here (assets that must be available in all screens, i.e. fonts)
     
