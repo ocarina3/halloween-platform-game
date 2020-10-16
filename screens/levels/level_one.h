@@ -63,7 +63,7 @@ Camera2D camera;
 void start_variables();
 Vector2 get_player_block();
 void create_line(Vector2 inicial, Vector2 final);
-void create_map(int phase);
+void create_map();
 void create_physic_map();
 
 
@@ -73,7 +73,7 @@ void initLevelOneScreen(void)
     // Initialize GAMEPLAY screen variables here!
     framesCounter = 0;
     finishScreen = 0;
-    create_map(1);
+    create_map();
 }
 
 // Gameplay Screen Update logic
@@ -309,15 +309,12 @@ void start_variables()
 }
 
 
-void create_map(int phase)
+void create_map()
 {
     //draw the map
-    if (phase == 1)
-    {
-        start_variables();
-        create_line((Vector2){0,8},(Vector2){15,8});
-        create_line((Vector2){9,5},(Vector2){12,5});
-        create_line((Vector2){4,5},(Vector2){7,5});
-        create_line((Vector2){8,6},(Vector2){8,8});    
-    }
+    start_variables();
+    create_line((Vector2){0,8},(Vector2){15,8});
+    create_line((Vector2){9,5},(Vector2){12,5});
+    create_line((Vector2){4,5},(Vector2){7,5});
+    create_line((Vector2){8,6},(Vector2){8,8});    
 }
