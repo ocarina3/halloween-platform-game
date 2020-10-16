@@ -142,7 +142,8 @@ int main(void)
     //--------------------------------------------------------------------------------------
     
     // TODO: Unload all global loaded data (i.e. fonts) here!
-    
+
+    CloseAudioDevice();
     CloseWindow();        // Close window and OpenGL context
     //--------------------------------------------------------------------------------------
 
