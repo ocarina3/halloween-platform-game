@@ -72,6 +72,17 @@ int main(void)
                 if (finishLevelThreeScreen())
                 {
                     unloadLevelThreeScreen();
+                    currentScreen = MENU_ONE;
+                    initMenuOneScreen();
+                }   
+            } break;
+            case MENU_ONE:
+            { 
+                updateMenuOneScreen();
+                
+                if (finishMenuOneScreen())
+                {
+                    unloadMenuOneScreen();
                     currentScreen = LEVEL_ONE;
                     initLevelOneScreen();
                 }   
@@ -91,6 +102,7 @@ int main(void)
                 case LEVEL_ONE: drawLevelOneScreen(); break;
                 case LEVEL_TWO: drawLevelTwoScreen(); break;
                 case LEVEL_THREE: drawLevelThreeScreen(); break;
+                case MENU_ONE: drawMenuOneScreen(); break;
                 default: break;
             }
         
