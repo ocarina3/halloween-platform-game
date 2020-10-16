@@ -85,6 +85,17 @@ int main(void)
                 if (finishMenuUserScreen())
                 {
                     unloadMenuUserScreen();
+                    currentScreen = MENU_LOADING;
+                    initMenuLoadingScreen();
+                }   
+            } break;
+            case MENU_LOADING:
+            { 
+                updateMenuLoadingScreen();
+                
+                if (finishMenuLoadingScreen())
+                {
+                    unloadMenuLoadingScreen();
                     currentScreen = MENU_ONE;
                     initMenuOneScreen();
                 }   
@@ -117,6 +128,7 @@ int main(void)
                 case LEVEL_THREE: drawLevelThreeScreen(); break;
                 case MENU_ONE: drawMenuOneScreen(); break;
                 case MENU_USER: drawMenuUserScreen(); break;
+                case MENU_LOADING: drawMenuLoadingScreen(); break;
                 default: break;
             }
         
