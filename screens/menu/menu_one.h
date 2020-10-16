@@ -69,15 +69,15 @@ void initMenuOneScreen(void)
     finishScreen = 0;
     hasEnterBeenPressed = 0;
 
-    new = LoadTexture("resources/textures/main_screen/menu_one.png");
-    load = LoadTexture("resources/textures/main_screen/menu_two.png");
-    quit = LoadTexture("resources/textures/main_screen/menu_three.png");
+    new = LoadTexture("resources/textures/main_menu_screen/menu_one.png");
+    load = LoadTexture("resources/textures/main_menu_screen/menu_two.png");
+    quit = LoadTexture("resources/textures/main_menu_screen/menu_three.png");
     currentTexture = new;
     currentCounter = 1;
 
-    theme = LoadMusicStream("resources/audio/main_screen/theme-song.mp3");
-    enter = LoadSound("resources/audio/main_screen/enter-song.mp3");
-    selection = LoadSound("resources/audio/main_screen/selection-song.mp3");
+    theme = LoadMusicStream("resources/audio/main_menu_screen/theme-song.mp3");
+    enter = LoadSound("resources/audio/main_menu_screen/enter-song.mp3");
+    selection = LoadSound("resources/audio/main_menu_screen/selection-song.mp3");
     SetMusicVolume(theme, 0.3f);
     SetSoundVolume(selection, 1.4f);
     PlayMusicStream(theme);
@@ -160,7 +160,7 @@ void updateMenuOneScreen(void)
                     currentTexture = load; 
                 }
             }else{
-                
+
             }
 
         }

@@ -29,7 +29,7 @@
 //----------------------------------------------------------------------------------
 // Types and Structures Definition
 //----------------------------------------------------------------------------------
-typedef enum GameScreen { LEVEL_ONE, LEVEL_TWO, LEVEL_THREE, MENU_ONE, MENU_TWO } GameScreen;
+typedef enum GameScreen { LEVEL_ONE, LEVEL_TWO, LEVEL_THREE, MENU_ONE, MENU_USER } GameScreen;
 
 //----------------------------------------------------------------------------------
 // Global Variables Definition
@@ -45,7 +45,7 @@ extern "C" {            // Prevents name mangling of functions
 #include "levels/level_three.h"
 
 #include "menu/menu_one.h"
-//#include "menu/menu_two.h"
+#include "menu/menu_user.h"
 //#include "menu/menu_three.h"
 
 
