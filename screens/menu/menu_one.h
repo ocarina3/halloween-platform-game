@@ -146,35 +146,44 @@ void updateMenuOneScreen(void)
 
     if (IsKeyPressed(KEY_UP))
         {
-            PlaySound(selection);
+            if(hasEnterBeenPressed == 0){
+                PlaySound(selection);
 
-            if(currentCounter == 1){
-               currentCounter = 3;
-               currentTexture = quit; 
-            }else if (currentCounter == 2){
-               currentCounter = 1;
-               currentTexture = new;
+                if(currentCounter == 1){
+                    currentCounter = 3;
+                    currentTexture = quit; 
+                }else if (currentCounter == 2){
+                    currentCounter = 1;
+                    currentTexture = new;
+                }else{
+                    currentCounter = 2;
+                    currentTexture = load; 
+                }
             }else{
-               currentCounter = 2;
-               currentTexture = load; 
+                
             }
 
         }
 
         if (IsKeyPressed(KEY_DOWN))
         {
-            PlaySound(selection);
+            if(hasEnterBeenPressed == 0){
+                 PlaySound(selection);
 
-            if(currentCounter == 1){
-               currentCounter = 2;
-               currentTexture = load; 
-            }else if (currentCounter == 2){
-               currentCounter = 3;
-               currentTexture = quit;
+                if(currentCounter == 1){
+                    currentCounter = 2;
+                    currentTexture = load; 
+                }else if (currentCounter == 2){
+                    currentCounter = 3;
+                    currentTexture = quit;
+                }else{
+                    currentCounter = 1;
+                    currentTexture = new; 
+                }  
             }else{
-               currentCounter = 1;
-               currentTexture = new; 
+
             }
+            
         }
 
     // Press enter or tap to change to ENDING screen
