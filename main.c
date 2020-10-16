@@ -13,6 +13,10 @@
 ********************************************************************************************/
 
 #include "raylib.h"
+#define PHYSAC_IMPLEMENTATION
+#define PHYSAC_NO_THREADS
+
+#include "physac.h"
 #include "screens/screens.h"    // NOTE: Defines global variable: currentScreen
 
 //----------------------------------------------------------------------------------
@@ -22,10 +26,9 @@ int main(void)
 {
     // Initialization (Note windowTitle is unused on Android)
     //---------------------------------------------------------
-    const int screenWidth = 800;
-    const int screenHeight = 450;
 
     InitWindow(screenWidth, screenHeight, "raylib - testing transitions between screens");
+    InitPhysics();
 
     // TODO: Load global data here (assets that must be available in all screens, i.e. fonts)
     
@@ -39,6 +42,7 @@ int main(void)
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
+        RunPhysicsStep();
         // Update
         //----------------------------------------------------------------------------------
         switch(currentScreen) 
@@ -102,7 +106,7 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-    
+     ClosePhysics();
     // TODO: Unload all global loaded data (i.e. fonts) here!
     
     CloseWindow();        // Close window and OpenGL context
