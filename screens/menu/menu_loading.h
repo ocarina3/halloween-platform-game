@@ -53,7 +53,6 @@ void initMenuLoadingScreen(void)
     loadOne = LoadTexture("resources/textures/loading_screen/loading_one.png");
     loadTwo = LoadTexture("resources/textures/loading_screen/loading_two.png");
     loadThree = LoadTexture("resources/textures/loading_screen/loading_three.png");
-
     mainTexture = loadOne;
 }
 
@@ -63,15 +62,22 @@ void updateMenuLoadingScreen(void)
     framesCounter++;
     // TODO: Update GAMEPLAY screen variables here!
 
-    if(framesCounter == 60){
-        
-    }
+      if(framesCounter == 60){
+            mainTexture = loadTwo;
+        }else if (framesCounter == 120){
+            mainTexture = loadThree;
+        }else if (framesCounter == 180){
+            mainTexture = loadOne;
+        }else if(framesCounter == 240){
+            mainTexture = loadTwo;
+        }else if (framesCounter == 300){
+            mainTexture = loadThree;
+        }
 
-    // Press enter or tap to change to ENDING screen
-    if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
-    {
-        finishScreen = 1;
-    }
+        if(framesCounter == 360){
+            finishScreen = 1;
+        }
+        
 }
 
 // Gameplay Screen Draw logic
@@ -86,6 +92,10 @@ void drawMenuLoadingScreen(void)
 void unloadMenuLoadingScreen(void)
 {
     // TODO: Unload GAMEPLAY screen variables here!
+    UnloadTexture(loadOne);
+    UnloadTexture(loadTwo);
+    UnloadTexture(loadThree);
+    UnloadTexture(mainTexture);
 }
 
 // Gameplay Screen should finish?
