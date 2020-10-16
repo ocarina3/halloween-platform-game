@@ -123,7 +123,10 @@ void drawLevelOneScreen(void)
             {
                 if(buildings[i][j].draw == true)
                 {
-                    DrawRectangleRec(buildings[i][j].block, RED);
+                    if(buildings[i][j].block.x < player->position.x + screenWidth/2 && buildings[i][j].block.x > player->position.x - screenWidth/2)
+                    {
+                        DrawRectangleRec(buildings[i][j].block, RED);
+                    }
                 }
             }
         }
