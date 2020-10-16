@@ -34,12 +34,17 @@
 // Gameplay screen global variables
 static int framesCounter;
 static int finishScreen;
+static int hasEnterBeenPressed;
 
 static Texture2D new;       
 static Texture2D load;        
 static Texture2D quit;       
 static Texture2D currentTexture;
 static int currentCounter;
+
+static Music theme;
+static Sound enter ;
+static Sound selection;
 
 static Vector2 scleraLeftPosition = { 800/2 - 65, 450/2 - 150};
 static Vector2 scleraRightPosition = { 800/2 + 85, 450/2 - 150 };
@@ -62,12 +67,21 @@ void initMenuOneScreen(void)
     // TODO: Initialize GAMEPLAY screen variables here!
     framesCounter = 0;
     finishScreen = 0;
+    hasEnterBeenPressed = 0;
 
     new = LoadTexture("resources/textures/main_screen/menu_one.png");
     load = LoadTexture("resources/textures/main_screen/menu_two.png");
     quit = LoadTexture("resources/textures/main_screen/menu_three.png");
     currentTexture = new;
     currentCounter = 1;
+
+    theme = LoadMusicStream("resources/audio/main_screen/theme-song.mp3");
+    enter = LoadSound("resources/audio/main_screen/enter-song.mp3");
+    selection = LoadSound("resources/audio/main_screen/selection-song.mp3");
+    SetMusicVolume(theme, 0.3f);
+    SetSoundVolume(selection, 1.4f);
+    PlayMusicStream(theme);
+
 
     scleraRadius = 30;
 
@@ -86,8 +100,20 @@ void updateMenuOneScreen(void)
 {
     // TODO: Update GAMEPLAY screen variables here!
 
+    framesCounter++;
+
+    UpdateMusicStream(theme);
+
     irisLeftPosition = GetMousePosition();
-        irisRightPosition = GetMousePosition();
+    irisRightPosition = GetMousePosition();
+
+    if(framesCounter == 360){
+        if(hasEnterBeenPressed == 1){
+            finishScreen = 1; 
+        }else{
+
+        }
+    }
 
         if (!CheckCollisionPointCircle(irisLeftPosition, scleraLeftPosition, scleraRadius - 20))
         {
@@ -120,6 +146,8 @@ void updateMenuOneScreen(void)
 
     if (IsKeyPressed(KEY_UP))
         {
+            PlaySound(selection);
+
             if(currentCounter == 1){
                currentCounter = 3;
                currentTexture = quit; 
@@ -135,6 +163,8 @@ void updateMenuOneScreen(void)
 
         if (IsKeyPressed(KEY_DOWN))
         {
+            PlaySound(selection);
+
             if(currentCounter == 1){
                currentCounter = 2;
                currentTexture = load; 
@@ -150,7 +180,13 @@ void updateMenuOneScreen(void)
     // Press enter or tap to change to ENDING screen
     if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
     {
-        finishScreen = 1;
+
+        framesCounter = 0;
+        hasEnterBeenPressed = 1;
+
+        StopMusicStream(theme);
+        PlaySound(enter);
+                 
     }
 }
 
@@ -176,6 +212,10 @@ void unloadMenuOneScreen(void)
     UnloadTexture(new);
     UnloadTexture(load);
     UnloadTexture(quit);
+
+    UnloadMusicStream(theme);
+    UnloadSound(enter);
+    UnloadSound(selection);
 }
 
 // Gameplay Screen should finish?
