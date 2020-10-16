@@ -24,21 +24,25 @@
 **********************************************************************************************/
 
 #include "raylib.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 //----------------------------------------------------------------------------------
 // Global Variables Definition (local to this module)
 //----------------------------------------------------------------------------------
 
-#define MAX_INPUT_CHARS     9
+#define MAX_INPUT_CHARS     10
 
 // Gameplay screen global variables
 static int framesCounter;
 static int finishScreen;
 
+FILE *file;
+
 static char name[MAX_INPUT_CHARS + 1] = "\0";      // NOTE: One extra space required for line ending char '\0'
 static int letterCount;
 
-static Rectangle textBox = { 800/2 - 110, 280, 225, 50 };
+static Rectangle textBox = { 800/2 - 120, 280, 240, 50 };
 
 static Texture2D user_background;
 
@@ -57,6 +61,7 @@ void initMenuUserScreen(void)
 
     letterCount = 0;
 
+    file = fopen("save/save.txt", "a");
 
 }
 
@@ -91,7 +96,14 @@ void updateMenuUserScreen(void)
     // Press enter or tap to change to ENDING screen
     if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
     {
-        finishScreen = 1;
+        if(file == NULL){
+
+        }else{
+            fprintf(file, "%s ", name);
+            fclose(file);
+            finishScreen = 1;
+        }
+        
     }
 }
 
