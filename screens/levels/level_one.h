@@ -1,3 +1,27 @@
+/**********************************************************************************************
+*
+*   raylib - Standard Game template
+*
+*   Gameplay Screen Functions Definitions (Init, Update, Draw, Unload)
+*
+*   Copyright (c) 2014-2020 Ramon Santamaria (@raysan5)
+*
+*   This software is provided "as-is", without any express or implied warranty. In no event
+*   will the authors be held liable for any damages arising from the use of this software.
+*
+*   Permission is granted to anyone to use this software for any purpose, including commercial
+*   applications, and to alter it and redistribute it freely, subject to the following restrictions:
+*
+*     1. The origin of this software must not be misrepresented; you must not claim that you
+*     wrote the original software. If you use this software in a product, an acknowledgment
+*     in the product documentation would be appreciated but is not required.
+*
+*     2. Altered source versions must be plainly marked as such, and must not be misrepresented
+*     as being the original software.
+*
+*     3. This notice may not be removed or altered from any source distribution.
+*
+**********************************************************************************************/
 
 #include "raylib.h"
 
@@ -10,7 +34,6 @@
 #define screenHeight            450
 #define buildings_width         50
 #define buildings_height        50
-
 //Structs
 
 typedef struct
@@ -22,6 +45,7 @@ typedef struct
 // Gameplay screen global variables
 static int framesCounter;
 static int finishScreen;
+
 blocks buildings[320][9];
 PhysicsBody physics_block[3][3];
 PhysicsBody player;
@@ -46,39 +70,33 @@ void create_physic_map();
 // Gameplay Screen Initialization logic
 void initLevelOneScreen(void)
 {
-    // Initialize GAMEPLAY screen variables here!
+    // TODO: Initialize GAMEPLAY screen variables here!
     framesCounter = 0;
     finishScreen = 0;
+
+   
     create_map(1);
 }
 
 // Gameplay Screen Update logic
 void updateLevelOneScreen(void)
 {
-    //ajust camera position
     camera.target = (Vector2){ player->position.x + 20, player->position.y + 20};
-    
-    //get the player coordinate in blocks
+    // TODO: Update GAMEPLAY screen variables here!
     player_block = get_player_block();
-    
-    
-    //player movimentation   
+    //Draw the game    
     if (IsKeyDown(KEY_RIGHT) ) player->velocity.x = 0.5;
     else if (IsKeyDown(KEY_LEFT)) player->velocity.x = -0.5;
     if (IsKeyDown(KEY_UP) && player->velocity.y < 0.1 && player->velocity.y > 0) player->velocity.y = -2;
     
-    //get player vertex
     PhysicsBody body = GetPhysicsBody(0);
     vertexA = GetPhysicsShapeVertex(body, 1);
     vertexB = GetPhysicsShapeVertex(body, 3);
 
-    //get a int position for player (bug)
     player->position.x = (int)(player->position.x);
     player->position.y = (int)(player->position.y);
     
-    //get the physical part of map
     create_physic_map();
-
     // Press enter or tap to change to ENDING screen
     if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
     {
@@ -89,7 +107,6 @@ void updateLevelOneScreen(void)
 // Gameplay Screen Draw logic
 void drawLevelOneScreen(void)
 {
-    //Get the camera
     BeginMode2D(camera);
         DrawLineV(vertexA, vertexB, GREEN);  
     
@@ -126,10 +143,13 @@ int finishLevelOneScreen(void)
 //creates a map line and divides it into blocks
 void create_line(Vector2 inicial, Vector2 final)
 {
+    //size of the blocks
+
+
     //takes the final and initial coordinates of the line
     Vector2 num_blocks = {((final.x - inicial.x)+ 1),((final.y - inicial.y) + 1)};
-    
     //create the blocks
+
     for (int i = 0; i < (int)num_blocks.x; i++)
     {
         for(int j = 0; j < (int)num_blocks.y; j++)
@@ -141,12 +161,11 @@ void create_line(Vector2 inicial, Vector2 final)
 
 Vector2 get_player_block()
 {
-    //variables
+
     Vector2 player_block;
     player_block.x = 0;
     player_block.y = 0 ;
-    
-    //get the player block position
+
     for(int i = 0; i < 320 ; i++)
     {
         for(int j = 0; j < 9; j++)
@@ -174,9 +193,8 @@ void create_physic_map()
     int posj_right = 0;
     int posi_left = 0;
     int posj_left = 0;
-
     //checks if the body is close to an object, if it is, make it physical
-    
+
     //create the physic block on the floor
     if( buildings[(int)(player_block.x)][(int)(player_block.y) +1].draw == true && check_existence[0] == false )
     {       
@@ -252,17 +270,13 @@ void create_physic_map()
 
 void start_variables()
 {
-    //start player position
     player = CreatePhysicsBodyRectangle((Vector2){400,225}, 40, 40, 10);
-    player->freezeOrient = true;
-
-    //start camera position
+ 
     camera.target = (Vector2){ player->position.x + 20, player->position.y + 20};
     camera.offset = (Vector2){ screenWidth/2, screenHeight/2 };
     camera.rotation = 0.0f;
     camera.zoom = 1.0f;
-    
-    //start the physic check
+ 
     check_existence[0] = false;
     check_existence[1] = false;
     check_existence[2] = false;
@@ -270,7 +284,8 @@ void start_variables()
     check_existence[4] = false;
     check_existence[5] = false;
 
-    //start the blocks
+    player->freezeOrient = true;
+
     for(int i = 0; i < 320 ; i++)
     {
         for(int j = 0; j < 9; j++)
@@ -287,7 +302,6 @@ void start_variables()
 
 void create_map(int phase)
 {
-    //draw the map
     if (phase == 1)
     {
         start_variables();
