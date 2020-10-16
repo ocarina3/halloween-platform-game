@@ -32,8 +32,8 @@ int main(void)
     // TODO: Load global data here (assets that must be available in all screens, i.e. fonts)
     
     // Define and init first screen
-    currentScreen = LEVEL_ONE;   // NOTE: currentScreen is defined in screens.h as a global variable
-    initLevelOneScreen();
+    currentScreen = MENU_USER;   // NOTE: currentScreen is defined in screens.h as a global variable
+    initMenuUserScreen();
     
     SetTargetFPS(60);
     //----------------------------------------------------------
