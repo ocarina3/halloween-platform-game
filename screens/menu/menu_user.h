@@ -26,6 +26,7 @@
 #include "raylib.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 //----------------------------------------------------------------------------------
 // Global Variables Definition (local to this module)
@@ -37,10 +38,13 @@
 static int framesCounter;
 static int finishScreen;
 
-FILE *file;
+static FILE *fileWrtite;
+static FILE *fileRead;
 
 static char name[MAX_INPUT_CHARS + 1] = "\0";      // NOTE: One extra space required for line ending char '\0'
 static int letterCount;
+
+static char username[100];
 
 static Rectangle textBox = { 800/2 - 120, 280, 240, 50 };
 
@@ -61,8 +65,8 @@ void initMenuUserScreen(void)
 
     letterCount = 0;
 
-    file = fopen("save/save.txt", "a");
-
+    fileWrtite= fopen("save/save.txt", "a");
+    fileRead = fopen("save/save.txt", "r");
 }
 
 // Gameplay Screen Update logic
@@ -96,11 +100,27 @@ void updateMenuUserScreen(void)
     // Press enter or tap to change to ENDING screen
     if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
     {
-        if(file == NULL){
+        if(fileWrtite == NULL){
 
         }else{
-            fprintf(file, "%s ", name);
-            fclose(file);
+            while(fgets(username, 100, fileRead)!= NULL){
+
+            }
+
+            fclose(fileRead);
+
+            if(strcmp(username, "") == 0){
+                fprintf(fileWrtite, "%s ", name);
+                fclose(fileWrtite); 
+            }else{
+               if(strstr(username, name) == NULL){
+                    fprintf(fileWrtite, "%s ", name);
+                    fclose(fileWrtite);
+                }else{
+
+                } 
+            }
+            
             finishScreen = 1;
         }
         
