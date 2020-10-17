@@ -54,6 +54,10 @@ Vector2 vertexA;
 Vector2 vertexB;   
 Vector2 player_block;
 Camera2D camera;
+Texture2D background;       
+Texture2D character;       
+Texture2D tileTwo;       
+Vector2 tilePosition;
 
 //----------------------------------------------------------------------------------
 // Gameplay Screen Functions Definition
@@ -73,6 +77,10 @@ void initLevelOneScreen(void)
     // Initialize GAMEPLAY screen variables here!
     framesCounter = 0;
     finishScreen = 0;
+    character = LoadTexture("resources/textures/map_tiles/Bone (1).png");
+    background = LoadTexture("resources/textures/map_tiles/background.png");
+    tileTwo = LoadTexture("resources/textures/map_tiles/Tile (2).png");
+    
     create_map();
 }
 
@@ -114,8 +122,8 @@ void updateLevelOneScreen(void)
 void drawLevelOneScreen(void)
 {
     //Get the camera
+    DrawTexture(background, -100, -100, WHITE);
     BeginMode2D(camera);
-        DrawLineV(vertexA, vertexB, GREEN);  
     
         for(int i = 0; i < 320 ; i++)
         {
@@ -123,21 +131,25 @@ void drawLevelOneScreen(void)
             {
                 if(buildings[i][j].draw == true)
                 {
-                    if(buildings[i][j].block.x < player->position.x + screenWidth/2 && buildings[i][j].block.x > player->position.x - screenWidth/2)
+                    if((buildings[i][j].block.x < player->position.x + screenWidth/2) + 25 && (buildings[i][j].block.x > player->position.x - screenWidth/2) - 25)
                     {
-                        DrawRectangleRec(buildings[i][j].block, RED);
+                        DrawTexture(tileTwo, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
                     }
                 }
             }
         }
+    DrawTexture(character, player->position.x - 25, player->position.y - 25, WHITE);
     EndMode2D();    
-    DrawText(TextFormat("bloco: [%i,%i]\n coordenada: [%f,%f]", (int)(player_block.x), (int)(player_block.y),(player->position.x),(player->position.y)), 315, 250, 20, DARKGRAY);
+    DrawText(TextFormat("bloco: [%i,%i]\ncoordenada: [%f,%f]", (int)(player_block.x), (int)(player_block.y),(player->position.x),(player->position.y)), 315, 250, 20, DARKGRAY);
     DrawFPS(screenWidth - 90, screenHeight - 30);
 }
 
 // Gameplay Screen Unload logic
 void unloadLevelOneScreen(void)
 {
+    UnloadTexture(background);
+    UnloadTexture(tileTwo);
+    UnloadTexture(character);
     // TODO: Unload GAMEPLAY screen variables here!
 }
 
@@ -280,7 +292,7 @@ void create_physic_map()
 void start_variables()
 {
     //start player position
-    player = CreatePhysicsBodyRectangle((Vector2){400,225}, 40, 40, 10);
+    player = CreatePhysicsBodyRectangle((Vector2){400,250}, 50, 50, 10);
     player->freezeOrient = true;
 
     //start camera position
@@ -316,8 +328,15 @@ void create_map()
 {
     //draw the map
     start_variables();
-    create_line((Vector2){0,8},(Vector2){15,8});
-    create_line((Vector2){9,5},(Vector2){12,5});
-    create_line((Vector2){4,5},(Vector2){7,5});
-    create_line((Vector2){8,6},(Vector2){8,8});    
+    create_line((Vector2){0,7},(Vector2){15,7});
+    create_line((Vector2){16,8},(Vector2){25,8});
+    create_line((Vector2){26,7},(Vector2){30,7});
+    create_line((Vector2){31,6},(Vector2){35,6});
+    create_line((Vector2){36,5},(Vector2){38,5});
+    create_line((Vector2){39,4},(Vector2){40,4});
+    create_line((Vector2){41,7},(Vector2){44,7});
+    create_line((Vector2){45,6},(Vector2){50,6});
+    create_line((Vector2){51,7},(Vector2){52,7});
+    create_line((Vector2){55,6},(Vector2){56,6});
+    create_line((Vector2){59,7},(Vector2){64,7});
 }
