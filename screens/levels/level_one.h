@@ -339,4 +339,9 @@ void create_map()
     create_line((Vector2){51,7},(Vector2){52,7});
     create_line((Vector2){55,6},(Vector2){56,6});
     create_line((Vector2){59,7},(Vector2){64,7});
+    create_line((Vector2){65,6},(Vector2){67,6});
+    create_line((Vector2){70,4},(Vector2){72,4});
+    create_line((Vector2){75,6},(Vector2){78,6});
+    create_line((Vector2){81,7},(Vector2){83,7});
+    create_line((Vector2){84,6},(Vector2){96,6});
 }
