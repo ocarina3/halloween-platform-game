@@ -41,6 +41,7 @@ typedef struct
 {
     Rectangle block;
     bool draw;
+    int sprite;
 }blocks;
 
 // Gameplay screen global variables
@@ -54,9 +55,24 @@ Vector2 vertexA;
 Vector2 vertexB;   
 Vector2 player_block;
 Camera2D camera;
-Texture2D background;       
-Texture2D character;       
-Texture2D tileTwo;       
+static Texture2D background;       
+static Texture2D character;       
+static Texture2D tileOne;       
+static Texture2D tileTwo;       
+static Texture2D tileThree;       
+static Texture2D tileFour;       
+static Texture2D tileFive;       
+static Texture2D tileSix;       
+static Texture2D tileSeven;       
+static Texture2D tileEight;       
+static Texture2D tileNine;       
+static Texture2D tileTen;       
+static Texture2D tileEleven;       
+static Texture2D tileTwelve;       
+static Texture2D tileThirteen;       
+static Texture2D tileFourteen;       
+static Texture2D tileFifteen;       
+static Texture2D tileSixteen;       
 Vector2 tilePosition;
 
 //----------------------------------------------------------------------------------
@@ -66,7 +82,7 @@ Vector2 tilePosition;
 //functions
 void start_variables();
 Vector2 get_player_block();
-void create_line(Vector2 inicial, Vector2 final);
+void create_line(Vector2 inicial, Vector2 final, int sprite);
 void create_map();
 void create_physic_map();
 
@@ -77,9 +93,24 @@ void initLevelOneScreen(void)
     // Initialize GAMEPLAY screen variables here!
     framesCounter = 0;
     finishScreen = 0;
+    background = LoadTexture("resources/textures/map_tiles/Background.png");
     character = LoadTexture("resources/textures/map_tiles/Bone (1).png");
-    background = LoadTexture("resources/textures/map_tiles/background.png");
+    tileOne = LoadTexture("resources/textures/map_tiles/Tile (1).png");
     tileTwo = LoadTexture("resources/textures/map_tiles/Tile (2).png");
+    tileThree = LoadTexture("resources/textures/map_tiles/Tile (3).png");
+    tileFour = LoadTexture("resources/textures/map_tiles/Tile (4).png");
+    tileFive = LoadTexture("resources/textures/map_tiles/Tile (5).png");
+    tileSix = LoadTexture("resources/textures/map_tiles/Tile (6).png");
+    tileSeven = LoadTexture("resources/textures/map_tiles/Tile (7).png");
+    tileEight = LoadTexture("resources/textures/map_tiles/Tile (8).png");
+    tileNine = LoadTexture("resources/textures/map_tiles/Tile (9).png");
+    tileTen = LoadTexture("resources/textures/map_tiles/Tile (10).png");
+    tileEleven = LoadTexture("resources/textures/map_tiles/Tile (11).png");
+    tileTwelve = LoadTexture("resources/textures/map_tiles/Tile (12).png");
+    tileThirteen = LoadTexture("resources/textures/map_tiles/Tile (13).png");
+    tileFourteen = LoadTexture("resources/textures/map_tiles/Tile (14).png");
+    tileFifteen = LoadTexture("resources/textures/map_tiles/Tile (15).png");
+    tileSixteen = LoadTexture("resources/textures/map_tiles/Tile (16).png");
     
     create_map();
 }
@@ -122,7 +153,7 @@ void updateLevelOneScreen(void)
 void drawLevelOneScreen(void)
 {
     //Get the camera
-    DrawTexture(background, -100, -100, WHITE);
+    DrawTexture(background, 0, 0, WHITE);
     BeginMode2D(camera);
     
         for(int i = 0; i < 320 ; i++)
@@ -133,7 +164,39 @@ void drawLevelOneScreen(void)
                 {
                     if((buildings[i][j].block.x < player->position.x + screenWidth/2) + 25 && (buildings[i][j].block.x > player->position.x - screenWidth/2) - 25)
                     {
-                        DrawTexture(tileTwo, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                        // Verifica qual sprite deverá ser impressa
+                        if (buildings[i][j].sprite == 1) 
+                            DrawTexture(tileOne, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                        else if (buildings[i][j].sprite == 2)
+                            DrawTexture(tileTwo, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                        else if (buildings[i][j].sprite == 3)
+                            DrawTexture(tileThree, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                        else if (buildings[i][j].sprite == 4)
+                            DrawTexture(tileFour, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                        else if (buildings[i][j].sprite == 5)
+                            DrawTexture(tileFive, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                        else if (buildings[i][j].sprite == 6)
+                            DrawTexture(tileSix, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                        else if (buildings[i][j].sprite == 7)
+                            DrawTexture(tileSeven, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                        else if (buildings[i][j].sprite == 8)
+                            DrawTexture(tileEight, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                        else if (buildings[i][j].sprite == 9)
+                            DrawTexture(tileNine, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                        else if (buildings[i][j].sprite == 10)
+                            DrawTexture(tileTen, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                        else if (buildings[i][j].sprite == 11)
+                            DrawTexture(tileEleven, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                        else if (buildings[i][j].sprite == 12)
+                            DrawTexture(tileTwelve, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                        else if (buildings[i][j].sprite == 13)
+                            DrawTexture(tileThirteen, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                        else if (buildings[i][j].sprite == 14)
+                            DrawTexture(tileFourteen, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                        else if (buildings[i][j].sprite == 15)
+                            DrawTexture(tileFifteen, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                        else if (buildings[i][j].sprite == 16)
+                            DrawTexture(tileSixteen, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
                     }
                 }
             }
@@ -148,8 +211,23 @@ void drawLevelOneScreen(void)
 void unloadLevelOneScreen(void)
 {
     UnloadTexture(background);
-    UnloadTexture(tileTwo);
     UnloadTexture(character);
+    UnloadTexture(tileOne);
+    UnloadTexture(tileTwo);
+    UnloadTexture(tileThree);
+    UnloadTexture(tileFour);
+    UnloadTexture(tileFive);
+    UnloadTexture(tileSix);
+    UnloadTexture(tileSeven);
+    UnloadTexture(tileEight);
+    UnloadTexture(tileNine);
+    UnloadTexture(tileTen);
+    UnloadTexture(tileEleven);
+    UnloadTexture(tileTwelve);
+    UnloadTexture(tileThirteen);
+    UnloadTexture(tileFourteen);
+    UnloadTexture(tileFifteen);
+    UnloadTexture(tileSixteen);
     // TODO: Unload GAMEPLAY screen variables here!
 }
 
@@ -159,11 +237,8 @@ int finishLevelOneScreen(void)
     return finishScreen;
 }
 
-
-
-
 //creates a map line and divides it into blocks
-void create_line(Vector2 inicial, Vector2 final)
+void create_line(Vector2 inicial, Vector2 final, int sprite)
 {
     //takes the final and initial coordinates of the line
     Vector2 num_blocks = {((final.x - inicial.x)+ 1),((final.y - inicial.y) + 1)};
@@ -174,6 +249,7 @@ void create_line(Vector2 inicial, Vector2 final)
         for(int j = 0; j < (int)num_blocks.y; j++)
         {
             buildings[(int)inicial.x + i][(int)inicial.y + j].draw = true;
+            buildings[(int)inicial.x + i][(int)inicial.y + j].sprite = sprite;
         }
     }
 }
@@ -328,20 +404,52 @@ void create_map()
 {
     //draw the map
     start_variables();
-    create_line((Vector2){0,7},(Vector2){15,7});
-    create_line((Vector2){16,8},(Vector2){25,8});
-    create_line((Vector2){26,7},(Vector2){30,7});
-    create_line((Vector2){31,6},(Vector2){35,6});
-    create_line((Vector2){36,5},(Vector2){38,5});
-    create_line((Vector2){39,4},(Vector2){40,4});
-    create_line((Vector2){41,7},(Vector2){44,7});
-    create_line((Vector2){45,6},(Vector2){50,6});
-    create_line((Vector2){51,7},(Vector2){52,7});
-    create_line((Vector2){55,6},(Vector2){56,6});
-    create_line((Vector2){59,7},(Vector2){64,7});
-    create_line((Vector2){65,6},(Vector2){67,6});
-    create_line((Vector2){70,4},(Vector2){72,4});
-    create_line((Vector2){75,6},(Vector2){78,6});
-    create_line((Vector2){81,7},(Vector2){83,7});
-    create_line((Vector2){84,6},(Vector2){96,6});
+
+    // Primeira linha
+    create_line((Vector2){0,7}, (Vector2){0,7}, 1);
+    create_line((Vector2){1,7}, (Vector2){14,7}, 2);
+    create_line((Vector2){15,7}, (Vector2){15,7}, 3);
+    
+    // Terra embaixo da primeira linha
+    create_line((Vector2){0,8}, (Vector2){0,8}, 4);
+    create_line((Vector2){1,8}, (Vector2){14,8}, 5);
+    create_line((Vector2){15,8}, (Vector2){15,8}, 10);
+
+    // Linha
+    create_line((Vector2){16,8}, (Vector2){16,8}, 11);
+    create_line((Vector2){17,8}, (Vector2){24,8}, 2);
+    create_line((Vector2){25,8}, (Vector2){25,8}, 7);
+    
+    // Linha
+    create_line((Vector2){26,7}, (Vector2){26,7}, 1);
+    create_line((Vector2){27,7}, (Vector2){29,7}, 2);
+    create_line((Vector2){30,7}, (Vector2){30,7}, 3);
+    
+    // Terra embaixo
+    create_line((Vector2){26,8}, (Vector2){26,8}, 8);
+    create_line((Vector2){27,8}, (Vector2){29,8}, 5);
+    create_line((Vector2){30,8}, (Vector2){30,8}, 6);
+    
+    //   
+    create_line((Vector2){31,6}, (Vector2){35,6}, 2);
+    create_line((Vector2){36,5}, (Vector2){38,5}, 2);
+    create_line((Vector2){39,4}, (Vector2){40,4}, 2);
+    create_line((Vector2){41,7}, (Vector2){44,7}, 2);
+    create_line((Vector2){45,6}, (Vector2){50,6}, 2);
+    create_line((Vector2){51,7}, (Vector2){52,7}, 2);
+    // Plataforma
+    create_line((Vector2){55,6}, (Vector2){55,6}, 14);
+    create_line((Vector2){56,6}, (Vector2){56,6}, 15);
+    create_line((Vector2){57,6}, (Vector2){57,6}, 16);
+    // 
+    create_line((Vector2){60,7}, (Vector2){64,7}, 2);
+    create_line((Vector2){65,6}, (Vector2){67,6}, 2);
+    // Plataforma
+    create_line((Vector2){70,4}, (Vector2){70,4}, 14);
+    create_line((Vector2){71,4}, (Vector2){71,4}, 15);
+    create_line((Vector2){72,4}, (Vector2){72,4}, 16);
+    // Linha
+    create_line((Vector2){75,6}, (Vector2){78,6}, 2);
+    create_line((Vector2){81,7}, (Vector2){83,7}, 2);
+    create_line((Vector2){84,6}, (Vector2){96,6}, 2);
 }
