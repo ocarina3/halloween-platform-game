@@ -45,6 +45,8 @@ static char name[MAX_INPUT_CHARS + 1] = "\0";      // NOTE: One extra space requ
 static int letterCount;
 
 static char username[100];
+static char nick[12];
+static char space[12];
 
 static Rectangle textBox = { 800/2 - 120, 280, 240, 50 };
 
@@ -67,6 +69,9 @@ void initMenuUserScreen(void)
 
     fileWrtite= fopen("save/save.txt", "a");
     fileRead = fopen("save/save.txt", "r");
+
+    strcpy(space, " ");
+
 }
 
 // Gameplay Screen Update logic
@@ -110,11 +115,13 @@ void updateMenuUserScreen(void)
             fclose(fileRead);
 
             if(strcmp(username, "") == 0){
-                fprintf(fileWrtite, "%s ", name);
+                fprintf(fileWrtite, " %s ", name);
                 fclose(fileWrtite); 
             }else{
-               if(strstr(username, name) == NULL){
-                    fprintf(fileWrtite, "%s ", name);
+                strcat(space, name);
+                strcpy(nick, space);
+               if(strstr(username, nick) == NULL){
+                    fprintf(fileWrtite, " %s ", name);
                     fclose(fileWrtite);
                 }else{
 
