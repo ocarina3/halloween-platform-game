@@ -37,6 +37,7 @@
 // Gameplay screen global variables
 static int framesCounter;
 static int finishScreen;
+static int level;
 
 static FILE *fileWrtite;
 static FILE *fileRead;
@@ -45,8 +46,11 @@ static char name[MAX_INPUT_CHARS + 1] = "\0";      // NOTE: One extra space requ
 static int letterCount;
 
 static char username[100];
-static char nick[12];
-static char space[12];
+static char nick[100];
+static char nick_one[100];
+static char nick_two[100];
+static char nick_three[100];
+static char space[100];
 
 static Rectangle textBox = { 800/2 - 120, 280, 240, 50 };
 
@@ -62,6 +66,7 @@ void initMenuUserScreen(void)
     // TODO: Initialize GAMEPLAY screen variables here!
     framesCounter = 0;
     finishScreen = 0;
+    level = 0;
 
     user_background = LoadTexture("resources/textures/menu_user_screen/menu_user.png");
 
@@ -115,16 +120,43 @@ void updateMenuUserScreen(void)
             fclose(fileRead);
 
             if(strcmp(username, "") == 0){
-                fprintf(fileWrtite, " %s ", name);
+                fprintf(fileWrtite, " %s %i ", name, 1);
                 fclose(fileWrtite); 
+                level = 1;
             }else{
                 strcat(space, name);
                 strcpy(nick, space);
                if(strstr(username, nick) == NULL){
-                    fprintf(fileWrtite, " %s ", name);
+                    fprintf(fileWrtite, " %s %i ", name, 1);
                     fclose(fileWrtite);
+                    level = 1;
                 }else{
+                    strcpy(space, " ");
+                    strcat(space, name);
+                    strcpy(nick_one, space);
+                    strcat(nick_one, " 1");
+                    strcpy(nick_two, space);
+                    strcat(nick_two, " 2");
+                    strcpy(nick_three, space);
+                    strcat(nick_three, " 3");
+                    
+                    if(strstr(username, nick) != NULL && strstr(username, nick_two) == NULL && strstr(username, nick_three) == NULL){
+                        level = 1;
+                        fprintf(fileWrtite, " %i ", level);
+                         fclose(fileWrtite);
+                    }
 
+
+                    if (strstr(username, nick_two) != NULL){
+                        level = 2;
+                        fprintf(fileWrtite, " %i ", level);
+                         fclose(fileWrtite);
+                    }
+                    if(strstr(username, nick_three) != NULL){
+                        level = 3;
+                        fprintf(fileWrtite, " %i ", level);
+                         fclose(fileWrtite);
+                    }
                 } 
             }
             
@@ -164,4 +196,9 @@ void unloadMenuUserScreen(void)
 int finishMenuUserScreen(void)
 {
     return finishScreen;
+}
+
+int loadLevel(void)
+{
+    return level;
 }
