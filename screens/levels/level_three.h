@@ -22,8 +22,7 @@
 *     3. This notice may not be removed or altered from any source distribution.
 *
 **********************************************************************************************/
-
-#include "raylib.h"
+#include "../../components/phase.h"
 
 //----------------------------------------------------------------------------------
 // Global Variables Definition (local to this module)

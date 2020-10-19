@@ -11,12 +11,6 @@
 *   Copyright (c) 2014-2020 Ramon Santamaria (@raysan5)
 *
 ********************************************************************************************/
-
-#include "raylib.h"
-#define PHYSAC_IMPLEMENTATION
-#define PHYSAC_NO_THREADS
-
-#include "physac.h"
 #include "screens/screens.h"    // NOTE: Defines global variable: currentScreen
 
 //----------------------------------------------------------------------------------
