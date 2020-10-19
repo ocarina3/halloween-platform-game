@@ -187,7 +187,7 @@ void updateMenuOneScreen(void)
         }
 
     // Press enter or tap to change to ENDING screen
-    if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
+    if (IsKeyPressed(KEY_ENTER))
     {
         if(hasEnterBeenPressed == 0){
            framesCounter = 0;
