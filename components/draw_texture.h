@@ -3,7 +3,7 @@
 
 
 
-#include "main-character.h"
+#include "main_character.h"
 #include "get_map.h"
 
 
@@ -61,50 +61,50 @@ void load_texture()
 void draw_texture_map()
 {
     for(int i = 0; i < 320 ; i++)
+    {
+        for(int j = 0; j< 9; j++)
         {
-            for(int j = 0; j< 9; j++)
+            if(buildings[i][j].draw == true)
             {
-                if(buildings[i][j].draw == true)
+                if((buildings[i][j].block.x < heroi.physic->position.x + screenWidth/2) + 25 && (buildings[i][j].block.x > heroi.physic->position.x - screenWidth/2) - 25)
                 {
-                    if((buildings[i][j].block.x < heroi.physic->position.x + screenWidth/2) + 25 && (buildings[i][j].block.x > heroi.physic->position.x - screenWidth/2) - 25)
-                    {
-                        // Verifica qual sprite deverá ser impressa
-                        if (buildings[i][j].sprite == 1) 
-                            DrawTexture(tileOne, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                        else if (buildings[i][j].sprite == 2)
-                            DrawTexture(tileTwo, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                        else if (buildings[i][j].sprite == 3)
-                            DrawTexture(tileThree, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                        else if (buildings[i][j].sprite == 4)
-                            DrawTexture(tileFour, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                        else if (buildings[i][j].sprite == 5)
-                            DrawTexture(tileFive, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                        else if (buildings[i][j].sprite == 6)
-                            DrawTexture(tileSix, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                        else if (buildings[i][j].sprite == 7)
-                            DrawTexture(tileSeven, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                        else if (buildings[i][j].sprite == 8)
-                            DrawTexture(tileEight, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                        else if (buildings[i][j].sprite == 9)
-                            DrawTexture(tileNine, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                        else if (buildings[i][j].sprite == 10)
-                            DrawTexture(tileTen, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                        else if (buildings[i][j].sprite == 11)
-                            DrawTexture(tileEleven, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                        else if (buildings[i][j].sprite == 12)
-                            DrawTexture(tileTwelve, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                        else if (buildings[i][j].sprite == 13)
-                            DrawTexture(tileThirteen, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                        else if (buildings[i][j].sprite == 14)
-                            DrawTexture(tileFourteen, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                        else if (buildings[i][j].sprite == 15)
-                            DrawTexture(tileFifteen, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                        else if (buildings[i][j].sprite == 16)
-                            DrawTexture(tileSixteen, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                    }
+                    // Verifica qual sprite deverá ser impressa
+                    if (buildings[i][j].sprite == 1) 
+                        DrawTexture(tileOne, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                    else if (buildings[i][j].sprite == 2)
+                        DrawTexture(tileTwo, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                    else if (buildings[i][j].sprite == 3)
+                        DrawTexture(tileThree, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                    else if (buildings[i][j].sprite == 4)
+                        DrawTexture(tileFour, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                    else if (buildings[i][j].sprite == 5)
+                        DrawTexture(tileFive, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                    else if (buildings[i][j].sprite == 6)
+                        DrawTexture(tileSix, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                    else if (buildings[i][j].sprite == 7)
+                        DrawTexture(tileSeven, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                    else if (buildings[i][j].sprite == 8)
+                        DrawTexture(tileEight, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                    else if (buildings[i][j].sprite == 9)
+                        DrawTexture(tileNine, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                    else if (buildings[i][j].sprite == 10)
+                        DrawTexture(tileTen, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                    else if (buildings[i][j].sprite == 11)
+                        DrawTexture(tileEleven, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                    else if (buildings[i][j].sprite == 12)
+                        DrawTexture(tileTwelve, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                    else if (buildings[i][j].sprite == 13)
+                        DrawTexture(tileThirteen, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                    else if (buildings[i][j].sprite == 14)
+                        DrawTexture(tileFourteen, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                    else if (buildings[i][j].sprite == 15)
+                        DrawTexture(tileFifteen, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                    else if (buildings[i][j].sprite == 16)
+                        DrawTexture(tileSixteen, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
                 }
             }
         }
+    }
 }
 
 //draw the character

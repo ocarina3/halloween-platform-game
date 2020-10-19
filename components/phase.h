@@ -2,7 +2,7 @@
 #define PHASE_H
 
 #include "../components/physics.h"
-#include "../components/DrawTexture.h"
+#include "../components/draw_texture.h"
 
 
 int countEnemys = 0, countLifes = 0;

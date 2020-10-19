@@ -2,7 +2,7 @@
 #ifndef PHYSIC_H
 #define PHYSIC_H
 
-#include "main-character.h"
+#include "main_character.h"
 #include "get_map.h"
 
 PhysicsBody physics_block[3][3];
