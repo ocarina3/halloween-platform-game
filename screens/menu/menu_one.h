@@ -234,3 +234,8 @@ int finishMenuOneScreen(void)
 {
     return finishScreen;
 }
+
+int loadOption(void)
+{
+    return currentCounter;
+}

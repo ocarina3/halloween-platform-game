@@ -45,7 +45,7 @@ static FILE *fileRead;
 static char name[MAX_INPUT_CHARS + 1] = "\0";      // NOTE: One extra space required for line ending char '\0'
 static int letterCount;
 
-static char username[100];
+static char username[300];
 static char nick[100];
 static char nick_one[100];
 static char nick_two[100];

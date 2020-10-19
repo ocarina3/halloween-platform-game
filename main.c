@@ -107,8 +107,25 @@ int main(void)
                 if (finishMenuOneScreen())
                 {
                     unloadMenuOneScreen();
-                    currentScreen = LEVEL_ONE;
-                    initLevelOneScreen();
+                    if(loadOption() == 1){
+                        currentScreen = LEVEL_ONE;
+                        initLevelOneScreen();
+                    }else if(loadOption() == 2){
+                        if(loadLevel() == 1){
+                            currentScreen = LEVEL_ONE;
+                            initLevelOneScreen();  
+                        }else if(loadLevel() == 2){
+                            currentScreen = LEVEL_TWO;
+                            initLevelTwoScreen();
+                        }else if(loadLevel() == 3){
+                            currentScreen = LEVEL_THREE;
+                            initLevelThreeScreen();
+                        }
+                    }else{
+                        CloseWindow();
+                    }
+                        
+                    
                 }   
             } break;
             default: break;
