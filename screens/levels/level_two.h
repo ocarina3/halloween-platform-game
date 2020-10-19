@@ -24,6 +24,9 @@
 **********************************************************************************************/
 
 #include "raylib.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 //----------------------------------------------------------------------------------
 // Global Variables Definition (local to this module)
@@ -32,6 +35,15 @@
 // Gameplay screen global variables
 static int framesCounter;
 static int finishScreen;
+
+static FILE *fileWriteLevelTwo;
+static FILE *fileReadLevelTwoCurrentUser;
+static FILE *fileReadLevelTwo;
+
+static char username_lvl_two[300];
+static char nick_lvl_two[100];
+static char current_user_lvl_two[100];
+static char space_lvl_two[100];
 
 //----------------------------------------------------------------------------------
 // Gameplay Screen Functions Definition
@@ -43,12 +55,39 @@ void initLevelTwoScreen(void)
     // TODO: Initialize GAMEPLAY screen variables here!
     framesCounter = 0;
     finishScreen = 0;
+
+    fileWriteLevelTwo = fopen("save/save.txt", "a");
+    fileReadLevelTwoCurrentUser = fopen("save/current_player.txt", "r");
+    fileReadLevelTwo = fopen("save/save.txt", "r");
 }
 
 // Gameplay Screen Update logic
 void updateLevelTwoScreen(void)
 {
     // TODO: Update GAMEPLAY screen variables here!
+    fgets(current_user_lvl_two, 300, fileReadLevelTwoCurrentUser);
+    fclose(fileReadLevelTwoCurrentUser);
+
+    if(fileWriteLevelTwo == NULL){
+
+    }else{
+        while(fgets(username_lvl_two, 300, fileReadLevelTwo)!= NULL){
+
+        }
+        fclose(fileReadLevelTwo);
+
+        strcpy(space_lvl_two, " ");
+        strcat(space_lvl_two, current_user_lvl_two);
+        strcpy(nick_lvl_two, space_lvl_two);
+        strcat(nick_lvl_two, " 2");
+
+        if (strstr(username_lvl_two, nick_lvl_two) != NULL){
+                
+        }else{
+            fprintf(fileWriteLevelTwo, " %s %i ", current_user_lvl_two, 2);
+            fclose(fileWriteLevelTwo);
+        }
+    }
 
     // Press enter or tap to change to ENDING screen
     if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))

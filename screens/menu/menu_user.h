@@ -39,7 +39,8 @@ static int framesCounter;
 static int finishScreen;
 static int level;
 
-static FILE *fileWrtite;
+static FILE *fileWriteCurrentPlayer;
+static FILE *fileWrite;
 static FILE *fileRead;
 
 static char name[MAX_INPUT_CHARS + 1] = "\0";      // NOTE: One extra space required for line ending char '\0'
@@ -72,7 +73,8 @@ void initMenuUserScreen(void)
 
     letterCount = 0;
 
-    fileWrtite= fopen("save/save.txt", "a");
+    fileWriteCurrentPlayer = fopen("save/current_player.txt", "w");
+    fileWrite = fopen("save/save.txt", "a");
     fileRead = fopen("save/save.txt", "r");
 
     strcpy(space, " ");
@@ -110,25 +112,28 @@ void updateMenuUserScreen(void)
     // Press enter or tap to change to ENDING screen
     if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
     {
-        if(fileWrtite == NULL){
+        if(fileWrite == NULL){
 
         }else{
-            while(fgets(username, 100, fileRead)!= NULL){
+            while(fgets(username, 300, fileRead)!= NULL){
 
             }
 
             fclose(fileRead);
 
+            fprintf(fileWriteCurrentPlayer, "%s", name);
+            fclose(fileWriteCurrentPlayer);
+
             if(strcmp(username, "") == 0){
-                fprintf(fileWrtite, " %s %i ", name, 1);
-                fclose(fileWrtite); 
+                fprintf(fileWrite, " %s %i ", name, 1);
+                fclose(fileWrite); 
                 level = 1;
             }else{
                 strcat(space, name);
                 strcpy(nick, space);
                if(strstr(username, nick) == NULL){
-                    fprintf(fileWrtite, " %s %i ", name, 1);
-                    fclose(fileWrtite);
+                    fprintf(fileWrite, " %s %i ", name, 1);
+                    fclose(fileWrite);
                     level = 1;
                 }else{
                     strcpy(space, " ");
@@ -140,22 +145,23 @@ void updateMenuUserScreen(void)
                     strcpy(nick_three, space);
                     strcat(nick_three, " 3");
                     
-                    if(strstr(username, nick) != NULL && strstr(username, nick_two) == NULL && strstr(username, nick_three) == NULL){
+                    if(strstr(username, nick_one) != NULL && strstr(username, nick_two) == NULL && strstr(username, nick_three) == NULL){
                         level = 1;
-                        fprintf(fileWrtite, " %i ", level);
-                         fclose(fileWrtite);
+                        fprintf(fileWrite, " %i ", level);
+                         fclose(fileWrite);
                     }
 
 
                     if (strstr(username, nick_two) != NULL){
                         level = 2;
-                        fprintf(fileWrtite, " %i ", level);
-                         fclose(fileWrtite);
+                        fprintf(fileWrite, " %i ", level);
+                         fclose(fileWrite);
                     }
+                    
                     if(strstr(username, nick_three) != NULL){
                         level = 3;
-                        fprintf(fileWrtite, " %i ", level);
-                         fclose(fileWrtite);
+                        fprintf(fileWrite, " %i ", level);
+                         fclose(fileWrite);
                     }
                 } 
             }
@@ -190,6 +196,7 @@ void drawMenuUserScreen(void)
 void unloadMenuUserScreen(void)
 {
     // TODO: Unload GAMEPLAY screen variables here!
+    UnloadTexture(user_background);
 }
 
 // Gameplay Screen should finish?
@@ -201,4 +208,5 @@ int finishMenuUserScreen(void)
 int loadLevel(void)
 {
     return level;
+
 }
