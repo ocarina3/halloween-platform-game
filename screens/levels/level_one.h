@@ -45,7 +45,7 @@ void initLevelOneScreen(void)
 void updateLevelOneScreen(void)
 {
     //ajust camera position
-    camera.target = (Vector2){ heroi.physic->position.x + 20, heroi.physic->position.y + 20};
+    camera.target = (Vector2){ heroi.physic->position.x + 20, heroi.physic->position.y - 100};
     //_________________________________________________________
     updateGame(&heroi, enemys, lifes, &countEnemys, &countLifes);
     //_________________________________________________

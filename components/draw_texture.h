@@ -62,7 +62,7 @@ void draw_texture_map()
 {
     for(int i = 0; i < 320 ; i++)
     {
-        for(int j = 0; j< 9; j++)
+        for(int j = 0; j< 14; j++)
         {
             if(buildings[i][j].draw == true)
             {

@@ -57,7 +57,7 @@ void start_variables()
     lifes[countLifes++] = &l2; 
     //__________________________________________________________________________________________________
     //start camera position
-    camera.target = (Vector2){ heroi.physic->position.x + 20, heroi.physic->position.y + 20};
+    camera.target = (Vector2){ heroi.physic->position.x + 20, heroi.physic->position.y - 100};
     camera.offset = (Vector2){ screenWidth/2, screenHeight/2 };
     camera.rotation = 0.0f;
     camera.zoom = 1.0f;
@@ -73,7 +73,7 @@ void start_variables()
     //start the blocks
     for(int i = 0; i < 320 ; i++)
     {
-        for(int j = 0; j < 9; j++)
+        for(int j = 0; j < 14; j++)
         {
             buildings[i][j].draw = false;
             buildings[i][j].block.x = (i)*buildings_height;

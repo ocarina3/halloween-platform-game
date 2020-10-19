@@ -18,7 +18,7 @@ Vector2 get_player_block()
     //get the player block position
     for(int i = 0; i < 320 ; i++)
     {
-        for(int j = 0; j < 9; j++)
+        for(int j = 0; j < 14; j++)
         {
             if(heroi.physic->position.y >= buildings[i][j].block.y && heroi.physic->position.y < buildings[i][j].block.y + buildings[i][j].block.height)
             {

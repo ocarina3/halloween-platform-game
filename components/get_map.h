@@ -20,7 +20,7 @@ typedef struct
 
 //___________________________________VARIABLES_______________________________________________
 
-blocks buildings[320][9];
+blocks buildings[320][14];
 
 //____________________________________________________________________________________________
 
@@ -51,28 +51,33 @@ void create_map()
     create_line((Vector2){0,7}, (Vector2){0,7}, 1);
     create_line((Vector2){1,7}, (Vector2){14,7}, 2);
     create_line((Vector2){15,7}, (Vector2){15,7}, 3);
-    
+        
     // Terra embaixo da primeira linha
-    create_line((Vector2){0,8}, (Vector2){0,8}, 4);
-    create_line((Vector2){1,8}, (Vector2){14,8}, 5);
+    // Esquerda
+    create_line((Vector2){0,8}, (Vector2){0,10}, 4);
+    // Meio 
+    create_line((Vector2){1,8}, (Vector2){15,10}, 5);
+    // Dobra
     create_line((Vector2){15,8}, (Vector2){15,8}, 10);
-
-    // Linha
+    
+    // Segunda Linha
     create_line((Vector2){16,8}, (Vector2){16,8}, 11);
     create_line((Vector2){17,8}, (Vector2){24,8}, 2);
     create_line((Vector2){25,8}, (Vector2){25,8}, 7);
+    // Terra emvbaixo do segundo (meio)
+    create_line((Vector2){16,9}, (Vector2){25,10}, 5);
     
-    // Linha
+    // Terceira linha
     create_line((Vector2){26,7}, (Vector2){26,7}, 1);
     create_line((Vector2){27,7}, (Vector2){29,7}, 2);
-    create_line((Vector2){30,7}, (Vector2){30,7}, 3);
+    create_line((Vector2){30,7}, (Vector2){30,7}, 7);
     
     // Terra embaixo
     create_line((Vector2){26,8}, (Vector2){26,8}, 8);
-    create_line((Vector2){27,8}, (Vector2){29,8}, 5);
-    create_line((Vector2){30,8}, (Vector2){30,8}, 6);
+    create_line((Vector2){26,9}, (Vector2){26,10}, 5);
+    create_line((Vector2){27,8}, (Vector2){30,10}, 5);
     
-    //   
+    //  
     create_line((Vector2){31,6}, (Vector2){35,6}, 2);
     create_line((Vector2){36,5}, (Vector2){38,5}, 2);
     create_line((Vector2){39,4}, (Vector2){40,4}, 2);
