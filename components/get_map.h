@@ -78,7 +78,11 @@ void create_map(int phase)
     }
     else if(phase == 2)
     {
-        create_floor(2);
+        create_plataforms(7,7);
+        create_plataforms(12,8);
+        create_plataforms(15,6);
+        create_plataforms(20,5);
+        create_plataforms(26,4);
     }
     else if(phase == 3)
     {
@@ -230,12 +234,6 @@ void create_floor(int phase)
         create_line((Vector2){85,7}, (Vector2){100,9}, 5);
         create_line((Vector2){101,7}, (Vector2){101,9}, 6);
     } 
-    else if(phase == 2)
-    {
-        create_line((Vector2){0,7}, (Vector2){0,7}, 1);
-        create_line((Vector2){1,7}, (Vector2){60,7}, 2);
-        create_line((Vector2){61,7}, (Vector2){61,7}, 3);
-    }
     else if (phase == 3)
     {
         create_line((Vector2){0,7}, (Vector2){0,7}, 1);
