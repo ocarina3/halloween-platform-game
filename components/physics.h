@@ -70,20 +70,12 @@ void create_wall(int inicial, int final)
 
 void destroy_all_physics()
 {
-    DestroyPhysicsBody(wall[0]);
-    DestroyPhysicsBody(wall[1]);
-    DestroyPhysicsBody(heroi.physic);
-    for(int i = 0; i < 320 ; i++)
-    {
-        for(int j = 0; j< 14; j++)
-        {
-            if (buildings[i][j].physics_created == true)
-            {
-                DestroyPhysicsBody(buildings[i][j].physics_block);
-                buildings[i][j].physics_created = false;
-            }
-        }
-    }    
+  int num_body = GetPhysicsBodiesCount();
+  for (int i = 0; i < num_body; i++)
+  {
+      PhysicsBody body = GetPhysicsBody(i);
+      DestroyPhysicsBody(body);
+  }  
 }
 
 

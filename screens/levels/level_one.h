@@ -35,9 +35,9 @@ void initLevelOneScreen(void)
     framesCounter = 0;
     finishScreen = 0;
 
-    load_texture();
     start_variables();
-    create_map();
+    load_texture();
+    create_map(1);
     create_wall(7,92);
 }
 

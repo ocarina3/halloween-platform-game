@@ -67,6 +67,7 @@ void start_variables()
     {
         for(int j = 0; j < 14; j++)
         {
+            
             buildings[i][j].draw = false;
             buildings[i][j].block.x = (i)*buildings_height;
             buildings[i][j].block.y = (j)*buildings_height;
