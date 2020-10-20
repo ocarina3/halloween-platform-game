@@ -64,6 +64,8 @@ void initLevelTwoScreen(void)
     create_wall(7,106);
     fileWriteLevelTwo = fopen("save/save.txt", "a");
     fileReadLevelTwo = fopen("save/save.txt", "r");
+    fileReadLevelTwoCurrentUser = fopen("save/current_player.txt", "r");
+
 }
 
 void updateLevelTwoScreen(void)
