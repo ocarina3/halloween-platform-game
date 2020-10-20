@@ -56,7 +56,7 @@ void updateLevelTwoScreen(void)
     // TODO: Update GAMEPLAY screen variables here!
     camera.target = (Vector2){ heroi.physic->position.x + 20, heroi.physic->position.y - 100};
     //_________________________________________________________
-    updateGame(&heroi, enemys, lifes, &countEnemys, &countLifes);
+    updateGame(&heroi);
     //_________________________________________________
     //get the player coordinate in blocks
     player_block = get_player_block();
