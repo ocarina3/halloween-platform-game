@@ -25,6 +25,12 @@
 
 #include "../../components/phase.h"
 
+#include "raylib.h"
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 //----------------------------------------------------------------------------------
 // Global Variables Definition (local to this module)
 //----------------------------------------------------------------------------------
@@ -32,6 +38,15 @@
 // Gameplay screen global variables
 static int framesCounter;
 static int finishScreen;
+
+static FILE *fileWriteLevelTwo;
+static FILE *fileReadLevelTwoCurrentUser;
+static FILE *fileReadLevelTwo;
+
+static char username_lvl_two[300];
+static char nick_lvl_two[100];
+static char current_user_lvl_two[100];
+static char space_lvl_two[100];
 
 //----------------------------------------------------------------------------------
 // Gameplay Screen Functions Definition
@@ -44,13 +59,13 @@ void initLevelTwoScreen(void)
     framesCounter = 0;
     finishScreen = 0;
 
-    start_variables();
     load_texture();
     create_map(2);
     create_wall(7,106);
+    fileWriteLevelTwo = fopen("save/save.txt", "a");
+    fileReadLevelTwo = fopen("save/save.txt", "r");
 }
 
-// Gameplay Screen Update logic
 void updateLevelTwoScreen(void)
 {
     // TODO: Update GAMEPLAY screen variables here!
@@ -62,6 +77,29 @@ void updateLevelTwoScreen(void)
     player_block = get_player_block();
     //get the physical part of map
     ativate_physics();
+    fgets(current_user_lvl_two, 300, fileReadLevelTwoCurrentUser);
+    fclose(fileReadLevelTwoCurrentUser);
+
+    if(fileWriteLevelTwo == NULL){
+
+    }else{
+        while(fgets(username_lvl_two, 300, fileReadLevelTwo)!= NULL){
+
+        }
+        fclose(fileReadLevelTwo);
+
+        strcpy(space_lvl_two, " ");
+        strcat(space_lvl_two, current_user_lvl_two);
+        strcpy(nick_lvl_two, space_lvl_two);
+        strcat(nick_lvl_two, " 2");
+
+        if (strstr(username_lvl_two, nick_lvl_two) != NULL){
+                
+        }else{
+            fprintf(fileWriteLevelTwo, " %s %i ", current_user_lvl_two, 2);
+            fclose(fileWriteLevelTwo);
+        }
+    }
 
     // Press enter or tap to change to ENDING screen
     if (IsKeyPressed(KEY_ENTER))
