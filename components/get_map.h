@@ -108,7 +108,6 @@ void create_map(int phase)
         create_plataforms(89,2);
         create_plataforms(93,2);
         create_plataforms(98,2);
-        create_floor(2);
     }
     else if(phase == 3)
     {
@@ -270,6 +269,15 @@ void create_floor(int phase)
         create_line((Vector2){0,8}, (Vector2){0,10}, 4);
         create_line((Vector2){1,8}, (Vector2){15,10}, 5);
         create_line((Vector2){15,8}, (Vector2){15,8}, 10);
+
+        create_line((Vector2){103,2}, (Vector2){103,2}, 1);
+        create_line((Vector2){104,2}, (Vector2){117,2}, 2);
+        create_line((Vector2){118,2}, (Vector2){118,2}, 3);
+            
+        // Terra embaixo da primeira
+        create_line((Vector2){103,3}, (Vector2){103,5}, 4);
+        create_line((Vector2){104,3}, (Vector2){118,5}, 5);
+        create_line((Vector2){118,3}, (Vector2){118,3}, 10);
         
     }
     else if (phase == 3)
