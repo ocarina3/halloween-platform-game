@@ -54,7 +54,7 @@ void initLevelTwoScreen(void)
 void updateLevelTwoScreen(void)
 {
     // TODO: Update GAMEPLAY screen variables here!
-    camera.target = (Vector2){ heroi.physic->position.x + 20, heroi.physic->position.y - 100};
+    camera.target = (Vector2){heroi.physic->position.x + 20, heroi.physic->position.y > 100 ? 200 : heroi.physic->position.y + 100};
     //_________________________________________________________
     updateGame(&heroi);
     //_________________________________________________
