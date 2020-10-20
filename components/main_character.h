@@ -158,7 +158,7 @@ void updateGame(player *heroi, enemy *enemys[100], life *lifes[50], int *countEn
         heroi->physic->velocity.x = -VELOCITY;
         heroi->reverse = true;
     }
-    if ( IsKeyPressed(KEY_W) && heroi->physic->velocity.y < 0.2 && heroi->physic->velocity.y >= 0) heroi->physic->velocity.y = -VELOCITY*5;
+    if ( IsKeyPressed(KEY_W) && heroi->physic->velocity.y < 0.001 && heroi->physic->velocity.y >= 0) heroi->physic->velocity.y = -VELOCITY*5;
 
     // Attack
     if ( IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !heroi->attackCooldown && heroi->isAlive ) 
