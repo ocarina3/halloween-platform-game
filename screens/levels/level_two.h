@@ -43,17 +43,30 @@ void initLevelTwoScreen(void)
     // TODO: Initialize GAMEPLAY screen variables here!
     framesCounter = 0;
     finishScreen = 0;
+
+    start_variables();
+    load_texture();
+    create_map(2);
+    create_wall(7,92);
 }
 
 // Gameplay Screen Update logic
 void updateLevelTwoScreen(void)
 {
     // TODO: Update GAMEPLAY screen variables here!
+    camera.target = (Vector2){ heroi.physic->position.x + 20, heroi.physic->position.y - 100};
+    //_________________________________________________________
+    updateGame(&heroi, enemys, lifes, &countEnemys, &countLifes);
+    //_________________________________________________
+    //get the player coordinate in blocks
+    player_block = get_player_block();
+    //get the physical part of map
+    ativate_physics();
 
     // Press enter or tap to change to ENDING screen
-    if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
+    if (IsKeyPressed(KEY_ENTER))
     {
-        finishScreen = 1;
+        finishScreen = 3;
     }
 }
 
@@ -61,15 +74,23 @@ void updateLevelTwoScreen(void)
 void drawLevelTwoScreen(void)
 {
     // TODO: Draw GAMEPLAY screen here!
-    DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), BLUE);
-    DrawText("LEVEL_TWO SCREEN", 20, 20, 40, DARKBLUE);
-    DrawText("PRESS ENTER or TAP to JUMP to ENDING SCREEN", 130, 220, 20, DARKBLUE);
+    DrawTexture(background, 0, 0, WHITE);
+    BeginMode2D(camera);
+    
+        draw_texture_map();
+        draw_texture_character();
+
+    EndMode2D();    
+    DrawText(TextFormat("bloco: [%i,%i]\ncoordenada: [%f,%f]", (int)(player_block.x), (int)(player_block.y),(heroi.physic->position.x),(heroi.physic->position.y)), 315, 250, 20, DARKGRAY);
+    DrawFPS(screenWidth - 90, screenHeight - 30);
 }
 
 // Gameplay Screen Unload logic
 void unloadLevelTwoScreen(void)
 {
     // TODO: Unload GAMEPLAY screen variables here!
+    destroy_all_physics();
+    unload_texture();
 }
 
 // Gameplay Screen should finish?

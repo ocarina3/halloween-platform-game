@@ -76,6 +76,10 @@ void create_map(int phase)
         create_objects(1);
              
     }
+    else if(phase == 2)
+    {
+        create_floor(2);
+    }
     else if(phase == 3)
     {
         create_floor(3);
@@ -228,7 +232,9 @@ void create_floor(int phase)
     } 
     else if(phase == 2)
     {
-
+        create_line((Vector2){0,7}, (Vector2){0,7}, 1);
+        create_line((Vector2){1,7}, (Vector2){60,7}, 2);
+        create_line((Vector2){61,7}, (Vector2){61,7}, 3);
     }
     else if (phase == 3)
     {
