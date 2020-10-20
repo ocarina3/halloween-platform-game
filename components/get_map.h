@@ -276,10 +276,10 @@ void create_floor(int phase)
         create_line((Vector2){118,2}, (Vector2){118,2}, 3);
             
         // Terra embaixo da primeira
-        create_line((Vector2){103,3}, (Vector2){103,5}, 4);
-        create_line((Vector2){104,3}, (Vector2){118,5}, 5);
-        create_line((Vector2){118,3}, (Vector2){118,3}, 10);
-        
+        create_line((Vector2){103,3}, (Vector2){103,10}, 4);
+        create_line((Vector2){104,3}, (Vector2){117,10}, 5);
+        create_line((Vector2){118,3}, (Vector2){118,10}, 6);
+
     }
     else if (phase == 3)
     {
@@ -292,6 +292,11 @@ void create_floor(int phase)
         create_plataforms(44,5);
         create_plataforms(47,2);
         create_plataforms(45,9);
+
+        //terra embaixo da primeira
+        create_line((Vector2){1,8}, (Vector2){30,10}, 5);
+        create_line((Vector2){31,8}, (Vector2){31,10}, 6);
+        create_line((Vector2){0,8}, (Vector2){0,10}, 4);
     }   
 }
 
