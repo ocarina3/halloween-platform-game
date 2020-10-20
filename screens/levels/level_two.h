@@ -47,7 +47,7 @@ void initLevelTwoScreen(void)
     start_variables();
     load_texture();
     create_map(2);
-    create_wall(7,92);
+    create_wall(7,106);
 }
 
 // Gameplay Screen Update logic
