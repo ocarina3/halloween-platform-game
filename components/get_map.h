@@ -27,6 +27,17 @@ blocks buildings[320][14];
 
 //____________________________________________________________________________________________
 
+//___________________________________FUNCTIONS DECLARATIONS____________________________________
+
+void create_line(Vector2 inicial, Vector2 final, int sprite);
+void create_map(int phase);
+void create_floor(int phase);
+void create_objects(int phase);
+void create_plataforms(int pos_x, int pos_y);
+
+//____________________________________________________________________________________________
+
+
 //___________________________________FUNCTIONS_______________________________________________
 
 //creates a map line and divides it into blocks
@@ -56,6 +67,29 @@ void create_line(Vector2 inicial, Vector2 final, int sprite)
 
 //create the lines of the map
 void create_map(int phase)
+{
+    if(phase == 1)
+    {
+        create_floor(1);
+        create_plataforms(55,6);
+        create_plataforms(70,4);
+        create_objects(1);
+             
+    }
+    else if(phase == 3)
+    {
+        create_floor(3);
+        create_plataforms(33,6);
+        create_plataforms(38,5);
+        create_plataforms(41,5);
+        create_plataforms(44,5);
+        create_plataforms(47,2);
+        create_plataforms(45,9);        
+    }
+    
+}
+
+void create_floor(int phase)
 {
     if(phase == 1)
     {
@@ -143,12 +177,6 @@ void create_map(int phase)
         create_line((Vector2){52,8}, (Vector2){52,9}, 6);
         create_line((Vector2){52,10}, (Vector2){52,10}, 5);
 
-
-        //Primeira Plataforma
-        create_line((Vector2){55,6}, (Vector2){55,6}, 14);
-        create_line((Vector2){56,6}, (Vector2){56,6}, 15);
-        create_line((Vector2){57,6}, (Vector2){57,6}, 16);
-
         //Decima linha 
         create_line((Vector2){60,7}, (Vector2){60,7}, 1);
         create_line((Vector2){61,7}, (Vector2){64,7}, 2);
@@ -157,7 +185,6 @@ void create_map(int phase)
         create_line((Vector2){60,8}, (Vector2){60,8}, 4);
         create_line((Vector2){61,8}, (Vector2){64,10}, 5);
         create_line((Vector2){60,9}, (Vector2){60,10}, 5);
-
 
         //Decima primeira linha
         create_line((Vector2){65,6}, (Vector2){65,6}, 1);
@@ -169,13 +196,8 @@ void create_map(int phase)
         create_line((Vector2){65,8}, (Vector2){65,9}, 5);
         create_line((Vector2){66,7}, (Vector2){66,9}, 5);
         create_line((Vector2){67,7}, (Vector2){67,9}, 6);
-        
-        //Segunda Plataforma
-        create_line((Vector2){70,4}, (Vector2){70,4}, 14);
-        create_line((Vector2){71,4}, (Vector2){71,4}, 15);
-        create_line((Vector2){72,4}, (Vector2){72,4}, 16);
-        
-        //Decima segunda Linha
+
+       //Decima segunda Linha
         create_line((Vector2){75,6}, (Vector2){75,6}, 1);
         create_line((Vector2){76,6}, (Vector2){77,6}, 2);
         create_line((Vector2){78,6}, (Vector2){78,6}, 3);
@@ -203,6 +225,40 @@ void create_map(int phase)
         create_line((Vector2){84,8}, (Vector2){84,9}, 5);
         create_line((Vector2){85,7}, (Vector2){100,9}, 5);
         create_line((Vector2){101,7}, (Vector2){101,9}, 6);
+    } 
+    else if(phase == 2)
+    {
+
+    }
+    else if (phase == 3)
+    {
+        create_line((Vector2){0,7}, (Vector2){0,7}, 1);
+        create_line((Vector2){1,7}, (Vector2){30,7}, 2);
+        create_line((Vector2){31,7}, (Vector2){31,7}, 3);
+    }   
+}
+
+void create_objects(int phase)
+{
+    if(phase == 1)
+    {
+
+    }
+    else if(phase == 2)
+    {
+
+    }
+    else if (phase == 3)
+    {
+
+    }
+}
+
+void create_plataforms(int pos_x, int pos_y)
+{
+    for(int i = 0; i < 3; i++)
+    {
+        create_line((Vector2){pos_x + i,pos_y}, (Vector2){pos_x + i,pos_y}, 14 + i);
     }
 }
 

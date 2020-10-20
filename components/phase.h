@@ -14,7 +14,7 @@ life l1, l2;
 
 Vector2 player_block;
 Camera2D camera;
-Vector2 tilePosition;
+
 
 void start_variables()
 {
@@ -36,16 +36,16 @@ void start_variables()
     heroi.isAlive = true;
 
     //inicializar os inimigos
-    e1 = addEnemy((Vector2) { screenWidth - 40, 50 });
+    /*e1 = addEnemy((Vector2) { screenWidth - 40, 50 });
     e2 = addEnemy((Vector2) { 40, 50 });
     e3 = addEnemy((Vector2) { 120, 50 });
     enemys[countEnemys++] = &e1;
     enemys[countEnemys++] = &e2;
-    enemys[countEnemys++] = &e3;
+    enemys[countEnemys++] = &e3;*/
     
     //inicializar as vidas
     
-    l1.radius = 10;
+    /*l1.radius = 10;
     l1.hasBeenTaken = false;
     l2.radius = 10;
     l2.hasBeenTaken = false;
@@ -54,7 +54,7 @@ void start_variables()
     l2.physic = CreatePhysicsBodyCircle((Vector2) { screenWidth - 90, screenHeight / 2 }, l2.radius, 10);
     l2.physic->enabled = false;
     lifes[countLifes++] = &l1;
-    lifes[countLifes++] = &l2; 
+    lifes[countLifes++] = &l2;*/ 
     //__________________________________________________________________________________________________
     //start camera position
     camera.target = (Vector2){ heroi.physic->position.x + 20, heroi.physic->position.y + 20};
