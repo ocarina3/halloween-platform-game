@@ -154,14 +154,10 @@ void updateMenuUserScreen(void)
 
                     if (strstr(username, nick_two) != NULL){
                         level = 2;
-                        fprintf(fileWrite, " %i ", level);
-                         fclose(fileWrite);
                     }
                     
                     if(strstr(username, nick_three) != NULL){
                         level = 3;
-                        fprintf(fileWrite, " %i ", level);
-                         fclose(fileWrite);
                     }
                 } 
             }
