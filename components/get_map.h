@@ -14,6 +14,9 @@ typedef struct
     Rectangle block;
     bool draw;
     int sprite;
+    PhysicsBody physics_block;
+    bool physics;
+    bool physics_created;
 }blocks;
 
 //_________________________________________________________________________________________
@@ -31,7 +34,7 @@ void create_line(Vector2 inicial, Vector2 final, int sprite)
 {
     //takes the final and initial coordinates of the line
     Vector2 num_blocks = {((final.x - inicial.x)+ 1),((final.y - inicial.y) + 1)};
-    
+    int  physics_sprites[5] = {1,2,3,11,7};
     //create the blocks
     for (int i = 0; i < (int)num_blocks.x; i++)
     {
@@ -39,6 +42,14 @@ void create_line(Vector2 inicial, Vector2 final, int sprite)
         {
             buildings[(int)inicial.x + i][(int)inicial.y + j].draw = true;
             buildings[(int)inicial.x + i][(int)inicial.y + j].sprite = sprite;
+            
+            for(int k = 0; k < 5; k++)
+            {
+                if(physics_sprites[k] == sprite)
+                {
+                    buildings[(int)inicial.x + i][(int)inicial.y + j].physics = true;
+                }
+            }
         }
     }
 }

@@ -1,8 +1,8 @@
 #ifndef PHASE_H
 #define PHASE_H
 
-#include "../components/physics.h"
-#include "../components/draw_texture.h"
+#include "physics.h"
+#include "draw_texture.h"
 
 
 int countEnemys = 0, countLifes = 0;
@@ -57,29 +57,23 @@ void start_variables()
     lifes[countLifes++] = &l2; 
     //__________________________________________________________________________________________________
     //start camera position
-    camera.target = (Vector2){ heroi.physic->position.x + 20, heroi.physic->position.y - 100};
+    camera.target = (Vector2){ heroi.physic->position.x + 20, heroi.physic->position.y + 20};
     camera.offset = (Vector2){ screenWidth/2, screenHeight/2 };
     camera.rotation = 0.0f;
     camera.zoom = 1.0f;
-    
-    //start the physic check
-    check_existence[0] = false;
-    check_existence[1] = false;
-    check_existence[2] = false;
-    check_existence[3] = false;
-    check_existence[4] = false;
-    check_existence[5] = false;
 
     //start the blocks
     for(int i = 0; i < 320 ; i++)
     {
-        for(int j = 0; j < 14; j++)
+        for(int j = 0; j < 9; j++)
         {
             buildings[i][j].draw = false;
             buildings[i][j].block.x = (i)*buildings_height;
             buildings[i][j].block.y = (j)*buildings_height;
             buildings[i][j].block.width = buildings_width;
             buildings[i][j].block.height = buildings_height;
+            buildings[i][j].physics = false;
+            buildings[i][j].physics_created = false;
         }
     }    
 }

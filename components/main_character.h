@@ -3,7 +3,7 @@
 
 
 #include "raylib.h"
-#include "math.h"
+
 
 #define PHYSAC_IMPLEMENTATION
 #define PHYSAC_NO_THREADS
@@ -105,8 +105,8 @@ void attack(player *heroi, bool reverse, enemy *enemys[100], int counterEnemy, b
 void updatePhysicsBody(player *heroi, enemy *enemys[100], int counterEnemy)
 {
     //for the hero
-    heroi->body.x = (heroi->physic->position.x - (heroi->body.width / 2));
-    heroi->body.y = (heroi->physic->position.y - (heroi->body.height / 2));
+    heroi->body.x = heroi->physic->position.x - (heroi->body.width / 2);
+    heroi->body.y = heroi->physic->position.y - (heroi->body.height / 2);
 
     //for the enemys
     for ( int x = 0; x < counterEnemy; x++ ) 
@@ -154,7 +154,7 @@ void updateGame(player *heroi, enemy *enemys[100], life *lifes[50], int *countEn
         heroi->physic->velocity.x = -VELOCITY;
         heroi->reverse = true;
     }
-    if ( IsKeyPressed(KEY_W) && heroi->physic->velocity.y < 0.2 && heroi->physic->velocity.y > 0) heroi->physic->velocity.y = -VELOCITY*5;
+    if ( IsKeyPressed(KEY_W) && heroi->physic->velocity.y < 0.2 && heroi->physic->velocity.y >= 0) heroi->physic->velocity.y = -VELOCITY*5;
 
     // Attack
     if ( IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !heroi->attackCooldown && heroi->isAlive ) 

@@ -52,7 +52,7 @@ void updateLevelOneScreen(void)
     //get the player coordinate in blocks
     player_block = get_player_block();
     //get the physical part of map
-    create_physic_map();
+    ativate_physics();
 
     // Press enter or tap to change to ENDING screen
     if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
