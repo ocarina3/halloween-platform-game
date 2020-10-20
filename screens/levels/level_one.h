@@ -48,7 +48,7 @@ void updateLevelOneScreen(void)
     //ajust camera position
     camera.target = (Vector2){ heroi.physic->position.x + 20, heroi.physic->position.y - 100};
     //_________________________________________________________
-    updateGame(&heroi, enemys, lifes, &countEnemys, &countLifes);
+    updateGame(&heroi);
     //_________________________________________________
     //get the player coordinate in blocks
     player_block = get_player_block();
@@ -68,9 +68,11 @@ void drawLevelOneScreen(void)
     //Get the camera
     DrawTexture(background, 0, 0, WHITE);
     BeginMode2D(camera);
-    
+
+        DrawRectangleV(hit,(Vector2){50,50},RED);
         draw_texture_map();
         draw_texture_character();
+        draw_enemy();
 
     EndMode2D();    
     DrawText(TextFormat("bloco: [%i,%i]\ncoordenada: [%f,%f]", (int)(player_block.x), (int)(player_block.y),(heroi.physic->position.x),(heroi.physic->position.y)), 315, 250, 20, DARKGRAY);

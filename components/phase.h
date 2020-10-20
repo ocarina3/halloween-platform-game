@@ -5,19 +5,14 @@
 #include "draw_texture.h"
 
 
-int countEnemys = 0, countLifes = 0;
-enemy *enemys[100];
-life *lifes[50];
 
-enemy e1 ,e2, e3;
-life l1, l2;
-
-Vector2 player_block;
 Camera2D camera;
 
 
 void start_variables()
 {
+
+    teste = 0;
     //_______________________________________________________
     heroi.body = (Rectangle) { screenWidth / 2, 50, 40, 40 };
     heroi.physic = CreatePhysicsBodyRectangle(
@@ -35,26 +30,6 @@ void start_variables()
     heroi.reverse = false;
     heroi.isAlive = true;
 
-    //inicializar os inimigos
-    /*e1 = addEnemy((Vector2) { screenWidth - 40, 50 });
-    e2 = addEnemy((Vector2) { 40, 50 });
-    e3 = addEnemy((Vector2) { 120, 50 });
-    enemys[countEnemys++] = &e1;
-    enemys[countEnemys++] = &e2;
-    enemys[countEnemys++] = &e3;*/
-    
-    //inicializar as vidas
-    
-    /*l1.radius = 10;
-    l1.hasBeenTaken = false;
-    l2.radius = 10;
-    l2.hasBeenTaken = false;
-    l1.physic = CreatePhysicsBodyCircle((Vector2) { 90, screenHeight / 2 }, l1.radius, 10);
-    l1.physic->enabled = false;
-    l2.physic = CreatePhysicsBodyCircle((Vector2) { screenWidth - 90, screenHeight / 2 }, l2.radius, 10);
-    l2.physic->enabled = false;
-    lifes[countLifes++] = &l1;
-    lifes[countLifes++] = &l2;*/ 
     //__________________________________________________________________________________________________
     //start camera position
     camera.target = (Vector2){ heroi.physic->position.x + 20, heroi.physic->position.y + 20};
@@ -76,6 +51,11 @@ void start_variables()
             buildings[i][j].physics = false;
             buildings[i][j].physics_created = false;
         }
+    }
+
+    for(int i = 0 ;i < 10; i++)
+    {
+        week[i].active = false;
     }    
 }
 

@@ -28,7 +28,10 @@ static Texture2D tileTwelve;
 static Texture2D tileThirteen;       
 static Texture2D tileFourteen;       
 static Texture2D tileFifteen;       
-static Texture2D tileSixteen;       
+static Texture2D tileSixteen; 
+
+
+int teste;
 
 //_____________________________________________________________________________________________
 
@@ -103,6 +106,23 @@ void draw_texture_map()
                         DrawTexture(tileSixteen, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
                 }
             }
+        }
+    }
+}
+
+void draw_enemy()
+{
+    
+    for(int i = 0; i < 10; i++)
+    {
+        if(week[i].active == true)
+        {
+            if(((hit.x  >= week[i].block.x ) && (hit.y  >= week[i].block.y)) || teste == 1)
+            {
+                DrawRectangleRec(week[i].block,RED);
+                teste = 1;    
+            }
+            DrawRectangleRec(week[i].block,GREEN);
         }
     }
 }

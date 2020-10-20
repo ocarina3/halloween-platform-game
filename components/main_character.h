@@ -17,13 +17,6 @@
 #define VELOCITY 0.4f
 
 //___________________________________STRUCTS_______________________________________________
-typedef struct enemy {
-    PhysicsBody physic;
-    Color color;
-    Rectangle body;
-    int health;
-    bool isAlive;
-} enemy;
 
 typedef struct player {
     PhysicsBody physic;
@@ -35,35 +28,27 @@ typedef struct player {
     bool isAlive;
 } player;
 
-typedef struct life {
-    PhysicsBody physic;
-    float radius;
-    bool hasBeenTaken;
-} life;
-
 //__________________________________________________________________________________________
 
 //___________________________________VARIABLES_______________________________________________
-
+Vector2 player_block;
 player heroi;
 PhysicsBody wall[2];
+Vector2 hit;
 //____________________________________________________________________________________________
 
 //________________________________FUNCTIONS DECLARATIONS_______________________________________
 
-void attack(player *heroi, bool reverse, enemy *enemys[100], int counterEnemy, bool valid);
-void updatePhysicsBody(player *heroi, enemy *enemys[100], int counterEnemy);
-void updateGame(player *heroi, enemy *enemys[100], life *lifes[50], int *countEnemys, int *countLifes);
-void DrawEntities(player *heroi, enemy *enemys[100], life *lifes[50], int countEnemys, int countLifes);
-enemy addEnemy(Vector2 pos);
-int checkheroiCollision(player *heroi, enemy *enemys[100], int counterEnemy, life *lifes[50], int counterLifes);
+Vector2 attack(player *heroi, bool reverse, bool valid);
+void updatePhysicsBody(player *heroi);
+void updateGame(player *heroi);
 
 //_____________________________________________________________________________________________
 
 //___________________________________FUNCTIONS_________________________________________________
 
 //attack configuration
-void attack(player *heroi, bool reverse, enemy *enemys[100], int counterEnemy, bool valid) 
+Vector2 attack(player *heroi, bool reverse, bool valid) 
 {
 
     //________________________________TODO___________________________________________
@@ -77,76 +62,37 @@ void attack(player *heroi, bool reverse, enemy *enemys[100], int counterEnemy, b
     attackArea.height = heroi->body.height;
     attackArea.y = heroi->physic->position.y - (heroi->body.height / 2);
     
+    
     //check if the hero is attacking right or left
     if ( !reverse ) 
     {
         attackArea.x = heroi->physic->position.x + (heroi->body.width / 2);
-    } else 
+    } 
+    else 
     {
         attackArea.x = heroi->physic->position.x - (heroi->body.width / 2) - attackArea.width;
     }
 
-    //check if hits a enemy
-    if ( valid ) {
-        for ( int x = 0; x < counterEnemy; x++ ) 
-        {
-            if ( CheckCollisionRecs(attackArea, enemys[x]->body) ) 
-            {
-                enemys[x]->health--;
-                if ( enemys[x]->health == 2 ) enemys[x]->color = YELLOW;
-                if ( enemys[x]->health == 1 ) enemys[x]->color = RED;
-                if ( enemys[x]->health == 0 ) enemys[x]->isAlive = false;
-            }
-        }
-    }
+    return (Vector2){attackArea.x,attackArea.y};
+
 }
 
 //Get the new position of all the physics body
-void updatePhysicsBody(player *heroi, enemy *enemys[100], int counterEnemy)
+void updatePhysicsBody(player *heroi)
 {
     //for the hero
     heroi->body.x = heroi->physic->position.x - (heroi->body.width / 2);
     heroi->body.y = heroi->physic->position.y - (heroi->body.height / 2);
 
-    //for the enemys
-    for ( int x = 0; x < counterEnemy; x++ ) 
-    {
-        enemys[x]->body.x = enemys[x]->physic->position.x - (enemys[x]->body.width / 2);
-        enemys[x]->body.y = enemys[x]->physic->position.y - (enemys[x]->body.height / 2);
-    }
 }
 
 //update the game variables
-void updateGame(player *heroi, enemy *enemys[100], life *lifes[50], int *countEnemys, int *countLifes) 
+void updateGame(player *heroi) 
 {
     //bug fix
     heroi->physic->position.y -= 0.0005;
     heroi->physic->velocity.y -= 0.008175;
     
-    //check if a enemy is dead
-    for( int x = 0; x < *countEnemys; x++ ) 
-    {
-        if ( !enemys[x]->isAlive ) 
-        {
-            DestroyPhysicsBody(enemys[x]->physic);
-
-            for ( int y = x; y < *countEnemys - 1; y++) enemys[y] = enemys[y + 1];
-            *countEnemys = *countEnemys - 1;
-        }
-    }
-
-    //check if life has been taken
-    for( int x = 0; x < *countLifes; x++ ) 
-    {
-        if ( lifes[x]->hasBeenTaken ) 
-        {
-            DestroyPhysicsBody(lifes[x]->physic);
-
-            for ( int y = x; y < *countLifes - 1; y++) lifes[y] = lifes[y + 1];
-            *countLifes = *countLifes - 1;
-        }
-    }
-
     // Inputs
     if ( IsKeyDown(KEY_D) ) 
     {
@@ -163,112 +109,21 @@ void updateGame(player *heroi, enemy *enemys[100], life *lifes[50], int *countEn
     // Attack
     if ( IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !heroi->attackCooldown && heroi->isAlive ) 
     {
-        attack(heroi, heroi->reverse, enemys, *countEnemys, true);
+        hit = attack(heroi, heroi->reverse, true);
         heroi->attackCooldown = 5;
     }
 
     //change color for Cooldown
-    if ( heroi->isAlive ) heroi->color = heroi->attackCooldown ? YELLOW : GREEN;
     if ( heroi->attackCooldown && heroi->isAlive ) 
     {
         heroi->attackCooldown--;
-        attack(heroi, heroi->reverse, enemys, *countEnemys, false);
+        attack(heroi, heroi->reverse,false);
     }
+
 
     //checks collision between bodies
-    updatePhysicsBody(heroi, enemys, *countEnemys);
+    updatePhysicsBody(heroi);
 
-    int entityCollision = checkheroiCollision(heroi, enemys, *countEnemys, lifes, *countLifes);
-    
-    //hero touched the enemy
-    if ( entityCollision == 1 && heroi->isAlive ) 
-    {
-        heroi->lives--;
-        heroi->color = RED;
-
-        if ( heroi->lives == 0 ) heroi->isAlive = false;
-        else 
-        {
-            heroi->physic->position.x = screenWidth / 2;
-            heroi->physic->position.y = 50;
-        }
-    }
-
-    //hero get the life
-    if ( entityCollision == 2 && heroi->isAlive ) 
-    {
-        if ( heroi->lives < 3 ) heroi->lives++;
-    }
-}
-
-//add the enemy
-enemy addEnemy(Vector2 pos) 
-{
-    //create enemy
-    enemy enemy;
-    enemy.body = (Rectangle) { pos.x, pos.y, 25, 40 };
-    enemy.physic = CreatePhysicsBodyRectangle(
-        (Vector2) { enemy.body.x, enemy.body.y },
-        enemy.body.width,
-        enemy.body.height,
-        8
-    );
-    enemy.physic->freezeOrient = true;
-    enemy.color = BROWN;
-    enemy.health = 3;
-    enemy.isAlive = true;
-
-    return enemy;
-}
-
-//check if the hero touched something
-int checkheroiCollision(player *heroi, enemy *enemys[100], int counterEnemy, life *lifes[50], int counterLifes) 
-{
-    bool hasEnemyCollision = false, hasLifeCollision = false;
-
-    int bodyCount = GetPhysicsBodiesCount();
-    for ( int x = 0; x < bodyCount; x++ ) 
-    {
-        //variables
-        PhysicsBody body = GetPhysicsBody(x);
-
-        int isEnemy = 0;
-        int isLife = 0;
-
-        enemy enemy;
-        life *life;
-
-        //check enemys
-        for ( int x = 0; x < counterEnemy; x++ ) 
-        {
-            if ( body->id == enemys[x]->physic->id ) 
-            {
-                isEnemy = 1;
-                enemy = *enemys[x];
-            }
-        }
-
-        //check lifes
-        for ( int x = 0; x < counterLifes; x++ ) 
-        {
-            if ( body->id == lifes[x]->physic->id ) 
-            {
-                isLife = 1;
-                life = lifes[x];
-            }
-        }
-        
-        if( isEnemy && CheckCollisionRecs(heroi->body, enemy.body) ) hasEnemyCollision = true;
-        if ( isLife && CheckCollisionCircleRec((Vector2) life->physic->position, life->radius, heroi->body) ) 
-        {
-            life->hasBeenTaken = true;
-            hasLifeCollision = true;
-        }
-    }
-
-    if (hasEnemyCollision) return 1;
-    if (hasLifeCollision) return 2;
-    return 0;
 }
 
 

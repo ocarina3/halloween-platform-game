@@ -19,12 +19,22 @@ typedef struct
     bool physics_created;
 }blocks;
 
+typedef struct
+{
+    Rectangle block;
+    int life;
+    bool active;
+}vilan;
+
+
 //_________________________________________________________________________________________
 
 //___________________________________VARIABLES_______________________________________________
 
 blocks buildings[320][14];
 
+vilan week[10];
+vilan strong[10];
 //____________________________________________________________________________________________
 
 //___________________________________FUNCTIONS DECLARATIONS____________________________________
@@ -34,7 +44,8 @@ void create_map(int phase);
 void create_floor(int phase);
 void create_objects(int phase);
 void create_plataforms(int pos_x, int pos_y);
-
+void create_enemy_phase(int phase);
+void create_enemy(int pos_x, int pos_y, int type);
 //____________________________________________________________________________________________
 
 
@@ -71,8 +82,7 @@ void create_map(int phase)
     if(phase == 1)
     {
         create_floor(1);
-        create_plataforms(55,6);
-        create_plataforms(70,4);
+        create_enemy_phase(1);
         create_objects(1);
              
     }
@@ -87,12 +97,7 @@ void create_map(int phase)
     else if(phase == 3)
     {
         create_floor(3);
-        create_plataforms(33,6);
-        create_plataforms(38,5);
-        create_plataforms(41,5);
-        create_plataforms(44,5);
-        create_plataforms(47,2);
-        create_plataforms(45,9);        
+                
     }
     
 }
@@ -185,6 +190,8 @@ void create_floor(int phase)
         create_line((Vector2){52,8}, (Vector2){52,9}, 6);
         create_line((Vector2){52,10}, (Vector2){52,10}, 5);
 
+        create_plataforms(55,6);
+        
         //Decima linha 
         create_line((Vector2){60,7}, (Vector2){60,7}, 1);
         create_line((Vector2){61,7}, (Vector2){64,7}, 2);
@@ -204,6 +211,8 @@ void create_floor(int phase)
         create_line((Vector2){65,8}, (Vector2){65,9}, 5);
         create_line((Vector2){66,7}, (Vector2){66,9}, 5);
         create_line((Vector2){67,7}, (Vector2){67,9}, 6);
+
+        create_plataforms(70,4);
 
        //Decima segunda Linha
         create_line((Vector2){75,6}, (Vector2){75,6}, 1);
@@ -239,6 +248,12 @@ void create_floor(int phase)
         create_line((Vector2){0,7}, (Vector2){0,7}, 1);
         create_line((Vector2){1,7}, (Vector2){30,7}, 2);
         create_line((Vector2){31,7}, (Vector2){31,7}, 3);
+        create_plataforms(33,6);
+        create_plataforms(38,5);
+        create_plataforms(41,5);
+        create_plataforms(44,5);
+        create_plataforms(47,2);
+        create_plataforms(45,9);
     }   
 }
 
@@ -266,5 +281,43 @@ void create_plataforms(int pos_x, int pos_y)
     }
 }
 
+void create_enemy_phase(int phase)
+{
+    if(phase == 1)
+    {
+        create_enemy(22,7,1);
+
+    }
+    else if(phase == 2)
+    {
+
+    }
+    else if (phase == 3)
+    {
+
+    }
+}
+
+
+void create_enemy(int pos_x, int pos_y, int type)
+{
+    if (type == 1)
+    {
+        for(int i = 0; i < 10 ; i++)
+        {
+            if(week[i].active == false)
+            {
+                week[i].block.x = pos_x*50;
+                week[i].block.y = pos_y*50;
+                week[i].block.width = 50;
+                week[i].block.height = 50;
+                week->active = true;
+                week->life = 1;
+                break;
+            }
+        }
+    }
+    
+}
 //___________________________________________________________________________________________
 #endif
