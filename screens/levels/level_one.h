@@ -56,7 +56,7 @@ void updateLevelOneScreen(void)
     ativate_physics();
 
     // Press enter or tap to change to ENDING screen
-    if (IsKeyPressed(KEY_ENTER))
+    if (player_block.x == 91)
     {
         finishScreen = 1;
     }
