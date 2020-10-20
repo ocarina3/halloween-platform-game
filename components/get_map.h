@@ -88,11 +88,27 @@ void create_map(int phase)
     }
     else if(phase == 2)
     {
-        create_plataforms(7,7);
-        create_plataforms(12,8);
-        create_plataforms(15,6);
-        create_plataforms(20,5);
-        create_plataforms(26,4);
+        create_floor(2);
+        create_plataforms(18,7);
+        create_plataforms(22,6);
+        create_plataforms(26,5);
+        create_plataforms(30,4);
+        create_plataforms(35,4);
+        create_plataforms(39,4);
+        create_plataforms(44,4);
+        create_plataforms(48,5);
+        create_plataforms(53,6);
+        create_plataforms(57,4);
+        create_plataforms(62,3);
+        create_plataforms(66,2);
+        create_plataforms(71,3);
+        create_plataforms(75,0);
+        create_plataforms(80,0);
+        create_plataforms(85,1);
+        create_plataforms(89,2);
+        create_plataforms(93,2);
+        create_plataforms(98,2);
+        create_floor(2);
     }
     else if(phase == 3)
     {
@@ -243,6 +259,19 @@ void create_floor(int phase)
         create_line((Vector2){85,7}, (Vector2){100,9}, 5);
         create_line((Vector2){101,7}, (Vector2){101,9}, 6);
     } 
+    else if (phase == 2)
+    {
+        // Primeira linha
+        create_line((Vector2){0,7}, (Vector2){0,7}, 1);
+        create_line((Vector2){1,7}, (Vector2){14,7}, 2);
+        create_line((Vector2){15,7}, (Vector2){15,7}, 3);
+            
+        // Terra embaixo da primeira
+        create_line((Vector2){0,8}, (Vector2){0,10}, 4);
+        create_line((Vector2){1,8}, (Vector2){15,10}, 5);
+        create_line((Vector2){15,8}, (Vector2){15,8}, 10);
+        
+    }
     else if (phase == 3)
     {
         create_line((Vector2){0,7}, (Vector2){0,7}, 1);
