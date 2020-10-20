@@ -46,7 +46,7 @@ typedef struct life {
 //___________________________________VARIABLES_______________________________________________
 
 player heroi;
-
+PhysicsBody wall[2];
 //____________________________________________________________________________________________
 
 //________________________________FUNCTIONS DECLARATIONS_______________________________________
@@ -119,6 +119,10 @@ void updatePhysicsBody(player *heroi, enemy *enemys[100], int counterEnemy)
 //update the game variables
 void updateGame(player *heroi, enemy *enemys[100], life *lifes[50], int *countEnemys, int *countLifes) 
 {
+    //bug fix
+    heroi->physic->position.y -= 0.0005;
+    heroi->physic->velocity.y -= 0.008175;
+    
     //check if a enemy is dead
     for( int x = 0; x < *countEnemys; x++ ) 
     {

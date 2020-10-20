@@ -35,11 +35,11 @@ void ativate_physics()
 {
     for(int i = 0; i < 320 ; i++)
     {
-        for(int j = 0; j< 9; j++)
+        for(int j = 0; j< 14; j++)
         {
             if(buildings[i][j].physics == true)
             {
-                if((buildings[i][j].block.x < heroi.physic->position.x + screenWidth/8) && (buildings[i][j].block.x > heroi.physic->position.x - screenWidth/8))
+                if((buildings[i][j].block.x < heroi.physic->position.x + screenWidth/10) && (buildings[i][j].block.x > heroi.physic->position.x - screenWidth/10)&&(buildings[i][j].block.y < heroi.physic->position.y + screenHeight/4) && (buildings[i][j].block.y > heroi.physic->position.y - screenHeight/4))
                 {
                     if (buildings[i][j].physics_created == false)
                     {
@@ -60,13 +60,22 @@ void ativate_physics()
                         
 }
 
+void create_wall(int inicial, int final)
+{
+    wall[0] = CreatePhysicsBodyRectangle((Vector2){inicial*50 + 25, 200},1,600,10);
+    wall[0]->enabled = false;
+    wall[1] = CreatePhysicsBodyRectangle((Vector2){final*50 + 25, 200},1,600,10);
+    wall[1]->enabled = false;
+}
 
 void destroy_all_physics()
 {
+    DestroyPhysicsBody(wall[0]);
+    DestroyPhysicsBody(wall[1]);
     DestroyPhysicsBody(heroi.physic);
     for(int i = 0; i < 320 ; i++)
     {
-        for(int j = 0; j< 9; j++)
+        for(int j = 0; j< 14; j++)
         {
             if (buildings[i][j].physics_created == true)
             {

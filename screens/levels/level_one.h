@@ -38,6 +38,7 @@ void initLevelOneScreen(void)
     load_texture();
     start_variables();
     create_map();
+    create_wall(7,92);
 }
 
 
@@ -55,7 +56,7 @@ void updateLevelOneScreen(void)
     ativate_physics();
 
     // Press enter or tap to change to ENDING screen
-    if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
+    if (IsKeyPressed(KEY_ENTER))
     {
         finishScreen = 1;
     }
@@ -72,15 +73,14 @@ void drawLevelOneScreen(void)
         draw_texture_character();
 
     EndMode2D();    
-    DrawText(TextFormat("bloco: [%i,%i]\ncoordenada: [%f,%f]", (int)(player_block.x), (int)(player_block.y),(heroi.physic->velocity.x),(heroi.physic->velocity.y)), 315, 250, 20, DARKGRAY);
+    DrawText(TextFormat("bloco: [%i,%i]\ncoordenada: [%f,%f]", (int)(player_block.x), (int)(player_block.y),(heroi.physic->position.x),(heroi.physic->position.y)), 315, 250, 20, DARKGRAY);
     DrawFPS(screenWidth - 90, screenHeight - 30);
 }
 
 // Gameplay Screen Unload logic
 void unloadLevelOneScreen(void)
 {
-    int i = GetPhysicsBodiesCount();
-    destroy_all_physics(i);
+    destroy_all_physics();
     unload_texture();
 }
 

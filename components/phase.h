@@ -65,7 +65,7 @@ void start_variables()
     //start the blocks
     for(int i = 0; i < 320 ; i++)
     {
-        for(int j = 0; j < 9; j++)
+        for(int j = 0; j < 14; j++)
         {
             buildings[i][j].draw = false;
             buildings[i][j].block.x = (i)*buildings_height;
