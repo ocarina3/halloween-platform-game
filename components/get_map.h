@@ -19,14 +19,6 @@ typedef struct
     bool physics_created;
 }blocks;
 
-typedef struct
-{
-    Rectangle block;
-    int life;
-    bool active;
-    Vector2 walk;
-}vilan;
-
 
 //_________________________________________________________________________________________
 
@@ -34,8 +26,6 @@ typedef struct
 
 blocks buildings[320][14];
 
-vilan week[10];
-vilan strong[10];
 //____________________________________________________________________________________________
 
 //___________________________________FUNCTIONS DECLARATIONS____________________________________
@@ -45,8 +35,7 @@ void create_map(int phase);
 void create_floor(int phase);
 void create_objects(int phase);
 void create_plataforms(int pos_x, int pos_y);
-void create_enemy_phase(int phase);
-void create_enemy(int pos_x, int pos_y, int type, Vector2 walk);
+
 //____________________________________________________________________________________________
 
 
@@ -83,7 +72,6 @@ void create_map(int phase)
     if(phase == 1)
     {
         create_floor(1);
-        create_enemy_phase(1);
         create_objects(1);
              
     }
@@ -341,44 +329,7 @@ void create_plataforms(int pos_x, int pos_y)
     }
 }
 
-void create_enemy_phase(int phase)
-{
-    if(phase == 1)
-    {
-        create_enemy(22,7,1,(Vector2){16,25});
-
-    }
-    else if(phase == 2)
-    {
-
-    }
-    else if (phase == 3)
-    {
-
-    }
-}
 
 
-void create_enemy(int pos_x, int pos_y, int type, Vector2 walk)
-{
-    if (type == 1)
-    {
-        for(int i = 0; i < 10 ; i++)
-        {
-            if(week[i].active == false)
-            {
-                week[i].walk = walk;
-                week[i].block.x = pos_x*50;
-                week[i].block.y = pos_y*50;
-                week[i].block.width = 50;
-                week[i].block.height = 50;
-                week->active = true;
-                week->life = 1;
-                break;
-            }
-        }
-    }
-    
-}
 //___________________________________________________________________________________________
 #endif

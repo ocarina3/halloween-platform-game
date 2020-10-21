@@ -11,8 +11,7 @@
 
 //___________________________________VARIABLES_______________________________________________
 //map
-static Texture2D background;       
-static Texture2D character;       
+static Texture2D background;              
 static Texture2D tileOne;       
 static Texture2D tileTwo;       
 static Texture2D tileThree;       
@@ -39,8 +38,8 @@ static Texture2D tileSixteen;
 //get the texture
 void load_texture()
 {
+    loadAllTextures();
     background = LoadTexture("resources/textures/map_tiles/Background.png");
-    character = LoadTexture("resources/textures/map_tiles/Bone (1).png");
     tileOne = LoadTexture("resources/textures/map_tiles/Tile (1).png");
     tileTwo = LoadTexture("resources/textures/map_tiles/Tile (2).png");
     tileThree = LoadTexture("resources/textures/map_tiles/Tile (3).png");
@@ -112,33 +111,13 @@ void draw_texture_map()
     }
 }
 
-void draw_enemy()
-{
-    
-    for(int i = 0; i < 10; i++)
-    {
-        if(week[i].active == true)
-        {
-            if(((hit.x  >= week[i].block.x ) && (hit.y  >= week[i].block.y)))
-            {
-                DrawRectangleRec(week[i].block,RED);
-            }
-            DrawRectangleRec(week[i].block,GREEN);
-        }
-    }
-}
 
-//draw the character
-void draw_texture_character()
-{
-    DrawTexture(character, heroi.physic->position.x - 25, heroi.physic->position.y - 25, WHITE);
-}
 
 //unload the texture
 void unload_texture()
 {
+    unloadAllTextures();
     UnloadTexture(background);
-    UnloadTexture(character);
     UnloadTexture(tileOne);
     UnloadTexture(tileTwo);
     UnloadTexture(tileThree);
