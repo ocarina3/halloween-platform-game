@@ -23,9 +23,9 @@ int main(void)
 
     InitWindow(screenWidth, screenHeight, "raylib - testing transitions between screens");
     InitPhysics();
-
     InitAudioDevice();
-
+    srand(time(NULL));
+    
     // TODO: Load global data here (assets that must be available in all screens, i.e. fonts)
     
     // Define and init first screen
