@@ -12,7 +12,6 @@ Camera2D camera;
 void start_variables()
 {
 
-    teste = 0;
     //_______________________________________________________
     heroi.body = (Rectangle) { screenWidth / 2, 50, 40, 40 };
     heroi.physic = CreatePhysicsBodyRectangle(
@@ -26,7 +25,6 @@ void start_variables()
     heroi.physic->freezeOrient = true;
     heroi.attackCooldown = 0;
     heroi.lives = 3;
-    heroi.color = GREEN;
     heroi.reverse = false;
     heroi.isAlive = true;
 
