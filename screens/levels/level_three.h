@@ -23,6 +23,7 @@
 *
 **********************************************************************************************/
 #include "../../components/phase.h"
+#include "../../components/boss.h"
 
 //----------------------------------------------------------------------------------
 // Global Variables Definition (local to this module)
@@ -44,6 +45,7 @@ void initLevelThreeScreen(void)
     finishScreen = 0;
     wall_created = false;
     loadAllTextures();
+    startBoss();
     start_variables();
     load_texture();
     create_map(3);
@@ -58,6 +60,8 @@ void updateLevelThreeScreen(void)
     camera.target = (Vector2){heroi.physic->position.x + 20, heroi.physic->position.y > 100 ? 200 : heroi.physic->position.y + 100};}
     //_________________________________________________________
     updateGame(&heroi);
+
+    updateBoss();    
     
     //_________________________________________________
     //get the player coordinate in blocks
@@ -86,8 +90,7 @@ void drawLevelThreeScreen(void)
     BeginMode2D(camera);
         draw_texture_map();
         DrawEntities(&heroi);
-
-
+        drawBoss();
     EndMode2D();    
     DrawText(FormatText("Lives: %i", heroi.lives), screenWidth - 80, 80, 14, YELLOW);
     DrawText(TextFormat("bloco: [%i,%i]\ncoordenada: [%f,%f]", (int)(player_block.x), (int)(player_block.y),(heroi.physic->position.x),(heroi.physic->position.y)), 315, 250, 20, DARKGRAY);
