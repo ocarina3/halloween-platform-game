@@ -55,3 +55,6 @@ dkms.conf
 .vscode/
 resources/characters
 !.gitkeep
+
+# Game files
+*.txt
