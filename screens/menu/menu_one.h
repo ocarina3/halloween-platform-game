@@ -144,7 +144,7 @@ void updateMenuOneScreen(void)
         }
 
 
-    if (IsKeyPressed(KEY_UP))
+    if (IsKeyPressed(KEY_W))
         {
             if(hasEnterBeenPressed == 0){
                 PlaySound(selection);
@@ -165,7 +165,7 @@ void updateMenuOneScreen(void)
 
         }
 
-        if (IsKeyPressed(KEY_DOWN))
+        if (IsKeyPressed(KEY_S))
         {
             if(hasEnterBeenPressed == 0){
                  PlaySound(selection);
