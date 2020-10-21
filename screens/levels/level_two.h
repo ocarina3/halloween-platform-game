@@ -107,9 +107,9 @@ void updateLevelTwoScreen(void)
     }
 
     // Press enter or tap to change to ENDING screen
-    if (IsKeyPressed(KEY_ENTER))
+    if (player_block.x == 105)
     {
-        finishScreen = 3;
+        finishScreen = 1;
     }
 }
 

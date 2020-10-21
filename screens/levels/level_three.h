@@ -67,8 +67,8 @@ void initLevelThreeScreen(void)
 void updateLevelThreeScreen(void)
 {
     //ajust camera position
-    if(wall_created == false){
-    camera.target = (Vector2){heroi.physic->position.x + 20, heroi.physic->position.y > 100 ? 200 : heroi.physic->position.y + 100};}
+    if(wall_created == false)
+        camera.target = (Vector2){heroi.physic->position.x + 20, heroi.physic->position.y > 100 ? 200 : heroi.physic->position.y + 100};
     //_________________________________________________________
     updateGame(&heroi);
     
