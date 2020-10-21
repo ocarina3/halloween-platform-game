@@ -26,6 +26,7 @@ typedef struct player {
     int currentAnimation;
     bool reverse;
     bool isAlive;
+    bool attacking;
 } player;
 
 //__________________________________________________________________________________________
@@ -119,22 +120,23 @@ void DrawEntities(player *heroi) {
         PhysicsBody drawedBody = GetPhysicsBody(x);
 
         //help indentification
-        /*int drawedBodyVertices = GetPhysicsShapeVerticesCount(x);
-        for ( int y = 0; y < drawedBodyVertices; y++ ) {
+        int drawedBodyVertices = GetPhysicsShapeVerticesCount(x);
+        for ( int y = 0; y < drawedBodyVertices; y++ ) 
+        {
             Vector2 pointA = GetPhysicsShapeVertex(drawedBody, y);
 
             int nextVertex = (y + 1) < drawedBodyVertices ? y + 1 : 0;
             Vector2 pointB = GetPhysicsShapeVertex(drawedBody, nextVertex);
 
-            if ( drawedBody->id == heroi->physic->id ) continue;
+            //if ( drawedBody->id == heroi->physic->id ) continue;
             DrawLineV((Vector2) pointA, (Vector2) pointB, BLUE);
             
-            if ( (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !heroi->attackCooldown && heroi->isAlive) || (heroi->attackCooldown && heroi->isAlive))
+            if (heroi->attacking ==true)
             {
-            DrawRectangleRec(attack(heroi,heroi->reverse), BLUE);
+                DrawRectangleRec(attack(heroi,heroi->reverse), BLUE);
             }
 
-        }*/
+        }
 
         if ( drawedBody->id == heroi->physic->id ) DrawTextureRec(
             heroi->state, 
@@ -169,17 +171,25 @@ void updateGame(player *heroi)
     if ( IsKeyPressed(KEY_W) && heroi->physic->velocity.y < 0.001 && heroi->physic->velocity.y > 0 && heroi->isAlive ) heroi->physic->velocity.y = -VELOCITY*5;
 
     // Ataca
-    if ( IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !heroi->attackCooldown && heroi->isAlive ) {
+    if ( IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !heroi->attackCooldown && heroi->isAlive ) 
+    {
+        heroi->attacking = true;
         attack(heroi, heroi->reverse);
         heroi->attackCooldown = 12;
     }
 
 
-    if ( heroi->attackCooldown && heroi->isAlive ) {
+    if ( heroi->attackCooldown && heroi->isAlive ) 
+    {
+        heroi->attacking = true;
         heroi->attackCooldown--;
         attack(heroi, heroi->reverse);
     }
 
+    if (heroi->attackCooldown == 0) 
+    {
+        heroi->attacking = false;
+    }
 
     //checks collision between bodies
     updatePhysicsBody(heroi);

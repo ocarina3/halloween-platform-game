@@ -121,10 +121,9 @@ void drawLevelThreeScreen(void)
 {
     DrawTexture(background, 0, 0, WHITE);
     BeginMode2D(camera);
-        DrawRectangleV(hit,(Vector2){50,50},RED);
         draw_texture_map();
         DrawEntities(&heroi);
-        draw_enemy();
+
 
     EndMode2D();    
     DrawText(FormatText("Lives: %i", heroi.lives), screenWidth - 80, 80, 14, YELLOW);

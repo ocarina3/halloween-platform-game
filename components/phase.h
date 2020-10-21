@@ -3,6 +3,7 @@
 
 #include "physics.h"
 #include "draw_texture.h"
+#include "enemy.h"
 
 
 
@@ -11,7 +12,7 @@ Camera2D camera;
 
 void start_variables()
 {
-
+    start_enemys_variables();
     //_______________________________________________________
     heroi.body = (Rectangle) { screenWidth / 2, 40, 40, 40 };
     heroi.physic = CreatePhysicsBodyRectangle(
@@ -27,6 +28,7 @@ void start_variables()
     heroi.lives = 3;
     heroi.reverse = false;
     heroi.isAlive = true;
+    heroi.attacking = false;
 
     //__________________________________________________________________________________________________
     //start camera position
@@ -51,10 +53,7 @@ void start_variables()
         }
     }
 
-    for(int i = 0 ;i < 10; i++)
-    {
-        week[i].active = false;
-    }    
+    
 }
 
 #endif

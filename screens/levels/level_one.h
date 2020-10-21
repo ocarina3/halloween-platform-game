@@ -35,8 +35,8 @@ void initLevelOneScreen(void)
     framesCounter = 0;
     finishScreen = 0;
 
-    loadAllTextures();
     start_variables();
+    create_enemies_map(1);
     load_texture();
     create_map(1);
     create_wall(7,92);
@@ -50,6 +50,7 @@ void updateLevelOneScreen(void)
     camera.target = (Vector2){heroi.physic->position.x + 20, 250};
     //_________________________________________________________
     updateGame(&heroi);
+    enemies_update();
     //_________________________________________________
     //get the player coordinate in blocks
     player_block = get_player_block();
@@ -69,10 +70,9 @@ void drawLevelOneScreen(void)
     //Get the camera
     DrawTexture(background, 0, 0, WHITE);
     BeginMode2D(camera);
-        DrawRectangleV(hit,(Vector2){50,50},RED);
         draw_texture_map();
-        DrawEntities(&heroi);
         draw_enemy();
+        DrawEntities(&heroi);
 
     EndMode2D();    
     DrawText(FormatText("Lives: %i", heroi.lives), screenWidth - 80, 80, 14, YELLOW);
@@ -84,7 +84,6 @@ void drawLevelOneScreen(void)
 void unloadLevelOneScreen(void)
 {
     destroy_walls();
-    unloadAllTextures();
     destroy_all_physics();
     unload_texture();
 }
