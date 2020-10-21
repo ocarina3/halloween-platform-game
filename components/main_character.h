@@ -3,7 +3,7 @@
 
 
 #include "raylib.h"
-#include "draw_char.h"
+#include "../resources/char_textures.h"
 
 #define PHYSAC_IMPLEMENTATION
 #define PHYSAC_NO_THREADS
@@ -35,6 +35,8 @@ Vector2 player_block;
 player heroi;
 PhysicsBody wall[2];
 Vector2 hit;
+
+
 //____________________________________________________________________________________________
 
 //________________________________FUNCTIONS DECLARATIONS_______________________________________
@@ -51,7 +53,7 @@ void DrawEntities(player *heroi);
 // Retorna a área que está sendo atacada para checar colisões posteriormente
 Rectangle attack(player *heroi, bool reverse) {
     Rectangle attackArea;
-    attackArea.width = 15;
+    attackArea.width = 30;
     attackArea.height = heroi->body.height;
     attackArea.y = heroi->physic->position.y - (heroi->body.height / 2);
     if ( !reverse ) 
@@ -59,7 +61,7 @@ Rectangle attack(player *heroi, bool reverse) {
         attackArea.x = heroi->physic->position.x + (heroi->body.width / 2);
     } else 
     {
-        attackArea.x = heroi->physic->position.x - (heroi->body.width / 2) - attackArea.width;
+        attackArea.x = heroi->physic->position.x - (heroi->body.width / 2) - attackArea.width/2;
     }
 
     return attackArea;
@@ -100,7 +102,7 @@ void updatePlayerState(player *heroi) {
 
         heroi->currentAnimation = heroi->currentAnimation == 35 ? 0 : heroi->currentAnimation + 1;
 
-    } else if ( heroi->physic->isGrounded ) {
+    } else if (heroi->physic->velocity.y < 0.001 && heroi->physic->velocity.y > 0) {
         // Stop player
         heroi->state = mc_stop;
         heroi->currentAnimation = 0;
@@ -109,14 +111,15 @@ void updatePlayerState(player *heroi) {
 
 void DrawEntities(player *heroi) {
 
-    DrawText(FormatText("Lives: %i", heroi->lives), screenWidth - 80, 80, 14, YELLOW);
+    
 
     // Desenha os 'PhysicBodies'
     int bodyCount = GetPhysicsBodiesCount();
     for ( int x = 0;  x < bodyCount; x++ ) {
         PhysicsBody drawedBody = GetPhysicsBody(x);
 
-        int drawedBodyVertices = GetPhysicsShapeVerticesCount(x);
+        //help indentification
+        /*int drawedBodyVertices = GetPhysicsShapeVerticesCount(x);
         for ( int y = 0; y < drawedBodyVertices; y++ ) {
             Vector2 pointA = GetPhysicsShapeVertex(drawedBody, y);
 
@@ -125,7 +128,13 @@ void DrawEntities(player *heroi) {
 
             if ( drawedBody->id == heroi->physic->id ) continue;
             DrawLineV((Vector2) pointA, (Vector2) pointB, BLUE);
-        }
+            
+            if ( (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !heroi->attackCooldown && heroi->isAlive) || (heroi->attackCooldown && heroi->isAlive))
+            {
+            DrawRectangleRec(attack(heroi,heroi->reverse), BLUE);
+            }
+
+        }*/
 
         if ( drawedBody->id == heroi->physic->id ) DrawTextureRec(
             heroi->state, 

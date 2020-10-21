@@ -44,6 +44,7 @@ void initLevelTwoScreen(void)
     framesCounter = 0;
     finishScreen = 0;
 
+    loadAllTextures();
     start_variables();
     load_texture();
     create_map(2);
@@ -73,13 +74,15 @@ void updateLevelTwoScreen(void)
 // Gameplay Screen Draw logic
 void drawLevelTwoScreen(void)
 {
-    // TODO: Draw GAMEPLAY screen here!
     DrawTexture(background, 0, 0, WHITE);
     BeginMode2D(camera);
-    
+        DrawRectangleV(hit,(Vector2){50,50},RED);
         draw_texture_map();
+        DrawEntities(&heroi);
+        draw_enemy();
 
     EndMode2D();    
+    DrawText(FormatText("Lives: %i", heroi.lives), screenWidth - 80, 80, 14, YELLOW);
     DrawText(TextFormat("bloco: [%i,%i]\ncoordenada: [%f,%f]", (int)(player_block.x), (int)(player_block.y),(heroi.physic->position.x),(heroi.physic->position.y)), 315, 250, 20, DARKGRAY);
     DrawFPS(screenWidth - 90, screenHeight - 30);
 }
@@ -87,7 +90,8 @@ void drawLevelTwoScreen(void)
 // Gameplay Screen Unload logic
 void unloadLevelTwoScreen(void)
 {
-    // TODO: Unload GAMEPLAY screen variables here!
+    destroy_walls();
+    unloadAllTextures();
     destroy_all_physics();
     unload_texture();
 }

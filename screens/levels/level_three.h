@@ -31,6 +31,7 @@
 // Gameplay screen global variables
 static int framesCounter;
 static int finishScreen;
+bool wall_created;
 
 //----------------------------------------------------------------------------------
 // Gameplay Screen Functions Definition
@@ -41,7 +42,8 @@ void initLevelThreeScreen(void)
 {
     framesCounter = 0;
     finishScreen = 0;
-
+    wall_created = false;
+    loadAllTextures();
     start_variables();
     load_texture();
     create_map(3);
@@ -52,12 +54,21 @@ void initLevelThreeScreen(void)
 void updateLevelThreeScreen(void)
 {
     //ajust camera position
-    camera.target = (Vector2){heroi.physic->position.x + 20, heroi.physic->position.y > 100 ? 200 : heroi.physic->position.y + 100};
+    if(wall_created == false){
+    camera.target = (Vector2){heroi.physic->position.x + 20, heroi.physic->position.y > 100 ? 200 : heroi.physic->position.y + 100};}
     //_________________________________________________________
     updateGame(&heroi);
+    
     //_________________________________________________
     //get the player coordinate in blocks
     player_block = get_player_block();
+
+    //
+    if(player_block.x > 29 && wall_created == false)
+    {
+        create_wall(22,38);
+        wall_created = true;
+    }
     //get the physical part of map
     ativate_physics();
 
@@ -71,13 +82,15 @@ void updateLevelThreeScreen(void)
 // Gameplay Screen Draw logic
 void drawLevelThreeScreen(void)
 {
-    //Get the camera
     DrawTexture(background, 0, 0, WHITE);
     BeginMode2D(camera);
-    
+        DrawRectangleV(hit,(Vector2){50,50},RED);
         draw_texture_map();
+        DrawEntities(&heroi);
+        draw_enemy();
 
     EndMode2D();    
+    DrawText(FormatText("Lives: %i", heroi.lives), screenWidth - 80, 80, 14, YELLOW);
     DrawText(TextFormat("bloco: [%i,%i]\ncoordenada: [%f,%f]", (int)(player_block.x), (int)(player_block.y),(heroi.physic->position.x),(heroi.physic->position.y)), 315, 250, 20, DARKGRAY);
     DrawFPS(screenWidth - 90, screenHeight - 30);
 }
@@ -85,6 +98,8 @@ void drawLevelThreeScreen(void)
 // Gameplay Screen Unload logic
 void unloadLevelThreeScreen(void)
 {
+    destroy_walls();
+    unloadAllTextures();
     destroy_all_physics();
     unload_texture();
 }

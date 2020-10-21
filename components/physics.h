@@ -68,6 +68,12 @@ void create_wall(int inicial, int final)
     wall[1]->enabled = false;
 }
 
+void destroy_walls()
+{
+    DestroyPhysicsBody(wall[0]);
+    DestroyPhysicsBody(wall[1]);
+}
+
 void destroy_all_physics()
 {
   int num_body = GetPhysicsBodiesCount();
