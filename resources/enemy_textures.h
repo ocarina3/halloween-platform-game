@@ -7,7 +7,7 @@ static Texture2D strong_running[12];
 static Texture2D weak_running[12];
 
 
-void loadAllTextures() {
+void loadEnemyTextures() {
 
     weak_running[0] = LoadTexture("resources/textures/main_weakenemy/Running/0_Goblin_Running_000.png");
     weak_running[1] = LoadTexture("resources/textures/main_character/Running/0_Goblin_Running_001.png");
@@ -37,7 +37,7 @@ void loadAllTextures() {
 
 }
 
-void unloadAllTextures() {
+void unloadEnemyTextures() {
 
     for ( int x = 0; x < 12; x++ ) {
         UnloadTexture(weak_running[x]);
