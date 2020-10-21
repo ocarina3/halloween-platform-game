@@ -59,9 +59,11 @@ void initLevelTwoScreen(void)
     framesCounter = 0;
     finishScreen = 0;
 
+    start_variables();
     load_texture();
     create_map(2);
     create_wall(7,106);
+    
     fileWriteLevelTwo = fopen("save/save.txt", "a");
     fileReadLevelTwo = fopen("save/save.txt", "r");
     fileReadLevelTwoCurrentUser = fopen("save/current_player.txt", "r");
