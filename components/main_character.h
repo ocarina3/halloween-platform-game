@@ -139,9 +139,9 @@ void DrawEntities(player *heroi) {
         if ( drawedBody->id == heroi->physic->id ) DrawTextureRec(
             heroi->state, 
             heroi->reverse ?
-            (Rectangle) { 0, 0, -(heroi->body.width + 20), heroi->body.height } :
-            (Rectangle) { 0, 0, heroi->body.width + 20, heroi->body.height },
-            (Vector2) { heroi->body.x, heroi->body.y },
+            (Rectangle) { 0, 0, -(heroi->body.width + 20), heroi->body.height + 15 } :
+            (Rectangle) { 0, 0, heroi->body.width + 20, heroi->body.height + 15 },
+            (Vector2) { heroi->body.x - 10, heroi->body.y - 10 },
             WHITE
         );
     }

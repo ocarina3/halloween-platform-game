@@ -13,7 +13,7 @@ void start_variables()
 {
 
     //_______________________________________________________
-    heroi.body = (Rectangle) { screenWidth / 2, 50, 40, 40 };
+    heroi.body = (Rectangle) { screenWidth / 2, 40, 40, 40 };
     heroi.physic = CreatePhysicsBodyRectangle(
         (Vector2) { heroi.body.x, heroi.body.y }, 
         heroi.body.width, 
