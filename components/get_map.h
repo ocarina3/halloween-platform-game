@@ -285,8 +285,8 @@ void create_floor(int phase)
 
         // Terra flutuante
         create_line((Vector2){23,6}, (Vector2){23,6}, 1);
-        create_line((Vector2){24,6}, (Vector2){36,6}, 2);
-        create_line((Vector2){37,6}, (Vector2){37,6}, 3);
+        create_line((Vector2){24,6}, (Vector2){37,6}, 2);
+        create_line((Vector2){38,6}, (Vector2){38,6}, 3);
 
         // Terra embaixo
         create_line((Vector2){23,7}, (Vector2){23,7}, 12);
@@ -297,7 +297,7 @@ void create_floor(int phase)
         create_plataforms(24, 3);
 
         // Meio
-        create_plataforms(29, 1);
+        create_plataforms(30, 2);
 
         // Direita
         create_plataforms(34, 3);
