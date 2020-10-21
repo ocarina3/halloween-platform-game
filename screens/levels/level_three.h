@@ -76,7 +76,6 @@ void drawLevelThreeScreen(void)
     BeginMode2D(camera);
     
         draw_texture_map();
-        draw_texture_character();
 
     EndMode2D();    
     DrawText(TextFormat("bloco: [%i,%i]\ncoordenada: [%f,%f]", (int)(player_block.x), (int)(player_block.y),(heroi.physic->position.x),(heroi.physic->position.y)), 315, 250, 20, DARKGRAY);

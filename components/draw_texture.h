@@ -10,7 +10,7 @@
 
 
 //___________________________________VARIABLES_______________________________________________
-
+//map
 static Texture2D background;       
 static Texture2D character;       
 static Texture2D tileOne;       
@@ -31,7 +31,6 @@ static Texture2D tileFifteen;
 static Texture2D tileSixteen; 
 
 
-int teste;
 
 //_____________________________________________________________________________________________
 
@@ -59,6 +58,9 @@ void load_texture()
     tileFifteen = LoadTexture("resources/textures/map_tiles/Tile (15).png");
     tileSixteen = LoadTexture("resources/textures/map_tiles/Tile (16).png");
 }
+
+
+
 
 //draw the map
 void draw_texture_map()
@@ -117,10 +119,9 @@ void draw_enemy()
     {
         if(week[i].active == true)
         {
-            if(((hit.x  >= week[i].block.x ) && (hit.y  >= week[i].block.y)) || teste == 1)
+            if(((hit.x  >= week[i].block.x ) && (hit.y  >= week[i].block.y)))
             {
                 DrawRectangleRec(week[i].block,RED);
-                teste = 1;    
             }
             DrawRectangleRec(week[i].block,GREEN);
         }

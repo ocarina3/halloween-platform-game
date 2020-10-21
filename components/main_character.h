@@ -3,7 +3,7 @@
 
 
 #include "raylib.h"
-
+#include "draw_char.h"
 
 #define PHYSAC_IMPLEMENTATION
 #define PHYSAC_NO_THREADS
@@ -17,13 +17,13 @@
 #define VELOCITY 0.4f
 
 //___________________________________STRUCTS_______________________________________________
-
 typedef struct player {
     PhysicsBody physic;
-    Color color;
+    Texture2D state;
     Rectangle body;
     int attackCooldown;
     int lives;
+    int currentAnimation;
     bool reverse;
     bool isAlive;
 } player;
@@ -39,42 +39,30 @@ Vector2 hit;
 
 //________________________________FUNCTIONS DECLARATIONS_______________________________________
 
-Vector2 attack(player *heroi, bool reverse, bool valid);
+Rectangle attack(player *heroi, bool reverse);
 void updatePhysicsBody(player *heroi);
 void updateGame(player *heroi);
-
+void updatePlayerState(player *heroi);
+void DrawEntities(player *heroi);
 //_____________________________________________________________________________________________
 
 //___________________________________FUNCTIONS_________________________________________________
 
-//attack configuration
-Vector2 attack(player *heroi, bool reverse, bool valid) 
-{
-
-    //________________________________TODO___________________________________________
-    // rever as variaveis e colocar a um bloco de distancia para que seja atingido
-    //_______________________________________________________________________________
-
-
-    //variables
+// Retorna a área que está sendo atacada para checar colisões posteriormente
+Rectangle attack(player *heroi, bool reverse) {
     Rectangle attackArea;
-    attackArea.width = 30;
+    attackArea.width = 15;
     attackArea.height = heroi->body.height;
     attackArea.y = heroi->physic->position.y - (heroi->body.height / 2);
-    
-    
-    //check if the hero is attacking right or left
     if ( !reverse ) 
     {
         attackArea.x = heroi->physic->position.x + (heroi->body.width / 2);
-    } 
-    else 
+    } else 
     {
         attackArea.x = heroi->physic->position.x - (heroi->body.width / 2) - attackArea.width;
     }
 
-    return (Vector2){attackArea.x,attackArea.y};
-
+    return attackArea;
 }
 
 //Get the new position of all the physics body
@@ -86,6 +74,70 @@ void updatePhysicsBody(player *heroi)
 
 }
 
+void updatePlayerState(player *heroi) {
+    if ( heroi->attackCooldown != 0 ) {
+        if ( heroi->currentAnimation > 11 ) heroi->currentAnimation = 0;
+
+        heroi->state = mc_slashing[heroi->currentAnimation];
+
+        if ( heroi->currentAnimation < 10 ) heroi->currentAnimation = heroi->currentAnimation + 1;
+    }
+    else if ( heroi->physic->velocity.y > 0.1 || heroi->physic->velocity.y < -0.1 ) {
+        // Jump animation
+
+        if ( heroi->currentAnimation > 10 ) heroi->currentAnimation = 0;
+
+        int jumpingFrame = heroi->currentAnimation / 2;
+
+        heroi->state = mc_jumping[jumpingFrame];
+
+        if ( heroi->currentAnimation < 10 ) heroi->currentAnimation = heroi->currentAnimation + 1;
+    } else
+     if ( heroi->physic->velocity.x > 0.1 || heroi->physic->velocity.x < -0.1 ) {
+        // Running animation
+        int runningFrame = heroi->currentAnimation / 3;
+        heroi->state = mc_running[runningFrame];
+
+        heroi->currentAnimation = heroi->currentAnimation == 35 ? 0 : heroi->currentAnimation + 1;
+
+    } else if ( heroi->physic->isGrounded ) {
+        // Stop player
+        heroi->state = mc_stop;
+        heroi->currentAnimation = 0;
+    }
+}
+
+void DrawEntities(player *heroi) {
+
+    DrawText(FormatText("Lives: %i", heroi->lives), screenWidth - 80, 80, 14, YELLOW);
+
+    // Desenha os 'PhysicBodies'
+    int bodyCount = GetPhysicsBodiesCount();
+    for ( int x = 0;  x < bodyCount; x++ ) {
+        PhysicsBody drawedBody = GetPhysicsBody(x);
+
+        int drawedBodyVertices = GetPhysicsShapeVerticesCount(x);
+        for ( int y = 0; y < drawedBodyVertices; y++ ) {
+            Vector2 pointA = GetPhysicsShapeVertex(drawedBody, y);
+
+            int nextVertex = (y + 1) < drawedBodyVertices ? y + 1 : 0;
+            Vector2 pointB = GetPhysicsShapeVertex(drawedBody, nextVertex);
+
+            if ( drawedBody->id == heroi->physic->id ) continue;
+            DrawLineV((Vector2) pointA, (Vector2) pointB, BLUE);
+        }
+
+        if ( drawedBody->id == heroi->physic->id ) DrawTextureRec(
+            heroi->state, 
+            heroi->reverse ?
+            (Rectangle) { 0, 0, -(heroi->body.width + 20), heroi->body.height } :
+            (Rectangle) { 0, 0, heroi->body.width + 20, heroi->body.height },
+            (Vector2) { heroi->body.x, heroi->body.y },
+            WHITE
+        );
+    }
+}
+
 //update the game variables
 void updateGame(player *heroi) 
 {
@@ -93,31 +145,30 @@ void updateGame(player *heroi)
     heroi->physic->position.y -= 0.0005;
     heroi->physic->velocity.y -= 0.008175;
     
+    // Atualiza as animações
+    updatePlayerState(heroi);
+
     // Inputs
-    if ( IsKeyDown(KEY_D) ) 
-    {
+    if ( IsKeyDown(KEY_D) && heroi->isAlive ) {
         heroi->physic->velocity.x = VELOCITY;
         heroi->reverse = false;
     }
-    if ( IsKeyDown(KEY_A) ) 
-    {
+    if ( IsKeyDown(KEY_A) && heroi->isAlive ) {
         heroi->physic->velocity.x = -VELOCITY;
         heroi->reverse = true;
     }
-    if ( IsKeyPressed(KEY_W) && heroi->physic->velocity.y < 0.001 && heroi->physic->velocity.y >= 0) heroi->physic->velocity.y = -VELOCITY*5;
+    if ( IsKeyPressed(KEY_W) && heroi->physic->velocity.y < 0.001 && heroi->physic->velocity.y > 0 && heroi->isAlive ) heroi->physic->velocity.y = -VELOCITY*5;
 
-    // Attack
-    if ( IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !heroi->attackCooldown && heroi->isAlive ) 
-    {
-        hit = attack(heroi, heroi->reverse, true);
-        heroi->attackCooldown = 5;
+    // Ataca
+    if ( IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !heroi->attackCooldown && heroi->isAlive ) {
+        attack(heroi, heroi->reverse);
+        heroi->attackCooldown = 12;
     }
 
-    //change color for Cooldown
-    if ( heroi->attackCooldown && heroi->isAlive ) 
-    {
+
+    if ( heroi->attackCooldown && heroi->isAlive ) {
         heroi->attackCooldown--;
-        attack(heroi, heroi->reverse,false);
+        attack(heroi, heroi->reverse);
     }
 
 
