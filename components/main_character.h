@@ -207,7 +207,12 @@ void updateGame(player *heroi)
             heroi->currentAnimation = 0;
             heroi->isAlive = false;
         }
-        else heroi->damageCooldown = 36;
+        else {
+            heroi->damageCooldown = 36;
+            heroi->physic->velocity.x = heroi->reverse ? 
+            VELOCITY*1.8 :
+            -(VELOCITY*1.8);
+        }
     }
 
     if ( heroi->damageCooldown > 0 ) heroi->damageCooldown = heroi->damageCooldown - 1;
