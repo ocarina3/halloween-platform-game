@@ -112,7 +112,7 @@ void updatePlayerState(player *heroi) {
 
         if ( heroi->currentAnimation < 10 ) heroi->currentAnimation = heroi->currentAnimation + 1;
     } 
-    else if ( heroi->physic->velocity.x > 0.1 || heroi->physic->velocity.x < -0.1 && heroi->damageCooldown < 18 ) {
+    else if ( (heroi->physic->velocity.x > 0.1 || heroi->physic->velocity.x < -0.1) && heroi->damageCooldown < 18 ) {
         // Running animation
         int runningFrame = heroi->currentAnimation / 3;
         heroi->state = mc_running[runningFrame];
@@ -120,13 +120,19 @@ void updatePlayerState(player *heroi) {
         heroi->currentAnimation = heroi->currentAnimation == 35 ? 0 : heroi->currentAnimation + 1;
 
     }
+    else if ( heroi->damageCooldown != 0 ) {
+        // Damage Animation
+        
+        int hurtingFrame = heroi->currentAnimation / 3;
+
+        heroi->state = mc_hurting[hurtingFrame];
+
+        if ( heroi->currentAnimation < 35 ) heroi->currentAnimation++;
+    }
     else if (heroi->physic->velocity.y < 0.001 && heroi->physic->velocity.y > 0) {
         // Stop player
         heroi->state = mc_stop;
         heroi->currentAnimation = 0;
-    }
-    else if ( heroi->damageCooldown != 0 ) {
-        // Damage Animation
     }
 }
 
@@ -213,11 +219,14 @@ void updateGame(player *heroi)
         heroi->lives = heroi->lives - 1;
 
         if ( heroi->lives == 0 ) {
+            // Heroi dies
             heroi->currentAnimation = 0;
             heroi->isAlive = false;
         }
         else {
+            // Heroi gets damage
             heroi->damageCooldown = 36;
+            heroi->currentAnimation = 0;
             heroi->physic->velocity.x = heroi->reverse ? 
             VELOCITY*1.8 :
             -(VELOCITY*1.8);
