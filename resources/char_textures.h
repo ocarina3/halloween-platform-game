@@ -8,6 +8,7 @@ static Texture2D mc_running[12];
 static Texture2D mc_jumping[6];
 static Texture2D mc_slashing[12];
 static Texture2D mc_dying[15];
+static Texture2D mc_hurting[12];
 
 void loadAllTextures() {
     mc_stop = LoadTexture("resources/textures/main_character/Idle Blinking/0_Fallen_Angels_Idle Blinking_000.png");
@@ -60,6 +61,19 @@ void loadAllTextures() {
     mc_dying[12] = LoadTexture("resources/textures/main_character/Dying/0_Fallen_Angels_Dying_012.png");
     mc_dying[13] = LoadTexture("resources/textures/main_character/Dying/0_Fallen_Angels_Dying_013.png");
     mc_dying[14] = LoadTexture("resources/textures/main_character/Dying/0_Fallen_Angels_Dying_014.png");
+
+    mc_hurting[0] = LoadTexture("resources/textures/main_character/Hurt/0_Fallen_Angels_Hurt_000.png");
+    mc_hurting[1] = LoadTexture("resources/textures/main_character/Hurt/0_Fallen_Angels_Hurt_001.png");
+    mc_hurting[2] = LoadTexture("resources/textures/main_character/Hurt/0_Fallen_Angels_Hurt_002.png");
+    mc_hurting[3] = LoadTexture("resources/textures/main_character/Hurt/0_Fallen_Angels_Hurt_003.png");
+    mc_hurting[4] = LoadTexture("resources/textures/main_character/Hurt/0_Fallen_Angels_Hurt_004.png");
+    mc_hurting[5] = LoadTexture("resources/textures/main_character/Hurt/0_Fallen_Angels_Hurt_005.png");
+    mc_hurting[6] = LoadTexture("resources/textures/main_character/Hurt/0_Fallen_Angels_Hurt_006.png");
+    mc_hurting[7] = LoadTexture("resources/textures/main_character/Hurt/0_Fallen_Angels_Hurt_007.png");
+    mc_hurting[8] = LoadTexture("resources/textures/main_character/Hurt/0_Fallen_Angels_Hurt_008.png");
+    mc_hurting[9] = LoadTexture("resources/textures/main_character/Hurt/0_Fallen_Angels_Hurt_009.png");
+    mc_hurting[10] = LoadTexture("resources/textures/main_character/Hurt/0_Fallen_Angels_Hurt_010.png");
+    mc_hurting[11] = LoadTexture("resources/textures/main_character/Hurt/0_Fallen_Angels_Hurt_011.png");
 }
 
 void unloadAllTextures() {
@@ -79,6 +93,10 @@ void unloadAllTextures() {
 
     for ( int x = 0; x < 15; x++ ) {
         UnloadTexture(mc_dying[x]);
+    }
+
+    for ( int x = 0; x < 12; x++ ) {
+        UnloadTexture(mc_hurting[x]);
     }
 }
 
