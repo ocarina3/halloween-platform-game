@@ -51,6 +51,7 @@ void updateGame(player *heroi);
 void updatePlayerState(player *heroi);
 void DrawEntities(player *heroi);
 void HandleInputs(player *heroi);
+void KillPlayer(player *heroi);
 bool CheckPlayerAttacked(player *heroi);
 //_____________________________________________________________________________________________
 
@@ -155,6 +156,13 @@ void HandleInputs(player *heroi) {
     }
 }
 
+void KillPlayer(player *heroi) {
+    heroi->currentAnimation = 0;
+    heroi->lives = 0;
+    heroi->isAlive = false;
+    heroi->physic->enabled = false;
+}
+
 void DrawEntities(player *heroi) {
     // Desenha os 'PhysicBodies'
     int bodyCount = GetPhysicsBodiesCount();
@@ -213,16 +221,14 @@ void updateGame(player *heroi)
     // Inputs
     if ( heroi->isAlive && heroi->damageCooldown < 18 ) HandleInputs(heroi);
 
+    if ( heroi->body.y > screenHeight ) KillPlayer(heroi);
+
     bool didGotDamage = CheckPlayerAttacked(heroi);
     if ( didGotDamage && heroi->damageCooldown == 0 && heroi->isAlive ) 
     {
         heroi->lives = heroi->lives - 1;
 
-        if ( heroi->lives == 0 ) {
-            // Heroi dies
-            heroi->currentAnimation = 0;
-            heroi->isAlive = false;
-        }
+        if ( heroi->lives == 0 ) KillPlayer(heroi);
         else {
             // Heroi gets damage
             heroi->damageCooldown = 36;
