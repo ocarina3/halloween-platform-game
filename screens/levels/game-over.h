@@ -2,7 +2,7 @@
 *
 *   raylib - Standard Game template
 *
-*   Screens Functions Declarations (Init, Update, Draw, Unload)
+*   Gameplay Screen Functions Definitions (Init, Update, Draw, Unload)
 *
 *   Copyright (c) 2014-2020 Ramon Santamaria (@raysan5)
 *
@@ -23,36 +23,61 @@
 *
 **********************************************************************************************/
 
-#ifndef SCREENS_H
-#define SCREENS_H
+#include "raylib.h"
 
 //----------------------------------------------------------------------------------
-// Types and Structures Definition
+// Global Variables Definition (local to this module)
 //----------------------------------------------------------------------------------
-typedef enum GameScreen { LEVEL_ONE, LEVEL_TWO, LEVEL_THREE, MENU_ONE, MENU_USER, MENU_LOADING, GAME_OVER, WIN_GAME } GameScreen;
+
+// Gameplay screen global variables
+static int framesCounter;
+static int finishScreen;
+
+static Texture2D gameOver;
+
 
 //----------------------------------------------------------------------------------
-// Global Variables Definition
+// Gameplay Screen Functions Definition
 //----------------------------------------------------------------------------------
-GameScreen currentScreen;
 
-#ifdef __cplusplus
-extern "C" {            // Prevents name mangling of functions
-#endif
+// Gameplay Screen Initialization logic
+void initGameOverScreen(void)
+{
+    // TODO: Initialize GAMEPLAY screen variables here!
+    framesCounter = 0;
+    finishScreen = 0;
 
-#include "levels/level_one.h"
-#include "levels/level_two.h"
-#include "levels/level_three.h"
-#include "levels/game-over.h"
-#include "levels/win-game.h"
+    gameOver = LoadTexture("resources/textures/game-over-screen/game-over-screen.png");
 
-#include "menu/menu_one.h"
-#include "menu/menu_user.h"
-#include "menu/menu_loading.h"
-
-
-#ifdef __cplusplus
 }
-#endif
 
-#endif // SCREENS_H
+// Gameplay Screen Update logic
+void updateGameOverScreen(void)
+{
+        // TODO: Update GAMEPLAY screen variables here!
+        if(IsKeyPressed(KEY_ENTER)){
+            finishScreen = 1;
+        }
+        
+}
+
+// Gameplay Screen Draw logic
+void drawGameOverScreen(void)
+{
+    ClearBackground(RAYWHITE);
+    // TODO: Draw GAMEPLAY screen here!
+   DrawTexture(gameOver, 0, 0, WHITE);
+}
+
+// Gameplay Screen Unload logic
+void unloadGameOverScreen(void)
+{
+    // TODO: Unload GAMEPLAY screen variables here!
+    UnloadTexture(gameOver);
+}
+
+// Gameplay Screen should finish?
+int finishGameOverScreen(void)
+{
+    return finishScreen;
+}

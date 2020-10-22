@@ -38,6 +38,8 @@
 // Gameplay screen global variables
 static int framesCounter;
 static int finishScreen;
+static int isAlive;
+
 
 static FILE *fileWriteLevelTwo;
 static FILE *fileReadLevelTwoCurrentUser;
@@ -58,6 +60,8 @@ void initLevelTwoScreen(void)
     // TODO: Initialize GAMEPLAY screen variables here!
     framesCounter = 0;
     finishScreen = 0;
+    isAlive = 1;
+
 
     loadAllTextures();
     start_variables();
@@ -77,6 +81,12 @@ void updateLevelTwoScreen(void)
     camera.target = (Vector2){heroi.physic->position.x + 20, heroi.physic->position.y > 100 ? 200 : heroi.physic->position.y + 100};
     //_________________________________________________________
     updateGame(&heroi);
+
+    if(heroi.isAlive == false){
+        finishScreen = 1;
+        isAlive = 0;
+    }
+
     //_________________________________________________
     //get the player coordinate in blocks
     player_block = get_player_block();
@@ -140,4 +150,9 @@ void unloadLevelTwoScreen(void)
 int finishLevelTwoScreen(void)
 {
     return finishScreen;
+}
+
+int isAliveLevelTwo(void)
+{
+    return isAlive;
 }

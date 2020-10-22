@@ -32,6 +32,7 @@
 // Gameplay screen global variables
 static int framesCounter;
 static int finishScreen;
+static int isAlive;
 bool wall_created;
 
 static FILE *fileWriteLevelThree;
@@ -52,6 +53,7 @@ void initLevelThreeScreen(void)
 {
     framesCounter = 0;
     finishScreen = 0;
+    isAlive = 1;
     wall_created = false;
     loadAllTextures();
     startBoss();
@@ -73,6 +75,11 @@ void updateLevelThreeScreen(void)
         camera.target = (Vector2){heroi.physic->position.x + 20, heroi.physic->position.y > 100 ? 200 : heroi.physic->position.y + 100};
     //_________________________________________________________
     updateGame(&heroi);
+
+    if(heroi.isAlive == false){
+        finishScreen = 1;
+        isAlive = 0;
+    }
 
     updateBoss();    
     
@@ -147,4 +154,9 @@ void unloadLevelThreeScreen(void)
 int finishLevelThreeScreen(void)
 {
     return finishScreen;
+}
+
+int isAliveLevelThree(void)
+{
+    return isAlive;
 }

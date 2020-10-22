@@ -2,7 +2,7 @@
 *
 *   raylib - Standard Game template
 *
-*   Screens Functions Declarations (Init, Update, Draw, Unload)
+*   Gameplay Screen Functions Definitions (Init, Update, Draw, Unload)
 *
 *   Copyright (c) 2014-2020 Ramon Santamaria (@raysan5)
 *
@@ -23,36 +23,72 @@
 *
 **********************************************************************************************/
 
-#ifndef SCREENS_H
-#define SCREENS_H
+#include "raylib.h"
 
 //----------------------------------------------------------------------------------
-// Types and Structures Definition
+// Global Variables Definition (local to this module)
 //----------------------------------------------------------------------------------
-typedef enum GameScreen { LEVEL_ONE, LEVEL_TWO, LEVEL_THREE, MENU_ONE, MENU_USER, MENU_LOADING, GAME_OVER, WIN_GAME } GameScreen;
+
+// Gameplay screen global variables
+static int framesCounter;
+static int finishScreen;
+
+static Texture2D mainTexture;
+static Texture2D winScreen;
+static Texture2D creditsScreen;
+
 
 //----------------------------------------------------------------------------------
-// Global Variables Definition
+// Gameplay Screen Functions Definition
 //----------------------------------------------------------------------------------
-GameScreen currentScreen;
 
-#ifdef __cplusplus
-extern "C" {            // Prevents name mangling of functions
-#endif
+// Gameplay Screen Initialization logic
+void initWinScreen(void)
+{
+    // TODO: Initialize GAMEPLAY screen variables here!
+    framesCounter = 0;
+    finishScreen = 0;
 
-#include "levels/level_one.h"
-#include "levels/level_two.h"
-#include "levels/level_three.h"
-#include "levels/game-over.h"
-#include "levels/win-game.h"
-
-#include "menu/menu_one.h"
-#include "menu/menu_user.h"
-#include "menu/menu_loading.h"
-
-
-#ifdef __cplusplus
+    winScreen = LoadTexture("resources/textures/win-game-screen/win-game-screen.png");
+    creditsScreen = LoadTexture("resources/textures/win-game-screen/credits.png");
+    mainTexture = winScreen;
 }
-#endif
 
-#endif // SCREENS_H
+// Gameplay Screen Update logic
+void updateWinScreen(void)
+{
+    framesCounter++;
+    // TODO: Update GAMEPLAY screen variables here!
+
+      if(framesCounter == 360){
+            mainTexture = creditsScreen;
+        }
+
+        if(framesCounter == 720){
+            finishScreen = 1;
+        }
+        
+}
+
+// Gameplay Screen Draw logic
+void drawWinScreen(void)
+{
+    ClearBackground(RAYWHITE);
+    // TODO: Draw GAMEPLAY screen here!
+   DrawTexture(mainTexture, 0, 0, WHITE);
+}
+
+// Gameplay Screen Unload logic
+void unloadWinScreen(void)
+{
+    // TODO: Unload GAMEPLAY screen variables here!
+    UnloadTexture(winScreen);
+    UnloadTexture(creditsScreen);
+    UnloadTexture(mainTexture);
+}
+
+// Gameplay Screen should finish?
+int finishWinScreen(void)
+{
+    return finishScreen;
+}

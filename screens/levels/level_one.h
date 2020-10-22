@@ -27,6 +27,7 @@
 
 static int framesCounter;
 static int finishScreen;
+static int isAlive;
 
 // Gameplay Screen Initialization logic
 void initLevelOneScreen(void)
@@ -34,6 +35,7 @@ void initLevelOneScreen(void)
     // Initialize GAMEPLAY screen variables here!
     framesCounter = 0;
     finishScreen = 0;
+    isAlive = 1;
 
     start_variables();
     create_enemies_map(1);
@@ -51,6 +53,12 @@ void updateLevelOneScreen(void)
     //_________________________________________________________
     updateGame(&heroi);
     enemies_update();
+
+    if(heroi.isAlive == false){
+        finishScreen = 1;
+        isAlive = 0;
+    }
+    
     //_________________________________________________
     //get the player coordinate in blocks
     player_block = get_player_block();
@@ -92,6 +100,11 @@ void unloadLevelOneScreen(void)
 int finishLevelOneScreen(void)
 {
     return finishScreen;
+}
+
+int isAliveLevelOne(void)
+{
+    return isAlive;
 }
 
 
