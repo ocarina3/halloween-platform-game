@@ -127,7 +127,7 @@ void bossAttack()
 		ray[0].mode = 0;
 		ray[1].mode = 0;
 		ray[0].alreadyHit = 0;
-		ray[1].alreadyHit = 1;
+		ray[1].alreadyHit = 0;
 
 		frameAttackCounter = 0;
 
