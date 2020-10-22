@@ -72,10 +72,6 @@ Rectangle attack(player *heroi, bool reverse) {
     return attackArea;
 }
 
-#ifndef ENEMY_H
-#include "enemy.h"
-#endif
-
 //Get the new position of all the physics body
 void updatePhysicsBody(player *heroi)
 {
@@ -234,10 +230,22 @@ void updateGame(player *heroi)
 
 }
 
+#ifndef ENEMY_H
+#include "enemy.h"
+#endif
+
+#ifndef BOSS_H
+#include "boss.h"
+#endif
+
 bool CheckPlayerAttacked(player *heroi) {
     bool didGotDamage = false;
     for ( int x = 0; x < 10; x++ ) {
         if ( CheckCollisionRecs(heroi->body, enemies[x].body_rec) && enemies[x].gerated ) didGotDamage = true;
+        if ( CheckCollisionRecs(boss.hitbox, heroi->body) ) didGotDamage = true;
+
+        // TODO: Implementar colisão com laser
+
     }
     return didGotDamage;
 }
