@@ -74,7 +74,15 @@ void updateLevelThreeScreen(void)
 
     //ajust camera position
     if(wall_created == false)
+    {
         camera.target = (Vector2){heroi.physic->position.x + 20, heroi.physic->position.y > 100 ? 200 : heroi.physic->position.y + 100};
+    }
+    else
+    {
+        updateBoss();
+        camera.target = (Vector2){1550,200};
+    }
+    
     //_________________________________________________________
     updateGame(&heroi);
 
@@ -86,10 +94,10 @@ void updateLevelThreeScreen(void)
     if(framesCounter>120 && isAlive == 0){
             finishScreen = 1;
     }
-
-     if(wall_created == true)
+    if(boss.life <= 0)
     {
-        updateBoss(); 
+        destroy_walls();
+        create_wall(2,92);
     }   
     
     //_________________________________________________
