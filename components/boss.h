@@ -17,6 +17,7 @@ typedef struct
 {
 	int y;
 	int mode;
+	bool alreadyHit;
 }laser;
 
 //___________________________________VARIABLES_______________________________________________
@@ -125,6 +126,8 @@ void bossAttack()
 
 		ray[0].mode = 0;
 		ray[1].mode = 0;
+		ray[0].alreadyHit = 0;
+		ray[1].alreadyHit = 1;
 
 		frameAttackCounter = 0;
 
@@ -215,6 +218,8 @@ void startBoss()
     ray[1].mode = 0;
     ray[0].y = 300; 
     ray[1].y = 200;
+	ray[0].alreadyHit = 0;
+	ray[1].alreadyHit = 0;
 
     state = 0;
 

@@ -270,7 +270,13 @@ bool CheckPlayerAttacked(player *heroi) {
     if ( CheckCollisionRecs(boss.hitbox, heroi->body) ) didGotDamage = true;
 
     for ( int x = 0; x < 2; x++ ) {
-        if ( CheckCollisionRecs(heroi->body, (Rectangle) { ray[x].y, 0, screenWidth, ray[x].y + 30 }) && ray[x].mode == 2 ) didGotDamage = true;
+        if ( heroi->body.y <= ray[x].y + 30 && 
+            heroi->body.y + heroi->body.height >= ray[x].y &&
+            ray[x].mode == 2 &&
+            !ray[x].alreadyHit
+        ) didGotDamage = true;
+
+        if ( didGotDamage ) ray[x].alreadyHit = 1;
     }
 
     return didGotDamage;
