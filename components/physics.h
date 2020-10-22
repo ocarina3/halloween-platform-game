@@ -76,12 +76,17 @@ void destroy_walls()
 
 void destroy_all_physics()
 {
-  int num_body = GetPhysicsBodiesCount();
-  for (int i = 0; i < num_body; i++)
-  {
-      PhysicsBody body = GetPhysicsBody(i);
-      DestroyPhysicsBody(body);
-  }  
+    DestroyPhysicsBody(heroi.physic);
+    for(int i = 0; i < 320 ; i++)
+    {
+        for(int j = 0; j< 14; j++)
+        {
+            if(buildings[i][j].physics == true)
+            {
+                DestroyPhysicsBody(buildings[i][j].physics_block);
+            }
+        }
+    }
 }
 
 
