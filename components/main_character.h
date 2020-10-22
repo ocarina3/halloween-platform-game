@@ -50,6 +50,7 @@ void updatePhysicsBody(player *heroi);
 void updateGame(player *heroi);
 void updatePlayerState(player *heroi);
 void DrawEntities(player *heroi);
+void HandleInputs(player *heroi);
 bool CheckPlayerAttacked(player *heroi);
 //_____________________________________________________________________________________________
 
@@ -83,19 +84,23 @@ void updatePhysicsBody(player *heroi)
 
 void updatePlayerState(player *heroi) {
     if ( !heroi->isAlive ) {
+        // Dying animation
+
         int dyingFrame = heroi->currentAnimation / 3;
 
         heroi->state = mc_dying[dyingFrame];
 
         if ( heroi->currentAnimation < 44 ) heroi->currentAnimation = heroi->currentAnimation + 1;
-    }
+    } 
     else if ( heroi->attackCooldown != 0 ) {
+        // Attacking animation
+
         if ( heroi->currentAnimation > 11 ) heroi->currentAnimation = 0;
 
         heroi->state = mc_slashing[heroi->currentAnimation];
 
         if ( heroi->currentAnimation < 10 ) heroi->currentAnimation = heroi->currentAnimation + 1;
-    }
+    } 
     else if ( heroi->physic->velocity.y > 0.1 || heroi->physic->velocity.y < -0.1 ) {
         // Jump animation
 
@@ -106,25 +111,45 @@ void updatePlayerState(player *heroi) {
         heroi->state = mc_jumping[jumpingFrame];
 
         if ( heroi->currentAnimation < 10 ) heroi->currentAnimation = heroi->currentAnimation + 1;
-    } else
-     if ( heroi->physic->velocity.x > 0.1 || heroi->physic->velocity.x < -0.1 ) {
+    } 
+    else if ( heroi->physic->velocity.x > 0.1 || heroi->physic->velocity.x < -0.1 && heroi->damageCooldown < 18 ) {
         // Running animation
         int runningFrame = heroi->currentAnimation / 3;
         heroi->state = mc_running[runningFrame];
 
         heroi->currentAnimation = heroi->currentAnimation == 35 ? 0 : heroi->currentAnimation + 1;
 
-    } else if (heroi->physic->velocity.y < 0.001 && heroi->physic->velocity.y > 0) {
+    }
+    else if (heroi->physic->velocity.y < 0.001 && heroi->physic->velocity.y > 0) {
         // Stop player
         heroi->state = mc_stop;
         heroi->currentAnimation = 0;
     }
+    else if ( heroi->damageCooldown != 0 ) {
+        // Damage Animation
+    }
+}
+
+void HandleInputs(player *heroi) {
+    if ( IsKeyDown(KEY_D) ) {
+        heroi->physic->velocity.x = VELOCITY;
+        heroi->reverse = false;
+    }
+    if ( IsKeyDown(KEY_A) ) {
+        heroi->physic->velocity.x = -VELOCITY;
+        heroi->reverse = true;
+    }
+    if ( IsKeyPressed(KEY_W) && heroi->physic->velocity.y < 0.001 && heroi->physic->velocity.y > 0 ) heroi->physic->velocity.y = -VELOCITY*5;
+
+    // Ataca
+    if ( IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !heroi->attackCooldown ) {
+        heroi->attacking = true;
+        attack(heroi, heroi->reverse);
+        heroi->attackCooldown = 12;
+    }
 }
 
 void DrawEntities(player *heroi) {
-
-    
-
     // Desenha os 'PhysicBodies'
     int bodyCount = GetPhysicsBodiesCount();
     for ( int x = 0;  x < bodyCount; x++ ) {
@@ -180,23 +205,7 @@ void updateGame(player *heroi)
     updatePlayerState(heroi);
 
     // Inputs
-    if ( IsKeyDown(KEY_D) && heroi->isAlive ) {
-        heroi->physic->velocity.x = VELOCITY;
-        heroi->reverse = false;
-    }
-    if ( IsKeyDown(KEY_A) && heroi->isAlive ) {
-        heroi->physic->velocity.x = -VELOCITY;
-        heroi->reverse = true;
-    }
-    if ( IsKeyPressed(KEY_W) && heroi->physic->velocity.y < 0.001 && heroi->physic->velocity.y > 0 && heroi->isAlive ) heroi->physic->velocity.y = -VELOCITY*5;
-
-    // Ataca
-    if ( IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !heroi->attackCooldown && heroi->isAlive ) 
-    {
-        heroi->attacking = true;
-        attack(heroi, heroi->reverse);
-        heroi->attackCooldown = 12;
-    }
+    if ( heroi->isAlive && heroi->damageCooldown < 18 ) HandleInputs(heroi);
 
     bool didGotDamage = CheckPlayerAttacked(heroi);
     if ( didGotDamage && heroi->damageCooldown == 0 && heroi->isAlive ) 
