@@ -265,11 +265,14 @@ bool CheckPlayerAttacked(player *heroi) {
     bool didGotDamage = false;
     for ( int x = 0; x < 10; x++ ) {
         if ( CheckCollisionRecs(heroi->body, enemies[x].body_rec) && enemies[x].gerated ) didGotDamage = true;
-        if ( CheckCollisionRecs(boss.hitbox, heroi->body) ) didGotDamage = true;
-
-        // TODO: Implementar colisão com laser
-
     }
+
+    if ( CheckCollisionRecs(boss.hitbox, heroi->body) ) didGotDamage = true;
+
+    for ( int x = 0; x < 2; x++ ) {
+        if ( CheckCollisionRecs(heroi->body, (Rectangle) { ray[x].y, 0, screenWidth, ray[x].y + 30 }) ) didGotDamage = true;
+    }
+
     return didGotDamage;
 }
 
