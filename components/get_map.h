@@ -297,17 +297,17 @@ void create_floor(int phase)
 
         // Terra embaixo
         create_line((Vector2){23,7}, (Vector2){23,7}, 12);
-        create_line((Vector2){24,7}, (Vector2){36,7}, 9);
-        create_line((Vector2){37,7}, (Vector2){37,7}, 13);
+        create_line((Vector2){24,7}, (Vector2){37,7}, 9);
+        create_line((Vector2){38,7}, (Vector2){38,7}, 13);
 
         // Esquerda
-        create_plataforms(24, 3);
+        create_plataforms(24, 4);
 
         // Meio
-        create_plataforms(30, 2);
+        create_plataforms(29, 2);
 
         // Direita
-        create_plataforms(34, 3);
+        create_plataforms(35, 4);
 
     }   
 }

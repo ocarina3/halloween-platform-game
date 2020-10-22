@@ -81,7 +81,10 @@ void updateLevelThreeScreen(void)
         isAlive = 0;
     }
 
-    updateBoss();    
+     if(wall_created == true)
+    {
+        updateBoss(); 
+    }   
     
     //_________________________________________________
     //get the player coordinate in blocks

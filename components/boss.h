@@ -43,7 +43,7 @@ laser ray[2];
 
 void bossAttack()
 {
-	if (frameAttackCounter <= fps * 5)
+	if (frameAttackCounter <= fps * 2)
 	{
 		//Carregando o ataque
 		if(randomOne == 3 && randomTwo == 3)
@@ -65,17 +65,17 @@ void bossAttack()
 		switch (randomOne)
 		{
 			case 0:
-				ray[0].y = 100;
+				ray[0].y = 50;
 
 				break;
 			
 			case 1:
-				ray[0].y = 200;
+				ray[0].y = 150;
 				
 				break;
 
 			case 2:
-				ray[0].y = 300;
+				ray[0].y = 250;
 				
 				break;
 				
@@ -86,17 +86,17 @@ void bossAttack()
 		switch (randomTwo)
 		{
 			case 0:
-				ray[1].y = 100;
+				ray[1].y = 50;
 
 				break;
 			
 			case 1:
-				ray[1].y = 200;
+				ray[1].y = 150;
 				
 				break;
 
 			case 2:
-				ray[1].y = 300;
+				ray[1].y = 250;
 				
 				break;
 				
@@ -110,7 +110,7 @@ void bossAttack()
 		}
 		
 	}
-	else if(frameAttackCounter <= fps * 10)
+	else if(frameAttackCounter <= fps * 4)
 	{
 		//Ataque
 		ray[0].mode = 2;
@@ -171,7 +171,7 @@ void checkState()
 	{
 		if (frameAttackCounter <= fps * 3)
 		{
-			boss.hitbox.y -= 0.9f;
+			boss.hitbox.y -= 1.6f;
 		}
 		else
 		{
@@ -192,7 +192,7 @@ void checkState()
 	{
 		if (frameAttackCounter <= fps * 3)
 		{
-			boss.hitbox.y += 0.9f;
+			boss.hitbox.y += 1.6f;
 		}
 		else
 		{
@@ -212,11 +212,11 @@ void startBoss()
     numberOfAttacks = 3;
 
     boss.life = 10;
-    boss.hitbox = (Rectangle){400, 225, 50, 50};
+    boss.hitbox = (Rectangle){1600, 100, 50, 50};
 
     ray[0].mode = 0;
     ray[1].mode = 0;
-    ray[0].y = 300; 
+    ray[0].y = 280; 
     ray[1].y = 200;
 	ray[0].alreadyHit = 0;
 	ray[1].alreadyHit = 0;
@@ -246,20 +246,20 @@ void drawBoss()
 {
 	if(ray[1].mode == 1)
 	{
-			DrawRectangle(760, ray[1].y, 40, 40, BLUE);
+			DrawRectangle(1650, ray[1].y, 40, 40, BLUE);
 	}
 	else if(ray[1].mode == 2)
 	{
-		DrawRectangle(760, ray[1].y, 40, 40, RED);
+		DrawRectangle(1650, ray[1].y, 40, 40, RED);
 	}
 
 	if(ray[0].mode == 1)
 	{
-			DrawRectangle(760, ray[0].y, 40, 40, BLUE);
+			DrawRectangle(1650, ray[0].y, 40, 40, BLUE);
 	}
 	else if(ray[0].mode == 2)
 	{
-		DrawRectangle(760, ray[0].y, 40, 40, RED);
+		DrawRectangle(1650, ray[0].y, 40, 40, RED);
 	}
 	
 
