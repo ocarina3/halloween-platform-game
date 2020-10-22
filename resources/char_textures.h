@@ -7,6 +7,7 @@ static Texture2D mc_stop;
 static Texture2D mc_running[12];
 static Texture2D mc_jumping[6];
 static Texture2D mc_slashing[12];
+static Texture2D mc_dying[15];
 
 void loadAllTextures() {
     mc_stop = LoadTexture("resources/textures/main_character/Idle Blinking/0_Fallen_Angels_Idle Blinking_000.png");
@@ -43,6 +44,22 @@ void loadAllTextures() {
     mc_slashing[9] = LoadTexture("resources/textures/main_character/Slashing/0_Fallen_Angels_Slashing_009.png");
     mc_slashing[10] = LoadTexture("resources/textures/main_character/Slashing/0_Fallen_Angels_Slashing_010.png");
     mc_slashing[11] = LoadTexture("resources/textures/main_character/Slashing/0_Fallen_Angels_Slashing_011.png");
+
+    mc_dying[0] = LoadTexture("resources/textures/main_character/Dying/0_Fallen_Angels_Dying_000.png");
+    mc_dying[1] = LoadTexture("resources/textures/main_character/Dying/0_Fallen_Angels_Dying_001.png");
+    mc_dying[2] = LoadTexture("resources/textures/main_character/Dying/0_Fallen_Angels_Dying_002.png");
+    mc_dying[3] = LoadTexture("resources/textures/main_character/Dying/0_Fallen_Angels_Dying_003.png");
+    mc_dying[4] = LoadTexture("resources/textures/main_character/Dying/0_Fallen_Angels_Dying_004.png");
+    mc_dying[5] = LoadTexture("resources/textures/main_character/Dying/0_Fallen_Angels_Dying_005.png");
+    mc_dying[6] = LoadTexture("resources/textures/main_character/Dying/0_Fallen_Angels_Dying_006.png");
+    mc_dying[7] = LoadTexture("resources/textures/main_character/Dying/0_Fallen_Angels_Dying_007.png");
+    mc_dying[8] = LoadTexture("resources/textures/main_character/Dying/0_Fallen_Angels_Dying_008.png");
+    mc_dying[9] = LoadTexture("resources/textures/main_character/Dying/0_Fallen_Angels_Dying_009.png");
+    mc_dying[10] = LoadTexture("resources/textures/main_character/Dying/0_Fallen_Angels_Dying_010.png");
+    mc_dying[11] = LoadTexture("resources/textures/main_character/Dying/0_Fallen_Angels_Dying_011.png");
+    mc_dying[12] = LoadTexture("resources/textures/main_character/Dying/0_Fallen_Angels_Dying_012.png");
+    mc_dying[13] = LoadTexture("resources/textures/main_character/Dying/0_Fallen_Angels_Dying_013.png");
+    mc_dying[14] = LoadTexture("resources/textures/main_character/Dying/0_Fallen_Angels_Dying_014.png");
 }
 
 void unloadAllTextures() {
@@ -58,6 +75,10 @@ void unloadAllTextures() {
 
     for ( int x = 0; x < 12; x++ ) {
         UnloadTexture(mc_slashing[x]);
+    }
+
+    for ( int x = 0; x < 15; x++ ) {
+        UnloadTexture(mc_dying[x]);
     }
 }
 

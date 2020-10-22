@@ -25,6 +25,7 @@ void start_variables()
     heroi.physic->velocity.x = 0;
     heroi.physic->freezeOrient = true;
     heroi.attackCooldown = 0;
+    heroi.damageCooldown = 0;
     heroi.lives = 3;
     heroi.reverse = false;
     heroi.isAlive = true;

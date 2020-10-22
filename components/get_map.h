@@ -3,6 +3,13 @@
 
 
 #include "raylib.h"
+#ifndef PHYSAC_H
+#define PHYSAC_IMPLEMENTATION
+#define PHYSAC_NO_THREADS
+
+
+#include "physac.h"
+#endif
 
 #define buildings_width         50
 #define buildings_height        50

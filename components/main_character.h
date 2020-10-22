@@ -5,11 +5,13 @@
 #include "raylib.h"
 #include "../resources/char_textures.h"
 
+#ifndef PHYSAC_H
 #define PHYSAC_IMPLEMENTATION
 #define PHYSAC_NO_THREADS
 
 
 #include "physac.h"
+#endif
 
 #define screenWidth 800
 #define screenHeight 450
@@ -22,6 +24,7 @@ typedef struct player {
     Texture2D state;
     Rectangle body;
     int attackCooldown;
+    int damageCooldown;
     int lives;
     int currentAnimation;
     bool reverse;
@@ -47,6 +50,7 @@ void updatePhysicsBody(player *heroi);
 void updateGame(player *heroi);
 void updatePlayerState(player *heroi);
 void DrawEntities(player *heroi);
+bool CheckPlayerAttacked(player *heroi);
 //_____________________________________________________________________________________________
 
 //___________________________________FUNCTIONS_________________________________________________
@@ -68,6 +72,10 @@ Rectangle attack(player *heroi, bool reverse) {
     return attackArea;
 }
 
+#ifndef ENEMY_H
+#include "enemy.h"
+#endif
+
 //Get the new position of all the physics body
 void updatePhysicsBody(player *heroi)
 {
@@ -78,7 +86,14 @@ void updatePhysicsBody(player *heroi)
 }
 
 void updatePlayerState(player *heroi) {
-    if ( heroi->attackCooldown != 0 ) {
+    if ( !heroi->isAlive ) {
+        int dyingFrame = heroi->currentAnimation / 3;
+
+        heroi->state = mc_dying[dyingFrame];
+
+        if ( heroi->currentAnimation < 44 ) heroi->currentAnimation = heroi->currentAnimation + 1;
+    }
+    else if ( heroi->attackCooldown != 0 ) {
         if ( heroi->currentAnimation > 11 ) heroi->currentAnimation = 0;
 
         heroi->state = mc_slashing[heroi->currentAnimation];
@@ -138,13 +153,22 @@ void DrawEntities(player *heroi) {
 
         }
 
+        Color filteredColor = WHITE;
+
+        if ( heroi->damageCooldown != 0 ) {
+            int colorSelector = heroi->damageCooldown % 6;
+
+            if ( colorSelector < 3 ) filteredColor = RED;
+            else filteredColor = GREEN;
+        }
+
         if ( drawedBody->id == heroi->physic->id ) DrawTextureRec(
             heroi->state, 
             heroi->reverse ?
             (Rectangle) { 0, 0, -(heroi->body.width + 20), heroi->body.height + 15 } :
             (Rectangle) { 0, 0, heroi->body.width + 20, heroi->body.height + 15 },
             (Vector2) { heroi->body.x - 10, heroi->body.y - 10 },
-            WHITE
+            heroi->isAlive ? filteredColor : GRAY
         );
     }
 }
@@ -178,6 +202,20 @@ void updateGame(player *heroi)
         heroi->attackCooldown = 12;
     }
 
+    bool didGotDamage = CheckPlayerAttacked(heroi);
+    if ( didGotDamage && heroi->damageCooldown == 0 && heroi->isAlive ) 
+    {
+        heroi->lives = heroi->lives - 1;
+
+        if ( heroi->lives == 0 ) {
+            heroi->currentAnimation = 0;
+            heroi->isAlive = false;
+        }
+        else heroi->damageCooldown = 36;
+    }
+
+    if ( heroi->damageCooldown > 0 ) heroi->damageCooldown = heroi->damageCooldown - 1;
+
 
     if ( heroi->attackCooldown && heroi->isAlive ) 
     {
@@ -191,10 +229,17 @@ void updateGame(player *heroi)
         heroi->attacking = false;
     }
 
-    //checks collision between bodies
+    // makes sure player body rectangle coordenates is equal to player physics coordenates
     updatePhysicsBody(heroi);
 
 }
 
+bool CheckPlayerAttacked(player *heroi) {
+    bool didGotDamage = false;
+    for ( int x = 0; x < 10; x++ ) {
+        if ( CheckCollisionRecs(heroi->body, enemies[x].body_rec) && enemies[x].gerated ) didGotDamage = true;
+    }
+    return didGotDamage;
+}
 
 #endif
