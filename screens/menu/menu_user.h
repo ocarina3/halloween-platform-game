@@ -147,8 +147,6 @@ void updateMenuUserScreen(void)
                     
                     if(strstr(username, nick_one) != NULL && strstr(username, nick_two) == NULL && strstr(username, nick_three) == NULL){
                         level = 1;
-                        fprintf(fileWrite, " %i ", level);
-                         fclose(fileWrite);
                     }
 
 
