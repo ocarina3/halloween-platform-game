@@ -261,20 +261,25 @@ void updateGame(player *heroi)
 #include "boss.h"
 #endif
 
+#ifndef SCREENS_H
+#include "../screens/screens.h"
+#endif
+
 bool CheckPlayerAttacked(player *heroi) {
     bool didGotDamage = false;
     for ( int x = 0; x < 10; x++ ) {
-        if ( CheckCollisionRecs(heroi->body, enemies[x].body_rec) && enemies[x].gerated ) didGotDamage = true;
+        if ( CheckCollisionRecs(heroi->body, enemies[x].body_rec) && enemies[x].gerated && currentScreen == LEVEL_ONE ) didGotDamage = true;
     }
 
-    if ( CheckCollisionRecs(boss.hitbox, heroi->body) ) didGotDamage = true;
+    if ( CheckCollisionRecs(boss.hitbox, heroi->body) && currentScreen == LEVEL_THREE ) didGotDamage = true;
 
     for ( int x = 0; x < 2; x++ ) {
         if ( 
             heroi->body.y <= ray[x].y + 30 && 
             heroi->body.y + heroi->body.height >= ray[x].y &&
             ray[x].mode == 2 &&
-            !ray[x].alreadyHit
+            !ray[x].alreadyHit && 
+            currentScreen == LEVEL_THREE
         ) didGotDamage = true;
 
         if ( didGotDamage ) ray[x].alreadyHit = 1;
