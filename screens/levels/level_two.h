@@ -77,14 +77,20 @@ void initLevelTwoScreen(void)
 
 void updateLevelTwoScreen(void)
 {
+
+    framesCounter++;
     // TODO: Update GAMEPLAY screen variables here!
     camera.target = (Vector2){heroi.physic->position.x + 20, heroi.physic->position.y > 100 ? 200 : heroi.physic->position.y + 100};
     //_________________________________________________________
     updateGame(&heroi);
 
-    if(heroi.isAlive == false){
-        finishScreen = 1;
-        isAlive = 0;
+    if(heroi.isAlive == false && isAlive != 0){
+        isAlive = 0; 
+        framesCounter = 0;
+    }
+
+    if(framesCounter>120 && isAlive == 0){
+            finishScreen = 1;
     }
 
     //_________________________________________________

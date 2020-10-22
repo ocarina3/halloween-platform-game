@@ -43,12 +43,13 @@ extern "C" {            // Prevents name mangling of functions
 #include "levels/level_one.h"
 #include "levels/level_two.h"
 #include "levels/level_three.h"
-#include "levels/game-over.h"
-#include "levels/win-game.h"
+
 
 #include "menu/menu_one.h"
 #include "menu/menu_user.h"
 #include "menu/menu_loading.h"
+#include "menu/game_over.h"
+#include "menu/win_game.h"
 
 
 #ifdef __cplusplus

@@ -48,15 +48,20 @@ void initLevelOneScreen(void)
 // Gameplay Screen Update logic
 void updateLevelOneScreen(void)
 {
+    framesCounter++;
     //ajust camera position
     camera.target = (Vector2){heroi.physic->position.x + 20, 250};
     //_________________________________________________________
     updateGame(&heroi);
     enemies_update();
 
-    if(heroi.isAlive == false){
-        finishScreen = 1;
-        isAlive = 0;
+    if(heroi.isAlive == false && isAlive != 0){
+        isAlive = 0; 
+        framesCounter = 0;
+    }
+
+    if(framesCounter>120 && isAlive == 0){
+            finishScreen = 1;
     }
     
     //_________________________________________________
