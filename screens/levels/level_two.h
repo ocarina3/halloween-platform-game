@@ -40,6 +40,7 @@ static int framesCounter;
 static int finishScreen;
 static int isAlive;
 
+static int cameraTarget;
 
 static FILE *fileWriteLevelTwo;
 static FILE *fileReadLevelTwoCurrentUser;
@@ -62,6 +63,7 @@ void initLevelTwoScreen(void)
     finishScreen = 0;
     isAlive = 1;
 
+    cameraTarget = 200;
 
     loadAllTextures();
     start_variables();
@@ -80,7 +82,8 @@ void updateLevelTwoScreen(void)
 
     framesCounter++;
     // TODO: Update GAMEPLAY screen variables here!
-    camera.target = (Vector2){heroi.physic->position.x + 20, heroi.physic->position.y > 100 ? 200 : heroi.physic->position.y + 100};
+    camera.target = (Vector2){cameraTarget, heroi.physic->position.y > 100 ? 200 : heroi.physic->position.y + 100};
+    cameraTarget += 2.5;
     //_________________________________________________________
     updateGame(&heroi);
 
@@ -127,6 +130,11 @@ void updateLevelTwoScreen(void)
     {
         finishScreen = 1;
     }
+    // Condition to end the level if the player gets out of the screen
+    // else if (player_block.x == cameraTarget)
+    // {
+    //     finishScreen = 2;
+    // }
 }
 
 // Gameplay Screen Draw logic
