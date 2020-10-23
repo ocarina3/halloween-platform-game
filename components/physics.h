@@ -48,10 +48,13 @@ void ativate_physics()
                         buildings[i][j].physics_created = true;
                     }
                 }
-                else if (buildings[i][j].physics_created == true)
+                else
                 {
-                    DestroyPhysicsBody(buildings[i][j].physics_block);
-                    buildings[i][j].physics_created = false;
+                    if (buildings[i][j].physics_created == true)
+                    {
+                        DestroyPhysicsBody(buildings[i][j].physics_block);
+                        buildings[i][j].physics_created = false;
+                    }
                 }
             }
         }        

@@ -30,6 +30,7 @@
 //----------------------------------------------------------------------------------
 
 // Gameplay screen global variables
+Vector2 camera_pos;
 static int framesCounter;
 static int finishScreen;
 static int isAlive;
@@ -71,47 +72,53 @@ void initLevelThreeScreen(void)
 void updateLevelThreeScreen(void)
 {
     framesCounter++;
+    player_block = get_player_block();
+    updateGame(&heroi);
 
     //ajust camera position
     if(wall_created == false)
     {
         camera.target = (Vector2){heroi.physic->position.x + 20, heroi.physic->position.y > 100 ? 200 : heroi.physic->position.y + 100};
+        if(boss.life <= 0) updateBoss();
     }
     else
     {
         updateBoss();
-        check_boss_attaked();
-        camera.target = (Vector2){1550,200};
+        if(camera_pos.x < 1550) camera_pos.x += 5;
+        if(camera_pos.y > 200) camera_pos.y -= 1;
+        camera.target = (Vector2){camera_pos.x,camera_pos.y};
     }
-    
+    if(player_block.x >= 23 && wall_created == false && boss.life > 0)
+    {
+        camera_pos.x = heroi.physic->position.x;
+        camera_pos.y = heroi.physic->position.y;
+        create_wall(22,38);
+        wall_created = true;
+    }
+    if(boss.life <= 0 && wall_created == true)
+    {
+        destroy_walls();
+        create_wall(2,92);
+        wall_created = false;
+    }    
     //_________________________________________________________
-    updateGame(&heroi);
+    
 
     if(heroi.isAlive == false && isAlive != 0){
         isAlive = 0; 
         framesCounter = 0;
     }
 
-    if(framesCounter>120 && isAlive == 0){
+    if(framesCounter > 2*fps && isAlive == 0){
             finishScreen = 1;
     }
-    if(boss.life <= 0)
-    {
-        wall_created = false;
-        destroy_walls();
-        create_wall(2,92);
-    }   
+       
     
     //_________________________________________________
     //get the player coordinate in blocks
-    player_block = get_player_block();
+    
 
-    //
-    if(player_block.x > 29 && wall_created == false)
-    {
-        create_wall(22,38);
-        wall_created = true;
-    }
+
     //get the physical part of map
     ativate_physics();
 

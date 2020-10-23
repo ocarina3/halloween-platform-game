@@ -35,6 +35,7 @@ void checkState();
 void startBoss();
 void updateBoss();
 void drawBoss();
+void check_boss_attaked();
 
 
 
@@ -211,6 +212,7 @@ void startBoss()
 
     numberOfAttacks = 3;
 
+	boss.attacked = false;
     boss.life = 10;
     boss.hitbox = (Rectangle){1550, 250, 50, 50};
 
@@ -228,16 +230,19 @@ void startBoss()
 
 void updateBoss()
 {
-	if(boss.life != 0)
+	check_boss_attaked();
+	if(boss.life > 0)
 	{
 		frameAttackCounter++;
 		
 		checkState();
 
-	}else
+	}
+	else if (boss.life <= 0)
 	{
-
-		boss.hitbox.x += 3.0f;
+		ray[0].mode = 0;
+		ray[1].mode = 0;
+		boss.hitbox.y -= 3.0;
 
 	}
 }
@@ -276,7 +281,7 @@ void check_boss_attaked()
 {
     Rectangle attack_area = attack(&heroi,heroi.reverse);
 
-    if (boss.attacked == true && heroi.attackCooldown == 0) boss.attacked = false;
+	if (boss.attacked == true && heroi.attackCooldown == 0) boss.attacked = false;
     
     if(heroi.attacking == true && boss.attacked == false)
     {
