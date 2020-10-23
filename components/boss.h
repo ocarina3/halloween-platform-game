@@ -11,6 +11,7 @@ typedef struct
 {
 	Rectangle hitbox;
 	int life;
+	bool attacked;
 }main_enemy;
 
 typedef struct
@@ -142,7 +143,6 @@ void bossAttack()
 		}
 		else
 		{
-			boss.life -= 5;
 			state = 3;
 			
 			numberOfAttacks = 3;
@@ -212,7 +212,7 @@ void startBoss()
     numberOfAttacks = 3;
 
     boss.life = 10;
-    boss.hitbox = (Rectangle){1600, 100, 50, 50};
+    boss.hitbox = (Rectangle){1550, 250, 50, 50};
 
     ray[0].mode = 0;
     ray[1].mode = 0;
@@ -262,8 +262,44 @@ void drawBoss()
 		DrawRectangle(1650, ray[0].y, 40, 40, RED);
 	}
 	
+	if(boss.attacked == true)
+	{
+		DrawRectangleRec(boss.hitbox, RED);
+	}
+	else
+	{
+		DrawRectangleRec(boss.hitbox, BLACK);
+	}
+}
+	
+void check_boss_attaked()
+{
+    Rectangle attack_area = attack(&heroi,heroi.reverse);
 
-	DrawRectangleRec(boss.hitbox, BLACK);
+    if (boss.attacked == true && heroi.attackCooldown == 0) boss.attacked = false;
+    
+    if(heroi.attacking == true && boss.attacked == false)
+    {
+        if(heroi.reverse == false)
+        {
+            //if enemy is on attack area
+            if((boss.hitbox.x <= attack_area.x + attack_area.width && boss.hitbox.x + boss.hitbox.width >= attack_area.x + attack_area.width) && (boss.hitbox.y <= attack_area.y && boss.hitbox.y + boss.hitbox.height >= attack_area.y))
+            {
+                boss.attacked = true;
+                boss.life--;
+            }
+        }
+        else
+        {
+            //if enemy is on attack area
+            if((boss.hitbox.x >= attack_area.x + attack_area.width && boss.hitbox.x + boss.hitbox.width <= attack_area.x + attack_area.width) && (boss.hitbox.y >= attack_area.y && boss.hitbox.y + boss.hitbox.height <= attack_area.y))
+            {
+                boss.attacked = true;
+                boss.life--;
+            }    
+        }
+    }
+    
 }
 
 #endif

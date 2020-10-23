@@ -80,6 +80,7 @@ void updateLevelThreeScreen(void)
     else
     {
         updateBoss();
+        check_boss_attaked();
         camera.target = (Vector2){1550,200};
     }
     
@@ -96,6 +97,7 @@ void updateLevelThreeScreen(void)
     }
     if(boss.life <= 0)
     {
+        wall_created = false;
         destroy_walls();
         create_wall(2,92);
     }   
@@ -105,7 +107,7 @@ void updateLevelThreeScreen(void)
     player_block = get_player_block();
 
     //
-    if(player_block.x > 30 && wall_created == false)
+    if(player_block.x > 29 && wall_created == false)
     {
         create_wall(22,38);
         wall_created = true;
