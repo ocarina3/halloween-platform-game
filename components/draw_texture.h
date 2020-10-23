@@ -29,7 +29,16 @@ static Texture2D tileFourteen;
 static Texture2D tileFifteen;       
 static Texture2D tileSixteen; 
 
-
+static Texture2D arrowSign;
+static Texture2D bushOne;
+static Texture2D bushTwo;
+static Texture2D crate;
+static Texture2D deadBush;
+static Texture2D sign;
+static Texture2D skeleton;
+static Texture2D tombStoneOne;
+static Texture2D tombStoneTwo;
+static Texture2D tree;
 
 //_____________________________________________________________________________________________
 
@@ -56,10 +65,19 @@ void load_texture()
     tileFourteen = LoadTexture("resources/textures/map_tiles/Tile (14).png");
     tileFifteen = LoadTexture("resources/textures/map_tiles/Tile (15).png");
     tileSixteen = LoadTexture("resources/textures/map_tiles/Tile (16).png");
+    
+    // Objects
+    arrowSign = LoadTexture("resources/textures/map_objects/ArrowSign.png"); 
+    bushOne = LoadTexture("resources/textures/map_objects/Bush (1).png");
+    bushTwo = LoadTexture("resources/textures/map_objects/Bush (2).png");
+    crate = LoadTexture("resources/textures/map_objects/Crate.png");
+    deadBush = LoadTexture("resources/textures/map_objects/DeadBush.png");
+    sign = LoadTexture("resources/textures/map_objects/Sign.png");
+    skeleton = LoadTexture("resources/textures/map_objects/Skeleton.png");
+    tombStoneOne = LoadTexture("resources/textures/map_objects/TombStone (1).png");
+    tombStoneTwo = LoadTexture("resources/textures/map_objects/TombStone (2).png");
+    tree = LoadTexture("resources/textures/map_objects/Tree.png");
 }
-
-
-
 
 //draw the map
 void draw_texture_map()
@@ -105,6 +123,8 @@ void draw_texture_map()
                         DrawTexture(tileFifteen, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
                     else if (buildings[i][j].sprite == 16)
                         DrawTexture(tileSixteen, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                    else if (buildings[i][j].sprite == 17)
+                        DrawTexture(arrowSign, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
                 }
             }
         }
@@ -134,6 +154,17 @@ void unload_texture()
     UnloadTexture(tileFourteen);
     UnloadTexture(tileFifteen);
     UnloadTexture(tileSixteen);
+
+    UnloadTexture(arrowSign);  
+    UnloadTexture(bushOne);
+    UnloadTexture(bushTwo);
+    UnloadTexture(crate);
+    UnloadTexture(deadBush);
+    UnloadTexture(sign);
+    UnloadTexture(skeleton);
+    UnloadTexture(tombStoneOne);
+    UnloadTexture(tombStoneTwo);
+    UnloadTexture(tree);
 }
 
 //________________________________________________________________________________________________

@@ -37,7 +37,7 @@ void ativate_physics()
     {
         for(int j = 0; j< 14; j++)
         {
-            if(buildings[i][j].physics == true)
+            if(buildings[i][j].physics == true && buildings[i][j].object == false)
             {
                 if((buildings[i][j].block.x < heroi.physic->position.x + screenWidth/10) && (buildings[i][j].block.x > heroi.physic->position.x - screenWidth/10)&&(buildings[i][j].block.y < heroi.physic->position.y + screenHeight/4) && (buildings[i][j].block.y > heroi.physic->position.y - screenHeight/4))
                 {
