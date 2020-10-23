@@ -283,28 +283,13 @@ void check_boss_attaked()
 
 	if (boss.attacked == true && heroi.attackCooldown == 0) boss.attacked = false;
     
-    if(heroi.attacking == true && boss.attacked == false)
-    {
-        if(heroi.reverse == false)
-        {
-            //if enemy is on attack area
-            if((boss.hitbox.x <= attack_area.x + attack_area.width && boss.hitbox.x + boss.hitbox.width >= attack_area.x + attack_area.width) && (boss.hitbox.y <= attack_area.y && boss.hitbox.y + boss.hitbox.height >= attack_area.y))
-            {
-                boss.attacked = true;
-                boss.life--;
-            }
-        }
-        else
-        {
-            //if enemy is on attack area
-            if((boss.hitbox.x >= attack_area.x + attack_area.width && boss.hitbox.x + boss.hitbox.width <= attack_area.x + attack_area.width) && (boss.hitbox.y >= attack_area.y && boss.hitbox.y + boss.hitbox.height <= attack_area.y))
-            {
-                boss.attacked = true;
-                boss.life--;
-            }    
-        }
-    }
-    
+    if(heroi.attacking == true && boss.attacked == false) {
+		if ( CheckCollisionRecs(boss.hitbox, attack_area) )
+		{
+			boss.attacked = true;
+			boss.life--;
+		}
+	}
 }
 
 #endif
