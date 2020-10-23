@@ -68,7 +68,7 @@ Rectangle attack(player *heroi, bool reverse) {
         attackArea.x = heroi->physic->position.x + (heroi->body.width / 2);
     } else 
     {
-        attackArea.x = heroi->physic->position.x - (heroi->body.width / 2) - attackArea.width/2;
+        attackArea.x = heroi->physic->position.x - (heroi->body.width / 2) - attackArea.width;
     }
 
     return attackArea;
