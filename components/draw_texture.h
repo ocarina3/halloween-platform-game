@@ -1,6 +1,9 @@
 #ifndef DRAWTEXTURE_H
 #define DRAWTEXTURE_H
 
+#ifndef ENEMY_H
+#include "enemy.h"
+#endif
 
 
 #include "main_character.h"
@@ -39,6 +42,7 @@ static Texture2D tileSixteen;
 void load_texture()
 {
     loadAllTextures();
+    loadEnemyTextures();
     background = LoadTexture("resources/textures/map_tiles/Background.png");
     tileOne = LoadTexture("resources/textures/map_tiles/Tile (1).png");
     tileTwo = LoadTexture("resources/textures/map_tiles/Tile (2).png");
@@ -117,6 +121,7 @@ void draw_texture_map()
 void unload_texture()
 {
     unloadAllTextures();
+    unloadEnemyTextures();
     UnloadTexture(background);
     UnloadTexture(tileOne);
     UnloadTexture(tileTwo);

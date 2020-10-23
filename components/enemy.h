@@ -3,11 +3,15 @@
 
 #include "get_map.h"
 #include "main_character.h"
+#include "../resources/enemy_textures.h"
 
 typedef struct 
 {
     Rectangle body_rec;
     Vector2 limits;
+    Texture2D enemyState;
+    int enemyAnimation;
+    int damageDuration;
     int BodyLife;
     bool reverse;
     bool gerated;
@@ -22,6 +26,7 @@ void enemies_update();
 //void check_enemy_physics(int i);
 void check_enemy_attaked(int i);
 void draw_enemy();
+void update_enemy_state();
 
 
 void start_enemys_variables()
@@ -41,15 +46,19 @@ void Create_enemies_enemy(Vector2 inicial,Vector2 final,int lifes)
         if(enemies[i].gerated == false)
         {
             enemies->BodyLife = lifes;
-            enemies[i].body_rec = (Rectangle){(inicial.x*50) + 1,(inicial.y*50),50,50};
+            enemies[i].body_rec = (Rectangle){(inicial.x*50) + 1,(inicial.y*50),60,60};
             enemies[i].gerated = true;
             enemies[i].limits = (Vector2){inicial.x*50,final.x*50};
+            enemies[i].enemyState = strong_running[0];
+            enemies[i].enemyAnimation = 0;
+            enemies[i].damageDuration = 0;        
         }
     }
 }
 
 void enemies_update()
 {
+    update_enemy_state();
     for(int i = 0; i < 10; i++)
     {
         if(enemies[i].gerated == true && enemies[i].reverse == false)
@@ -88,6 +97,8 @@ void check_enemy_attaked(int i)
     
     if(heroi.attacking == true && enemies[i].attaked == false)
     {
+        enemies[i].damageDuration=36;
+        enemies[i].enemyAnimation=0;
         if(heroi.reverse == false)
         {
             //if enemy is on attack area
@@ -116,7 +127,8 @@ void draw_enemy()
     {
         if(enemies[i].gerated == true)
         {
-            DrawRectangleRec(enemies[i].body_rec,BLUE);
+            DrawTextureRec(enemies[i].enemyState, enemies[i].body_rec, (Vector2){enemies[i].body_rec.x, enemies[i].body_rec.y}, WHITE);
+
         }
     }
 }
@@ -137,4 +149,34 @@ void create_enemies_map(int phase)
     };
 }
 
+void update_enemy_state(){
+    for(int i = 0; i < 10; i++){
+
+        if(enemies[i].BodyLife == 0){
+            int enemyDyingFrame = enemies[i].enemyAnimation /3;
+
+            enemies[i].enemyState = strong_dying[enemyDyingFrame];
+
+            if (enemies[i].enemyAnimation < 44) enemies[i].enemyAnimation++;
+        } else if (enemies[i].damageDuration != 0) {
+            int enemyHurtFrame = enemies[i].enemyAnimation /3;
+
+            enemies[i].enemyState = strong_hurt[enemyHurtFrame];
+            enemies[i].damageDuration--;
+            if (enemies[i].enemyAnimation < 35) enemies[i].enemyAnimation++;
+        } else {
+
+            int enemyRunningFrame = enemies[i].enemyAnimation /3;
+
+            enemies[i].enemyState = strong_running[enemyRunningFrame];
+
+            if (enemies[i].enemyAnimation < 44) enemies[i].enemyAnimation++;
+            else if (enemies[i].enemyAnimation = 44) enemies[i].enemyAnimation = 0;
+        }
+
+    }
+    
+
+
+}
 #endif
