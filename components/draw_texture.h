@@ -50,7 +50,7 @@ static Texture2D tree;
 //get the texture
 void LoadAllTextures()
 {
-    loadEnemyTextures();
+    LoadEnemyTextures();
     LoadCharacterTextures();
     background = LoadTexture("resources/textures/map_tiles/Background.png");
     tileOne = LoadTexture("resources/textures/map_tiles/Tile (1).png");

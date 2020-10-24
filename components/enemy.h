@@ -187,6 +187,6 @@ void UpdateEnemyState(){
         }
 
     }
-    
+
 }
 #endif
