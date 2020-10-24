@@ -44,7 +44,8 @@ void StartEnemyVariables()
 
 void CreateEnemy(Vector2 inicial,Vector2 final,int lifes)
 {
-    
+    if ( counterEnemies == 10 ) return;
+
     enemies[counterEnemies].detect=0;
     enemies[counterEnemies].bodyLife = lifes;
     if(enemies[counterEnemies].bodyLife==2)enemies[counterEnemies].detect=2;
