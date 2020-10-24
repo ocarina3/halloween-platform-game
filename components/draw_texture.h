@@ -5,6 +5,9 @@
 #include "enemy.h"
 #endif
 
+#ifndef BOSS_H
+#include "boss.h"
+#endif
 
 #include "main_character.h"
 #include "get_map.h"
@@ -37,6 +40,7 @@ void LoadAllTextures()
 {
     LoadEnemyTextures();
     LoadCharacterTextures();
+    LoadBossTextures();
     background = LoadTexture("resources/textures/map_tiles/Background.png");
     for ( int x = 1; x < 17; x++ ) 
     {
@@ -89,6 +93,7 @@ void UnloadAllTextures()
 {
     UnloadEnemyTextures();
     UnloadCharacterTextures();
+    UnloadBossTextures();
     UnloadTexture(background);
 
     for ( int x = 1; x < 17; x++ ) 

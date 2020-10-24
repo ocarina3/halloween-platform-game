@@ -35,7 +35,7 @@ void LoadBossTextures(){
     }
 }
 
-void UnloadCharacterTextures() {
+void UnloadBossTextures() {
 
     for ( int x = 0; x < 12; x++ ) {
         UnloadTexture(bossIdle[x]);

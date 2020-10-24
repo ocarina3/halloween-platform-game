@@ -2,6 +2,7 @@
 #define BOSS_H
 
 #include "main_character.h"
+#include "../resources/boss_textures.h"
 #include <stdlib.h>
 #include <time.h>
 
