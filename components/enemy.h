@@ -179,7 +179,7 @@ void UpdateEnemyState(){
 
         } 
 
-        else if (enemies[i].damageDuration != 0) {
+        else if (enemies[i].damageDuration != 0 && enemies[i].detect == 2) {
 
             int enemyHurtFrame = enemies[i].enemyAnimation /3;
 
