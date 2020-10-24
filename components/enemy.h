@@ -99,13 +99,13 @@ void CheckEnemyAttacked(int i)
     
     if(hero.attacking == true && enemies[i].attacked == false)
     {
-        enemies[i].damageDuration=36;
-        enemies[i].enemyAnimation=0;
         if(hero.reverse == false)
         {
             //if Enemy is on CharacterAttack area
             if((enemies[i].body_rec.x <= attack_area.x + attack_area.width && enemies[i].body_rec.x + enemies[i].body_rec.width >= attack_area.x + attack_area.width) && (enemies[i].body_rec.y <= attack_area.y && enemies[i].body_rec.y + enemies[i].body_rec.height >= attack_area.y))
             {
+                enemies[i].damageDuration=36;
+                enemies[i].enemyAnimation=0;
                 enemies[i].attacked = true;
                 enemies[i].bodyLife--;
             }
@@ -115,6 +115,8 @@ void CheckEnemyAttacked(int i)
             //if Enemy is on CharacterAttack area
             if((enemies[i].body_rec.x >= attack_area.x + attack_area.width && enemies[i].body_rec.x + enemies[i].body_rec.width <= attack_area.x + attack_area.width) && (enemies[i].body_rec.y >= attack_area.y && enemies[i].body_rec.y + enemies[i].body_rec.height <= attack_area.y))
             {
+                enemies[i].damageDuration=36;
+                enemies[i].enemyAnimation=0;
                 enemies[i].attacked = true;
                 enemies[i].bodyLife--;
             }    
