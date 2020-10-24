@@ -146,6 +146,7 @@ void DrawLevelTwoScreen(void)
     DrawTexture(background, 0, 0, WHITE);
     BeginMode2D(camera);
         DrawTextureMap();
+        DrawEnemy();
         DrawEntities(&hero);
 
     EndMode2D();    

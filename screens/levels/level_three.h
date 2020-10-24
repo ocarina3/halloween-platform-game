@@ -160,6 +160,7 @@ void DrawLevelThreeScreen(void)
     DrawTexture(background, 0, 0, WHITE);
     BeginMode2D(camera);
         DrawTextureMap();
+        DrawEnemy();
         DrawEntities(&hero);
         DrawBoss();
     EndMode2D();    
