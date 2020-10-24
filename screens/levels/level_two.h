@@ -89,6 +89,7 @@ void UpdateLevelTwoScreen(void)
     if ( hero.body.x + hero.body.width < cameraTarget - (screenWidth / 2) ) KillPlayer(&hero);
     //_________________________________________________________
     UpdateGame(&hero);
+    UpdateEnemy();
 
     if(hero.isAlive == false && isAlive != 0){
         isAlive = 0; 

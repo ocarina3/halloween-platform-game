@@ -75,6 +75,7 @@ void UpdateLevelThreeScreen(void)
     framesCounter++;
     playerBlock = GetPlayerBlock();
     UpdateGame(&hero);
+    UpdateEnemy();
 
     //ajust camera position
     if(wallCreated == false)
