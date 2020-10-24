@@ -5,10 +5,7 @@
 #include "draw_texture.h"
 #include "enemy.h"
 
-
-
 Camera2D camera;
-
 
 void StartVariables()
 {

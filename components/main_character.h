@@ -19,7 +19,7 @@
 #define VELOCITY 0.4f
 
 //___________________________________STRUCTS_______________________________________________
-typedef struct player {
+typedef struct {
     PhysicsBody physic;
     Texture2D state;
     Rectangle body;
@@ -30,13 +30,13 @@ typedef struct player {
     bool reverse;
     bool isAlive;
     bool attacking;
-} player;
+} Player;
 
 //__________________________________________________________________________________________
 
 //___________________________________VARIABLES_______________________________________________
 Vector2 playerBlock;
-player hero;
+Player hero;
 PhysicsBody wall[2];
 Vector2 hit;
 
@@ -45,20 +45,20 @@ Vector2 hit;
 
 //________________________________FUNCTIONS DECLARATIONS_______________________________________
 
-Rectangle CharacterAttack(player *hero, bool reverse);
-void UpdatePhysicsBody(player *hero);
-void UpdateGame(player *hero);
-void UpdatePlayerState(player *hero);
-void DrawEntities(player *hero);
-void HandleInputs(player *hero);
-void KillPlayer(player *hero);
-bool CheckPlayerAttacked(player *hero);
+Rectangle CharacterAttack(Player *hero, bool reverse);
+void UpdatePhysicsBody(Player *hero);
+void UpdateGame(Player *hero);
+void UpdatePlayerState(Player *hero);
+void DrawEntities(Player *hero);
+void HandleInputs(Player *hero);
+void KillPlayer(Player *hero);
+bool CheckPlayerAttacked(Player *hero);
 //_____________________________________________________________________________________________
 
 //___________________________________FUNCTIONS_________________________________________________
 
 // Retorna a área que está sendo atacada para checar colisões posteriormente
-Rectangle CharacterAttack(player *hero, bool reverse) {
+Rectangle CharacterAttack(Player *hero, bool reverse) {
     Rectangle attackArea;
     attackArea.width = 30;
     attackArea.height = hero->body.height;
@@ -75,7 +75,7 @@ Rectangle CharacterAttack(player *hero, bool reverse) {
 }
 
 //Get the new position of all the physics body
-void UpdatePhysicsBody(player *hero)
+void UpdatePhysicsBody(Player *hero)
 {
     //for the hero
     hero->body.x = hero->physic->position.x - (hero->body.width / 2);
@@ -83,7 +83,7 @@ void UpdatePhysicsBody(player *hero)
 
 }
 
-void UpdatePlayerState(player *hero) {
+void UpdatePlayerState(Player *hero) {
     if ( !hero->isAlive ) {
         // Dying animation
 
@@ -131,13 +131,13 @@ void UpdatePlayerState(player *hero) {
         if ( hero->currentAnimation < 35 ) hero->currentAnimation++;
     }
     else if (hero->physic->velocity.y < 0.001 && hero->physic->velocity.y > 0) {
-        // Stop player
+        // Stop Player
         hero->state = characterIdle;
         hero->currentAnimation = 0;
     }
 }
 
-void HandleInputs(player *hero) {
+void HandleInputs(Player *hero) {
     if ( IsKeyDown(KEY_D) ) {
         hero->physic->velocity.x = VELOCITY;
         hero->reverse = false;
@@ -156,14 +156,14 @@ void HandleInputs(player *hero) {
     }
 }
 
-void KillPlayer(player *hero) {
+void KillPlayer(Player *hero) {
     hero->currentAnimation = 0;
     hero->lives = 0;
     hero->isAlive = false;
     hero->physic->enabled = false;
 }
 
-void DrawEntities(player *hero) {
+void DrawEntities(Player *hero) {
     // Desenha os 'PhysicBodies'
     int bodyCount = GetPhysicsBodiesCount();
     for ( int x = 0;  x < bodyCount; x++ ) {
@@ -209,7 +209,7 @@ void DrawEntities(player *hero) {
 }
 
 //Update the game variables
-void UpdateGame(player *hero) 
+void UpdateGame(Player *hero) 
 {
     //bug fix
     hero->physic->position.y -= 0.0005;
@@ -254,7 +254,7 @@ void UpdateGame(player *hero)
         hero->attacking = false;
     }
 
-    // makes sure player body rectangle coordenates is equal to player physics coordenates
+    // makes sure Player body rectangle coordenates is equal to Player physics coordenates
     UpdatePhysicsBody(hero);
 
 }
@@ -271,7 +271,7 @@ void UpdateGame(player *hero)
 #include "../screens/screens.h"
 #endif
 
-bool CheckPlayerAttacked(player *hero) {
+bool CheckPlayerAttacked(Player *hero) {
     bool didGotDamage = false;
     for ( int x = 0; x < 10; x++ ) {
         if ( CheckCollisionRecs(hero->body, enemies[x].body_rec) && enemies[x].gerated && currentScreen == LEVEL_ONE ) didGotDamage = true;

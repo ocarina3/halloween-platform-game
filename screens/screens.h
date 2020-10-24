@@ -29,7 +29,7 @@
 //----------------------------------------------------------------------------------
 // Types and Structures DefInition
 //----------------------------------------------------------------------------------
-typedef enum GameScreen { 
+typedef enum { 
 	LEVEL_ONE, 
 	LEVEL_TWO, 
 	LEVEL_THREE, 

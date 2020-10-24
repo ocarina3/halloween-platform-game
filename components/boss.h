@@ -12,14 +12,14 @@ typedef struct
 	Rectangle hitbox;
 	int life;
 	bool attacked;
-}mainEnemy;
+} MainEnemy;
 
 typedef struct
 {
 	int y;
 	int mode;
 	bool alreadyHit;
-}laser;
+} Laser;
 
 //___________________________________VARIABLES_______________________________________________
 int randomOne;
@@ -40,8 +40,8 @@ void CheckBossAttacked();
 
 
 int frameAttackCounter;
-mainEnemy boss;
-laser ray[2];
+MainEnemy boss;
+Laser ray[2];
 
 void BossAttack()
 {

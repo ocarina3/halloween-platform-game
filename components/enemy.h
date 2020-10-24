@@ -12,9 +12,9 @@ typedef struct
     bool reverse;
     bool gerated;
     bool attaked;
-}enemy;
+} Enemy;
 
-enemy enemies[10];
+Enemy enemies[10];
 
 void StartEnemyVariables();
 void CreateEnemy(Vector2 inicial,Vector2 final,int lifes);
@@ -92,7 +92,7 @@ void CheckEnemyAttacked(int i)
     {
         if(hero.reverse == false)
         {
-            //if enemy is on CharacterAttack area
+            //if Enemy is on CharacterAttack area
             if((enemies[i].body_rec.x <= attack_area.x + attack_area.width && enemies[i].body_rec.x + enemies[i].body_rec.width >= attack_area.x + attack_area.width) && (enemies[i].body_rec.y <= attack_area.y && enemies[i].body_rec.y + enemies[i].body_rec.height >= attack_area.y))
             {
                 enemies[i].attaked = true;
@@ -101,7 +101,7 @@ void CheckEnemyAttacked(int i)
         }
         else
         {
-            //if enemy is on CharacterAttack area
+            //if Enemy is on CharacterAttack area
             if((enemies[i].body_rec.x >= attack_area.x + attack_area.width && enemies[i].body_rec.x + enemies[i].body_rec.width <= attack_area.x + attack_area.width) && (enemies[i].body_rec.y >= attack_area.y && enemies[i].body_rec.y + enemies[i].body_rec.height <= attack_area.y))
             {
                 enemies[i].attaked = true;
