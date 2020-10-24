@@ -14,6 +14,7 @@ typedef struct
     int damageDuration;
     int bodyLife;
     int detect;
+    int currentPhase;
     bool reverse;
     bool gerated;
     bool attacked;
@@ -23,7 +24,7 @@ Enemy enemies[10];
 int counterEnemies = 0;
 
 void StartEnemyVariables();
-void CreateEnemy(Vector2 inicial,Vector2 final,int lifes);
+void CreateEnemy(Vector2 inicial,Vector2 final,int lifes, int phase);
 void UpdateEnemy();
 //void check_enemy_physics(int i);
 void CheckEnemyAttacked(int i);
@@ -42,7 +43,7 @@ void StartEnemyVariables()
     }
 }
 
-void CreateEnemy(Vector2 inicial,Vector2 final,int lifes)
+void CreateEnemy(Vector2 inicial,Vector2 final,int lifes, int phase)
 {
     if ( counterEnemies == 10 ) return;
 
@@ -56,6 +57,7 @@ void CreateEnemy(Vector2 inicial,Vector2 final,int lifes)
     enemies[counterEnemies].enemyState = strongRunning[0];
     enemies[counterEnemies].enemyAnimation = 0;
     enemies[counterEnemies].damageDuration = 0;       
+    enemies[counterEnemies].currentPhase = phase;
     counterEnemies++;
 }
 
@@ -142,10 +144,10 @@ void CreateEnemiesMap(int phase)
 {
     if(phase == 1)
     {
-        CreateEnemy((Vector2){16,7},(Vector2){25,7},1);
-        CreateEnemy((Vector2){41,6},(Vector2){44,6},2);
-        CreateEnemy((Vector2){60,6},(Vector2){64,6},2);
-        CreateEnemy((Vector2){75,5},(Vector2){78,5},1);
+        CreateEnemy((Vector2){16,7},(Vector2){25,7},1, 1);
+        CreateEnemy((Vector2){41,6},(Vector2){44,6},2, 1);
+        CreateEnemy((Vector2){60,6},(Vector2){64,6},2, 1);
+        CreateEnemy((Vector2){75,5},(Vector2){78,5},1, 1);
     };
     if(phase == 2)
     {
