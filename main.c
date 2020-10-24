@@ -28,10 +28,10 @@ int main(void)
     
     // TODO: Load global data here (assets that must be available in all screens, i.e. fonts)
     
-    // Define and init first screen
+    // Define and Init first screen
     currentScreen = MENU_USER;   // NOTE: currentScreen is defined in screens.h as a global variable
     int continueLevel = 0;
-    initMenuUserScreen();
+    InitMenuUserScreen();
     
     SetTargetFPS(60);
     //----------------------------------------------------------
@@ -46,132 +46,132 @@ int main(void)
         {
             case LEVEL_ONE: 
             {
-                updateLevelOneScreen();
+                UpdateLevelOneScreen();
                 continueLevel = 1;
                 
-                if (finishLevelOneScreen())
+                if (FinishLevelOneScreen())
                 {
                     if(isAliveLevelOne() == 0){
-                        unloadLevelOneScreen();
+                        UnloadLevelOneScreen();
                         currentScreen = GAME_OVER;
-                        initGameOverScreen();   
+                        InitGameOverScreen();   
                     }else{
-                        unloadLevelOneScreen();
+                        UnloadLevelOneScreen();
                         currentScreen = LEVEL_TWO;
-                        initLevelTwoScreen();  
+                        InitLevelTwoScreen();  
                     }
                     
                 }
             } break;
             case LEVEL_TWO:
             {
-                updateLevelTwoScreen();
+                UpdateLevelTwoScreen();
                 continueLevel = 2;
                 
-                if (finishLevelTwoScreen())
+                if (FinishLevelTwoScreen())
                 {
                     if(isAliveLevelTwo() == 0){
-                        unloadLevelTwoScreen();
+                        UnloadLevelTwoScreen();
                         currentScreen = GAME_OVER;
-                        initGameOverScreen();   
+                        InitGameOverScreen();   
                     }else{
-                        unloadLevelTwoScreen();
+                        UnloadLevelTwoScreen();
                         currentScreen = LEVEL_THREE;
-                        initLevelThreeScreen(); 
+                        InitLevelThreeScreen(); 
                     }
                 } 
             } break;
             case LEVEL_THREE:
             { 
-                updateLevelThreeScreen();
+                UpdateLevelThreeScreen();
                 continueLevel = 3;
                 
-                if (finishLevelThreeScreen())
+                if (FinishLevelThreeScreen())
                 {
                     if(isAliveLevelThree() == 0){
-                        unloadLevelThreeScreen();
+                        UnloadLevelThreeScreen();
                         currentScreen = GAME_OVER;
-                        initGameOverScreen();   
+                        InitGameOverScreen();   
                     }else{
-                        unloadLevelThreeScreen();
+                        UnloadLevelThreeScreen();
                         currentScreen = WIN_GAME;
-                        initWinScreen();
+                        InitWinScreen();
                     }
                 }   
             } break;
             case GAME_OVER:
             { 
-                updateGameOverScreen();
+                UpdateGameOverScreen();
                 
-                if (finishGameOverScreen())
+                if (FinishGameOverScreen())
                 {
-                    unloadGameOverScreen();
+                    UnloadGameOverScreen();
                     if(continueLevel == 1){
                         currentScreen = LEVEL_ONE;
-                        initLevelOneScreen();
+                        InitLevelOneScreen();
                     }else if (continueLevel == 2){
                         currentScreen = LEVEL_TWO;
-                        initLevelTwoScreen();
+                        InitLevelTwoScreen();
                     }else if (continueLevel == 3){
                         currentScreen = LEVEL_THREE;
-                        initLevelThreeScreen();
+                        InitLevelThreeScreen();
                     }
                     
                 }   
             } break;
             case MENU_USER:
             { 
-                updateMenuUserScreen();
+                UpdateMenuUserScreen();
                 
-                if (finishMenuUserScreen())
+                if (FinishMenuUserScreen())
                 {
-                    unloadMenuUserScreen();
+                    UnloadMenuUserScreen();
                     currentScreen = MENU_LOADING;
-                    initMenuLoadingScreen();
+                    InitMenuLoadingScreen();
                 }   
             } break;
             case MENU_LOADING:
             { 
-                updateMenuLoadingScreen();
+                UpdateMenuLoadingScreen();
                 
-                if (finishMenuLoadingScreen())
+                if (FinishMenuLoadingScreen())
                 {
-                    unloadMenuLoadingScreen();
+                    UnloadMenuLoadingScreen();
                     currentScreen = MENU_ONE;
-                    initMenuOneScreen();
+                    InitMenuOneScreen();
                 }   
             } break;
             case WIN_GAME:
             { 
-                updateWinScreen();
+                UpdateWinScreen();
                 
-                if (finishWinScreen())
+                if (FinishWinScreen())
                 {
-                    unloadWinScreen();
+                    UnloadWinScreen();
                     currentScreen = MENU_ONE;
-                    initMenuOneScreen();
+                    InitMenuOneScreen();
                 }   
             } break;
             case MENU_ONE:
             { 
-                updateMenuOneScreen();
+                UpdateMenuOneScreen();
                 
-                if (finishMenuOneScreen())
+                if (FinishMenuOneScreen())
                 {
-                    unloadMenuOneScreen();
+                    UnloadMenuOneScreen();
                     if(loadOption() == 1){
                         currentScreen = LEVEL_ONE;
-                        initLevelOneScreen();
+                        InitLevelOneScreen();
                     }else if(loadOption() == 2){
                         if(loadLevel() == 1){
                             currentScreen = LEVEL_ONE;
-                            initLevelOneScreen();  
+                            InitLevelOneScreen();  
                         }else if(loadLevel() == 2){
                             currentScreen = LEVEL_TWO;
-                            initLevelTwoScreen();
+                            InitLevelTwoScreen();
                         }else if(loadLevel() == 3){
                             currentScreen = LEVEL_THREE;
-                            initLevelThreeScreen();
+                            InitLevelThreeScreen();
                         }
                     }else{
                         CloseWindow();
@@ -192,14 +192,14 @@ int main(void)
             
             switch(currentScreen) 
             {
-                case LEVEL_ONE: drawLevelOneScreen(); break;
-                case LEVEL_TWO: drawLevelTwoScreen(); break;
-                case LEVEL_THREE: drawLevelThreeScreen(); break;
-                case MENU_ONE: drawMenuOneScreen(); break;
-                case MENU_USER: drawMenuUserScreen(); break;
-                case MENU_LOADING: drawMenuLoadingScreen(); break;
-                case GAME_OVER: drawGameOverScreen(); break;
-                case WIN_GAME: drawWinScreen(); break;
+                case LEVEL_ONE: DrawLevelOneScreen(); break;
+                case LEVEL_TWO: DrawLevelTwoScreen(); break;
+                case LEVEL_THREE: DrawLevelThreeScreen(); break;
+                case MENU_ONE: DrawMenuOneScreen(); break;
+                case MENU_USER: DrawMenuUserScreen(); break;
+                case MENU_LOADING: DrawMenuLoadingScreen(); break;
+                case GAME_OVER: DrawGameOverScreen(); break;
+                case WIN_GAME: DrawWinScreen(); break;
                 default: break;
             }
         
@@ -211,7 +211,7 @@ int main(void)
 
     // De-Initialization
     //--------------------------------------------------------------------------------------
-     ClosePhysics();
+    ClosePhysics();
     // TODO: Unload all global loaded data (i.e. fonts) here!
     CloseAudioDevice();
     CloseWindow();        // Close window and OpenGL context

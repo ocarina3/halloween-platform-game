@@ -2,7 +2,7 @@
 *
 *   raylib - Standard Game template
 *
-*   Gameplay Screen Functions Definitions (Init, Update, Draw, Unload)
+*   Gameplay Screen Functions DefInitions (Init, Update, Draw, Unload)
 *
 *   Copyright (c) 2014-2020 Ramon Santamaria (@raysan5)
 *
@@ -26,7 +26,7 @@
 #include "raylib.h"
 
 //----------------------------------------------------------------------------------
-// Global Variables Definition (local to this module)
+// Global Variables DefInition (local to this module)
 //----------------------------------------------------------------------------------
 
 // Gameplay screen global variables
@@ -40,11 +40,11 @@ static Texture2D loadThree;
 
 
 //----------------------------------------------------------------------------------
-// Gameplay Screen Functions Definition
+// Gameplay Screen Functions DefInition
 //----------------------------------------------------------------------------------
 
 // Gameplay Screen Initialization logic
-void initMenuLoadingScreen(void)
+void InitMenuLoadingScreen(void)
 {
     // TODO: Initialize GAMEPLAY screen variables here!
     framesCounter = 0;
@@ -57,7 +57,7 @@ void initMenuLoadingScreen(void)
 }
 
 // Gameplay Screen Update logic
-void updateMenuLoadingScreen(void)
+void UpdateMenuLoadingScreen(void)
 {
     framesCounter++;
     // TODO: Update GAMEPLAY screen variables here!
@@ -81,7 +81,7 @@ void updateMenuLoadingScreen(void)
 }
 
 // Gameplay Screen Draw logic
-void drawMenuLoadingScreen(void)
+void DrawMenuLoadingScreen(void)
 {
     ClearBackground(RAYWHITE);
     // TODO: Draw GAMEPLAY screen here!
@@ -89,7 +89,7 @@ void drawMenuLoadingScreen(void)
 }
 
 // Gameplay Screen Unload logic
-void unloadMenuLoadingScreen(void)
+void UnloadMenuLoadingScreen(void)
 {
     // TODO: Unload GAMEPLAY screen variables here!
     UnloadTexture(loadOne);
@@ -98,8 +98,8 @@ void unloadMenuLoadingScreen(void)
     UnloadTexture(mainTexture);
 }
 
-// Gameplay Screen should finish?
-int finishMenuLoadingScreen(void)
+// Gameplay Screen should Finish?
+int FinishMenuLoadingScreen(void)
 {
     return finishScreen;
 }

@@ -2,7 +2,7 @@
 *
 *   raylib - Standard Game template
 *
-*   Gameplay Screen Functions Definitions (Init, Update, Draw, Unload)
+*   Gameplay Screen Functions DefInitions (Init, Update, Draw, Unload)
 *
 *   Copyright (c) 2014-2020 Ramon Santamaria (@raysan5)
 *
@@ -30,79 +30,79 @@ static int finishScreen;
 static int isAlive;
 
 // Gameplay Screen Initialization logic
-void initLevelOneScreen(void)
+void InitLevelOneScreen(void)
 {
     // Initialize GAMEPLAY screen variables here!
     framesCounter = 0;
     finishScreen = 0;
     isAlive = 1;
 
-    start_variables();
-    create_enemies_map(1);
-    load_texture();
-    create_map(1);
-    create_wall(7,92);
+    StartVariables();
+    CreateEnemiesMap(1);
+    LoadAllTextures();
+    CreateMap(1);
+    CreateWall(7,92);
 }
 
 
 // Gameplay Screen Update logic
-void updateLevelOneScreen(void)
+void UpdateLevelOneScreen(void)
 {
     framesCounter++;
     //ajust camera position
-    camera.target = (Vector2){heroi.physic->position.x + 20, 250};
+    camera.target = (Vector2){hero.physic->position.x + 20, 250};
     //_________________________________________________________
-    updateGame(&heroi);
-    enemies_update();
+    UpdateGame(&hero);
+    UpdateEnemy();
 
-    if(heroi.isAlive == false && isAlive != 0){
+    if(hero.isAlive == false && isAlive != 0){
         isAlive = 0; 
         framesCounter = 0;
     }
 
     if(framesCounter>120 && isAlive == 0){
-            finishScreen = 1;
+        finishScreen = 1;
     }
     
     //_________________________________________________
     //get the player coordinate in blocks
-    player_block = get_player_block();
+    playerBlock = GetPlayerBlock();
     //get the physical part of map
-    ativate_physics();
+    ActivatePhysics();
 
     // Press enter or tap to change to ENDING screen
-    if (player_block.x == 91)
+    if (playerBlock.x == 91)
     {
         finishScreen = 1;
     }
 }
 
 // Gameplay Screen Draw logic
-void drawLevelOneScreen(void)
+void DrawLevelOneScreen(void)
 {
     //Get the camera
     DrawTexture(background, 0, 0, WHITE);
     BeginMode2D(camera);
-        draw_texture_map();
-        draw_enemy();
-        DrawEntities(&heroi);
+        DrawTextureMap();
+        DrawEnemy();
+        DrawEntities(&hero);
 
     EndMode2D();    
-    DrawText(FormatText("Lives: %i", heroi.lives), screenWidth - 80, 80, 14, YELLOW);
-    DrawText(TextFormat("bloco: [%i,%i]\ncoordenada: [%f,%f]", (int)(player_block.x), (int)(player_block.y),(heroi.physic->position.x),(heroi.physic->position.y)), 315, 250, 20, DARKGRAY);
+    DrawText(FormatText("Lives: %i", hero.lives), screenWidth - 80, 80, 14, YELLOW);
+    DrawText(TextFormat("bloco: [%i,%i]\ncoordenada: [%f,%f]", (int)(playerBlock.x), (int)(playerBlock.y),(hero.physic->position.x),(hero.physic->position.y)), 315, 250, 20, DARKGRAY);
     DrawFPS(screenWidth - 90, screenHeight - 30);
 }
 
 // Gameplay Screen Unload logic
-void unloadLevelOneScreen(void)
+void UnloadLevelOneScreen(void)
 {
-    destroy_walls();
-    destroy_all_physics();
-    unload_texture();
+    DestroyWalls();
+    DestroyAllPhysics();
+    UnloadAllTextures();
 }
 
-// Gameplay Screen should finish?
-int finishLevelOneScreen(void)
+// Gameplay Screen should Finish?
+int FinishLevelOneScreen(void)
 {
     return finishScreen;
 }

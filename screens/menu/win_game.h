@@ -2,7 +2,7 @@
 *
 *   raylib - Standard Game template
 *
-*   Gameplay Screen Functions Definitions (Init, Update, Draw, Unload)
+*   Gameplay Screen Functions DefInitions (Init, Update, Draw, Unload)
 *
 *   Copyright (c) 2014-2020 Ramon Santamaria (@raysan5)
 *
@@ -26,7 +26,7 @@
 #include "raylib.h"
 
 //----------------------------------------------------------------------------------
-// Global Variables Definition (local to this module)
+// Global Variables DefInition (local to this module)
 //----------------------------------------------------------------------------------
 
 // Gameplay screen global variables
@@ -39,11 +39,11 @@ static Texture2D creditsScreen;
 
 
 //----------------------------------------------------------------------------------
-// Gameplay Screen Functions Definition
+// Gameplay Screen Functions DefInition
 //----------------------------------------------------------------------------------
 
 // Gameplay Screen Initialization logic
-void initWinScreen(void)
+void InitWinScreen(void)
 {
     // TODO: Initialize GAMEPLAY screen variables here!
     framesCounter = 0;
@@ -55,31 +55,31 @@ void initWinScreen(void)
 }
 
 // Gameplay Screen Update logic
-void updateWinScreen(void)
+void UpdateWinScreen(void)
 {
     framesCounter++;
     // TODO: Update GAMEPLAY screen variables here!
 
-      if(framesCounter == 360){
-            mainTexture = creditsScreen;
-        }
+    if(framesCounter == 360){
+        mainTexture = creditsScreen;
+    }
 
-        if(framesCounter == 720){
-            finishScreen = 1;
-        }
+    if(framesCounter == 720){
+        finishScreen = 1;
+    }
         
 }
 
 // Gameplay Screen Draw logic
-void drawWinScreen(void)
+void DrawWinScreen(void)
 {
     ClearBackground(RAYWHITE);
     // TODO: Draw GAMEPLAY screen here!
-   DrawTexture(mainTexture, 0, 0, WHITE);
+    DrawTexture(mainTexture, 0, 0, WHITE);
 }
 
 // Gameplay Screen Unload logic
-void unloadWinScreen(void)
+void UnloadWinScreen(void)
 {
     // TODO: Unload GAMEPLAY screen variables here!
     UnloadTexture(winScreen);
@@ -87,8 +87,8 @@ void unloadWinScreen(void)
     UnloadTexture(mainTexture);
 }
 
-// Gameplay Screen should finish?
-int finishWinScreen(void)
+// Gameplay Screen should Finish?
+int FinishWinScreen(void)
 {
     return finishScreen;
 }

@@ -2,7 +2,7 @@
 *
 *   raylib - Standard Game template
 *
-*   Gameplay Screen Functions Definitions (Init, Update, Draw, Unload)
+*   Gameplay Screen Functions DefInitions (Init, Update, Draw, Unload)
 *
 *   Copyright (c) 2014-2020 Ramon Santamaria (@raysan5)
 *
@@ -32,7 +32,7 @@
 #include <string.h>
 
 //----------------------------------------------------------------------------------
-// Global Variables Definition (local to this module)
+// Global Variables DefInition (local to this module)
 //----------------------------------------------------------------------------------
 
 // Gameplay screen global variables
@@ -46,17 +46,17 @@ static FILE *fileWriteLevelTwo;
 static FILE *fileReadLevelTwoCurrentUser;
 static FILE *fileReadLevelTwo;
 
-static char username_lvl_two[300];
-static char nick_lvl_two[100];
-static char current_user_lvl_two[100];
-static char space_lvl_two[100];
+static char usernameLevelTwo[300];
+static char nickLevelTwo[100];
+static char currentUserLevelTwo[100];
+static char spaceLevelTwo[100];
 
 //----------------------------------------------------------------------------------
-// Gameplay Screen Functions Definition
+// Gameplay Screen Functions DefInition
 //----------------------------------------------------------------------------------
 
 // Gameplay Screen Initialization logic
-void initLevelTwoScreen(void)
+void InitLevelTwoScreen(void)
 {
     // TODO: Initialize GAMEPLAY screen variables here!
     framesCounter = 0;
@@ -65,11 +65,11 @@ void initLevelTwoScreen(void)
 
     cameraTarget = 200;
 
-    loadAllTextures();
-    start_variables();
-    load_texture();
-    create_map(2);
-    create_wall(7,106);
+    LoadCharacterTextures();
+    StartVariables();
+    LoadAllTextures();
+    CreateMap(2);
+    CreateWall(7,106);
     
     fileWriteLevelTwo = fopen("save/save.txt", "a");
     fileReadLevelTwo = fopen("save/save.txt", "r");
@@ -77,91 +77,91 @@ void initLevelTwoScreen(void)
 
 }
 
-void updateLevelTwoScreen(void)
+void UpdateLevelTwoScreen(void)
 {
 
     framesCounter++;
     // TODO: Update GAMEPLAY screen variables here!
-    camera.target = (Vector2){cameraTarget, heroi.physic->position.y > 100 ? 200 : heroi.physic->position.y + 100};
+    camera.target = (Vector2){cameraTarget, hero.physic->position.y > 100 ? 200 : hero.physic->position.y + 100};
     cameraTarget += 2.5;
     //_________________________________________________________
-    updateGame(&heroi);
+    UpdateGame(&hero);
 
-    if(heroi.isAlive == false && isAlive != 0){
+    if(hero.isAlive == false && isAlive != 0){
         isAlive = 0; 
         framesCounter = 0;
     }
 
     if(framesCounter>120 && isAlive == 0){
-            finishScreen = 1;
+        finishScreen = 1;
     }
 
     //_________________________________________________
     //get the player coordinate in blocks
-    player_block = get_player_block();
+    playerBlock = GetPlayerBlock();
     //get the physical part of map
-    ativate_physics();
-    fgets(current_user_lvl_two, 300, fileReadLevelTwoCurrentUser);
+    ActivatePhysics();
+    fgets(currentUserLevelTwo, 300, fileReadLevelTwoCurrentUser);
     fclose(fileReadLevelTwoCurrentUser);
 
     if(fileWriteLevelTwo == NULL){
 
     }else{
-        while(fgets(username_lvl_two, 300, fileReadLevelTwo)!= NULL){
+        while(fgets(usernameLevelTwo, 300, fileReadLevelTwo)!= NULL){
 
         }
         fclose(fileReadLevelTwo);
 
-        strcpy(space_lvl_two, " ");
-        strcat(space_lvl_two, current_user_lvl_two);
-        strcpy(nick_lvl_two, space_lvl_two);
-        strcat(nick_lvl_two, " 2");
+        strcpy(spaceLevelTwo, " ");
+        strcat(spaceLevelTwo, currentUserLevelTwo);
+        strcpy(nickLevelTwo, spaceLevelTwo);
+        strcat(nickLevelTwo, " 2");
 
-        if (strstr(username_lvl_two, nick_lvl_two) != NULL){
+        if (strstr(usernameLevelTwo, nickLevelTwo) != NULL){
                 
         }else{
-            fprintf(fileWriteLevelTwo, " %s %i ", current_user_lvl_two, 2);
+            fprintf(fileWriteLevelTwo, " %s %i ", currentUserLevelTwo, 2);
             fclose(fileWriteLevelTwo);
         }
     }
 
     // Press enter or tap to change to ENDING screen
-    if (player_block.x == 105)
+    if (playerBlock.x == 105)
     {
         finishScreen = 1;
     }
     // Condition to end the level if the player gets out of the screen
-    // else if (player_block.x == cameraTarget)
+    // else if (playerBlock.x == cameraTarget)
     // {
-    //     finishScreen = 2;
+    //     FinishScreen = 2;
     // }
 }
 
 // Gameplay Screen Draw logic
-void drawLevelTwoScreen(void)
+void DrawLevelTwoScreen(void)
 {
     DrawTexture(background, 0, 0, WHITE);
     BeginMode2D(camera);
-        draw_texture_map();
-        DrawEntities(&heroi);
+        DrawTextureMap();
+        DrawEntities(&hero);
 
     EndMode2D();    
-    DrawText(FormatText("Lives: %i", heroi.lives), screenWidth - 80, 80, 14, YELLOW);
-    DrawText(TextFormat("bloco: [%i,%i]\ncoordenada: [%f,%f]", (int)(player_block.x), (int)(player_block.y),(heroi.physic->position.x),(heroi.physic->position.y)), 315, 250, 20, DARKGRAY);
+    DrawText(FormatText("Lives: %i", hero.lives), screenWidth - 80, 80, 14, YELLOW);
+    DrawText(TextFormat("bloco: [%i,%i]\ncoordenada: [%f,%f]", (int)(playerBlock.x), (int)(playerBlock.y),(hero.physic->position.x),(hero.physic->position.y)), 315, 250, 20, DARKGRAY);
     DrawFPS(screenWidth - 90, screenHeight - 30);
 }
 
 // Gameplay Screen Unload logic
-void unloadLevelTwoScreen(void)
+void UnloadLevelTwoScreen(void)
 {
-    destroy_walls();
-    unloadAllTextures();
-    destroy_all_physics();
-    unload_texture();
+    DestroyWalls();
+    UnloadCharacterTextures();
+    DestroyAllPhysics();
+    UnloadAllTextures();
 }
 
-// Gameplay Screen should finish?
-int finishLevelTwoScreen(void)
+// Gameplay Screen should Finish?
+int FinishLevelTwoScreen(void)
 {
     return finishScreen;
 }

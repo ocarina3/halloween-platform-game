@@ -2,7 +2,7 @@
 *
 *   raylib - Standard Game template
 *
-*   Gameplay Screen Functions Definitions (Init, Update, Draw, Unload)
+*   Gameplay Screen Functions DefInitions (Init, Update, Draw, Unload)
 *
 *   Copyright (c) 2014-2020 Ramon Santamaria (@raysan5)
 *
@@ -28,7 +28,7 @@
 #include <stdlib.h> 
 
 //----------------------------------------------------------------------------------
-// Global Variables Definition (local to this module)
+// Global Variables DefInition (local to this module)
 //----------------------------------------------------------------------------------
 
 // Gameplay screen global variables
@@ -58,11 +58,11 @@ static float angle;
 static float dx, dy, dxx, dyy;
 
 //----------------------------------------------------------------------------------
-// Gameplay Screen Functions Definition
+// Gameplay Screen Functions DefInition
 //----------------------------------------------------------------------------------
 
 // Gameplay Screen Initialization logic
-void initMenuOneScreen(void)
+void InitMenuOneScreen(void)
 {
     // TODO: Initialize GAMEPLAY screen variables here!
     framesCounter = 0;
@@ -96,7 +96,7 @@ void initMenuOneScreen(void)
 }
 
 // Gameplay Screen Update logic
-void updateMenuOneScreen(void)
+void UpdateMenuOneScreen(void)
 {
     // TODO: Update GAMEPLAY screen variables here!
 
@@ -202,7 +202,7 @@ void updateMenuOneScreen(void)
 }
 
 // Gameplay Screen Draw logic
-void drawMenuOneScreen(void)
+void DrawMenuOneScreen(void)
 {
     ClearBackground(RAYWHITE);
     // TODO: Draw GAMEPLAY screen here!
@@ -216,7 +216,7 @@ void drawMenuOneScreen(void)
 }
 
 // Gameplay Screen Unload logic
-void unloadMenuOneScreen(void)
+void UnloadMenuOneScreen(void)
 {
     // TODO: Unload GAMEPLAY screen variables here!
     UnloadTexture(currentTexture);
@@ -229,8 +229,8 @@ void unloadMenuOneScreen(void)
     UnloadSound(selection);
 }
 
-// Gameplay Screen should finish?
-int finishMenuOneScreen(void)
+// Gameplay Screen should Finish?
+int FinishMenuOneScreen(void)
 {
     return finishScreen;
 }

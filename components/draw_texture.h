@@ -45,9 +45,9 @@ static Texture2D tree;
 //___________________________________FUNCTIONS_______________________________________________
 
 //get the texture
-void load_texture()
+void LoadAllTextures()
 {
-    loadAllTextures();
+    LoadCharacterTextures();
     background = LoadTexture("resources/textures/map_tiles/Background.png");
     tileOne = LoadTexture("resources/textures/map_tiles/Tile (1).png");
     tileTwo = LoadTexture("resources/textures/map_tiles/Tile (2).png");
@@ -79,8 +79,8 @@ void load_texture()
     tree = LoadTexture("resources/textures/map_objects/Tree.png");
 }
 
-//draw the map
-void draw_texture_map()
+//Draw the map
+void DrawTextureMap()
 {
     for(int i = 0; i < 320 ; i++)
     {
@@ -88,7 +88,7 @@ void draw_texture_map()
         {
             if(buildings[i][j].draw == true)
             {
-                if((buildings[i][j].block.x < heroi.physic->position.x + screenWidth/2) + 25 && (buildings[i][j].block.x > heroi.physic->position.x - screenWidth/2) - 25)
+                if((buildings[i][j].block.x < hero.physic->position.x + screenWidth/2) + 25 && (buildings[i][j].block.x > hero.physic->position.x - screenWidth/2) - 25)
                 {
                     // Verifica qual sprite deverá ser impressa
                     if (buildings[i][j].sprite == 1) 
@@ -133,10 +133,10 @@ void draw_texture_map()
 
 
 
-//unload the texture
-void unload_texture()
+//Unload the texture
+void UnloadAllTextures()
 {
-    unloadAllTextures();
+    UnloadCharacterTextures();
     UnloadTexture(background);
     UnloadTexture(tileOne);
     UnloadTexture(tileTwo);

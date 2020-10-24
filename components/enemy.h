@@ -16,15 +16,17 @@ typedef struct
 
 enemy enemies[10];
 
-void start_enemys_variables();
-void Create_enemies_enemy(Vector2 inicial,Vector2 final,int lifes);
-void enemies_update();
+void StartEnemyVariables();
+void CreateEnemy(Vector2 inicial,Vector2 final,int lifes);
+void UpdateEnemy();
 //void check_enemy_physics(int i);
-void check_enemy_attaked(int i);
-void draw_enemy();
+void CheckEnemyAttacked(int i);
+void DrawEnemy();
+void CreateEnemiesMap(int phase);
 
 
-void start_enemys_variables()
+
+void StartEnemyVariables()
 {
     for (int i = 0; i < 10; i++)
     {
@@ -34,7 +36,7 @@ void start_enemys_variables()
     }
 }
 
-void Create_enemies_enemy(Vector2 inicial,Vector2 final,int lifes)
+void CreateEnemy(Vector2 inicial,Vector2 final,int lifes)
 {
     for(int i = 0; i < 10; i++)
     {
@@ -48,7 +50,7 @@ void Create_enemies_enemy(Vector2 inicial,Vector2 final,int lifes)
     }
 }
 
-void enemies_update()
+void UpdateEnemy()
 {
     for(int i = 0; i < 10; i++)
     {
@@ -69,7 +71,7 @@ void enemies_update()
             }
         }
 
-        check_enemy_attaked(i);
+        CheckEnemyAttacked(i);
 
         if(enemies[i].BodyLife <= 0)
         {
@@ -80,17 +82,17 @@ void enemies_update()
     }
 }
 
-void check_enemy_attaked(int i)
+void CheckEnemyAttacked(int i)
 {
-    Rectangle attack_area = attack(&heroi,heroi.reverse);
+    Rectangle attack_area = CharacterAttack(&hero,hero.reverse);
 
-    if (enemies[i].attaked == true && heroi.attackCooldown == 0) enemies[i].attaked = false;
+    if (enemies[i].attaked == true && hero.attackCooldown == 0) enemies[i].attaked = false;
     
-    if(heroi.attacking == true && enemies[i].attaked == false)
+    if(hero.attacking == true && enemies[i].attaked == false)
     {
-        if(heroi.reverse == false)
+        if(hero.reverse == false)
         {
-            //if enemy is on attack area
+            //if enemy is on CharacterAttack area
             if((enemies[i].body_rec.x <= attack_area.x + attack_area.width && enemies[i].body_rec.x + enemies[i].body_rec.width >= attack_area.x + attack_area.width) && (enemies[i].body_rec.y <= attack_area.y && enemies[i].body_rec.y + enemies[i].body_rec.height >= attack_area.y))
             {
                 enemies[i].attaked = true;
@@ -99,7 +101,7 @@ void check_enemy_attaked(int i)
         }
         else
         {
-            //if enemy is on attack area
+            //if enemy is on CharacterAttack area
             if((enemies[i].body_rec.x >= attack_area.x + attack_area.width && enemies[i].body_rec.x + enemies[i].body_rec.width <= attack_area.x + attack_area.width) && (enemies[i].body_rec.y >= attack_area.y && enemies[i].body_rec.y + enemies[i].body_rec.height <= attack_area.y))
             {
                 enemies[i].attaked = true;
@@ -110,7 +112,7 @@ void check_enemy_attaked(int i)
     
 }
 
-void draw_enemy()
+void DrawEnemy()
 {
     for(int i = 0; i < 10; i++)
     {
@@ -121,11 +123,11 @@ void draw_enemy()
     }
 }
 
-void create_enemies_map(int phase)
+void CreateEnemiesMap(int phase)
 {
     if(phase == 1)
     {
-        Create_enemies_enemy((Vector2){20,7},(Vector2){25,7} ,2);
+        CreateEnemy((Vector2){20,7},(Vector2){25,7} ,2);
     };
     if(phase == 2)
     {

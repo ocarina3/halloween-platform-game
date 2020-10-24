@@ -2,7 +2,7 @@
 *
 *   raylib - Standard Game template
 *
-*   Gameplay Screen Functions Definitions (Init, Update, Draw, Unload)
+*   Gameplay Screen Functions DefInitions (Init, Update, Draw, Unload)
 *
 *   Copyright (c) 2014-2020 Ramon Santamaria (@raysan5)
 *
@@ -26,7 +26,7 @@
 #include "raylib.h"
 
 //----------------------------------------------------------------------------------
-// Global Variables Definition (local to this module)
+// Global Variables DefInition (local to this module)
 //----------------------------------------------------------------------------------
 
 // Gameplay screen global variables
@@ -37,11 +37,11 @@ static Texture2D gameOver;
 
 
 //----------------------------------------------------------------------------------
-// Gameplay Screen Functions Definition
+// Gameplay Screen Functions DefInition
 //----------------------------------------------------------------------------------
 
 // Gameplay Screen Initialization logic
-void initGameOverScreen(void)
+void InitGameOverScreen(void)
 {
     // TODO: Initialize GAMEPLAY screen variables here!
     framesCounter = 0;
@@ -52,32 +52,32 @@ void initGameOverScreen(void)
 }
 
 // Gameplay Screen Update logic
-void updateGameOverScreen(void)
+void UpdateGameOverScreen(void)
 {
-        // TODO: Update GAMEPLAY screen variables here!
-        if(IsKeyPressed(KEY_ENTER)){
-            finishScreen = 1;
-        }
-        
+    // TODO: Update GAMEPLAY screen variables here!
+    if(IsKeyPressed(KEY_ENTER)){
+        finishScreen = 1;
+    }
+
 }
 
 // Gameplay Screen Draw logic
-void drawGameOverScreen(void)
+void DrawGameOverScreen(void)
 {
     ClearBackground(RAYWHITE);
     // TODO: Draw GAMEPLAY screen here!
-   DrawTexture(gameOver, 0, 0, WHITE);
+    DrawTexture(gameOver, 0, 0, WHITE);
 }
 
 // Gameplay Screen Unload logic
-void unloadGameOverScreen(void)
+void UnloadGameOverScreen(void)
 {
     // TODO: Unload GAMEPLAY screen variables here!
     UnloadTexture(gameOver);
 }
 
-// Gameplay Screen should finish?
-int finishGameOverScreen(void)
+// Gameplay Screen should Finish?
+int FinishGameOverScreen(void)
 {
     return finishScreen;
 }

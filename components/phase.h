@@ -10,30 +10,30 @@
 Camera2D camera;
 
 
-void start_variables()
+void StartVariables()
 {
-    start_enemys_variables();
+    StartEnemyVariables();
     //_______________________________________________________
-    heroi.body = (Rectangle) { screenWidth / 2, 40, 30, 40 };
-    heroi.physic = CreatePhysicsBodyRectangle(
-        (Vector2) { heroi.body.x, heroi.body.y }, 
-        heroi.body.width, 
-        heroi.body.height, 
+    hero.body = (Rectangle) { screenWidth / 2, 40, 30, 40 };
+    hero.physic = CreatePhysicsBodyRectangle(
+        (Vector2) { hero.body.x, hero.body.y }, 
+        hero.body.width, 
+        hero.body.height, 
         1
     );
-    heroi.physic->velocity.y = 0;
-    heroi.physic->velocity.x = 0;
-    heroi.physic->freezeOrient = true;
-    heroi.attackCooldown = 0;
-    heroi.damageCooldown = 0;
-    heroi.lives = 3;
-    heroi.reverse = false;
-    heroi.isAlive = true;
-    heroi.attacking = false;
+    hero.physic->velocity.y = 0;
+    hero.physic->velocity.x = 0;
+    hero.physic->freezeOrient = true;
+    hero.attackCooldown = 0;
+    hero.damageCooldown = 0;
+    hero.lives = 3;
+    hero.reverse = false;
+    hero.isAlive = true;
+    hero.attacking = false;
 
     //__________________________________________________________________________________________________
     //start camera position
-    camera.target = (Vector2){ heroi.physic->position.x + 20, heroi.physic->position.y + 20};
+    camera.target = (Vector2){ hero.physic->position.x + 20, hero.physic->position.y + 20};
     camera.offset = (Vector2){ screenWidth/2, screenHeight/2 };
     camera.rotation = 0.0f;
     camera.zoom = 1.0f;
@@ -50,7 +50,7 @@ void start_variables()
             buildings[i][j].block.width = buildings_width;
             buildings[i][j].block.height = buildings_height;
             buildings[i][j].physics = false;
-            buildings[i][j].physics_created = false;
+            buildings[i][j].physicsCreated = false;
             buildings[i][j].object = false;
         }
     }

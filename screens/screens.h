@@ -27,12 +27,21 @@
 #define SCREENS_H
 
 //----------------------------------------------------------------------------------
-// Types and Structures Definition
+// Types and Structures DefInition
 //----------------------------------------------------------------------------------
-typedef enum GameScreen { LEVEL_ONE, LEVEL_TWO, LEVEL_THREE, MENU_ONE, MENU_USER, MENU_LOADING, GAME_OVER, WIN_GAME } GameScreen;
+typedef enum GameScreen { 
+	LEVEL_ONE, 
+	LEVEL_TWO, 
+	LEVEL_THREE, 
+	MENU_ONE, 
+	MENU_USER, 
+	MENU_LOADING, 
+	GAME_OVER, 
+	WIN_GAME 
+} GameScreen;
 
 //----------------------------------------------------------------------------------
-// Global Variables Definition
+// Global Variables DefInition
 //----------------------------------------------------------------------------------
 GameScreen currentScreen;
 
