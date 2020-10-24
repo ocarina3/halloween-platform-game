@@ -7,7 +7,7 @@
 
 typedef struct 
 {
-    Rectangle body_rec;
+    Rectangle bodyRec;
     Vector2 limits;
     Texture2D enemyState;
     int enemyAnimation;
@@ -51,7 +51,7 @@ void CreateEnemy(Vector2 inicial,Vector2 final,int lifes, int phase)
     enemies[counterEnemies].bodyLife = lifes;
     if(enemies[counterEnemies].bodyLife==2)enemies[counterEnemies].detect=2;
     else enemies[counterEnemies].detect=1;
-    enemies[counterEnemies].body_rec = (Rectangle){(inicial.x*50) + 1,(inicial.y*50),60,60};
+    enemies[counterEnemies].bodyRec = (Rectangle){(inicial.x*50) + 1,(inicial.y*50),60,60};
     enemies[counterEnemies].gerated = true;
     enemies[counterEnemies].limits = (Vector2){inicial.x*50,final.x*50};
     enemies[counterEnemies].enemyState = strongRunning[0];
@@ -68,16 +68,16 @@ void UpdateEnemy()
     {
         if(enemies[i].gerated == true && enemies[i].reverse == false)
         {
-            if(enemies[i].damageDuration == 0) enemies[i].body_rec.x += 3;
-            if(enemies[i].body_rec.x >= enemies[i].limits.y)
+            if(enemies[i].damageDuration == 0) enemies[i].bodyRec.x += 3;
+            if(enemies[i].bodyRec.x >= enemies[i].limits.y)
             {
                 enemies[i].reverse = true;
             }
         }
         else if(enemies[i].gerated == true && enemies[i].reverse == true)
         {
-            if(enemies[i].damageDuration == 0) enemies[i].body_rec.x -= 3;
-            if(enemies[i].body_rec.x <= enemies[i].limits.x)
+            if(enemies[i].damageDuration == 0) enemies[i].bodyRec.x -= 3;
+            if(enemies[i].bodyRec.x <= enemies[i].limits.x)
             {
                 enemies[i].reverse = false;
             }
@@ -105,7 +105,7 @@ void CheckEnemyAttacked(int i)
         if(hero.reverse == false)
         {
             //if Enemy is on CharacterAttack area
-            if((enemies[i].body_rec.x <= attack_area.x + attack_area.width && enemies[i].body_rec.x + enemies[i].body_rec.width >= attack_area.x + attack_area.width) && (enemies[i].body_rec.y <= attack_area.y && enemies[i].body_rec.y + enemies[i].body_rec.height >= attack_area.y))
+            if((enemies[i].bodyRec.x <= attack_area.x + attack_area.width && enemies[i].bodyRec.x + enemies[i].bodyRec.width >= attack_area.x + attack_area.width) && (enemies[i].bodyRec.y <= attack_area.y && enemies[i].bodyRec.y + enemies[i].bodyRec.height >= attack_area.y))
             {
                 enemies[i].damageDuration=36;
                 enemies[i].enemyAnimation=0;
@@ -116,7 +116,7 @@ void CheckEnemyAttacked(int i)
         else
         {
             //if Enemy is on CharacterAttack area
-            if((enemies[i].body_rec.x >= attack_area.x + attack_area.width && enemies[i].body_rec.x + enemies[i].body_rec.width <= attack_area.x + attack_area.width) && (enemies[i].body_rec.y >= attack_area.y && enemies[i].body_rec.y + enemies[i].body_rec.height <= attack_area.y))
+            if((enemies[i].bodyRec.x >= attack_area.x + attack_area.width && enemies[i].bodyRec.x + enemies[i].bodyRec.width <= attack_area.x + attack_area.width) && (enemies[i].bodyRec.y >= attack_area.y && enemies[i].bodyRec.y + enemies[i].bodyRec.height <= attack_area.y))
             {
                 enemies[i].damageDuration=36;
                 enemies[i].enemyAnimation=0;
@@ -134,8 +134,8 @@ void DrawEnemy()
     {
         if(enemies[i].gerated == true)
         {
-            if (enemies[i].reverse == false) DrawTextureRec(enemies[i].enemyState, (Rectangle){0,0, enemies[i].body_rec.width, enemies[i].body_rec.height}, (Vector2){enemies[i].body_rec.x, enemies[i].body_rec.y}, WHITE);
-            else DrawTextureRec(enemies[i].enemyState, (Rectangle){0, 0, -1*enemies[i].body_rec.width, enemies[i].body_rec.height}, (Vector2){enemies[i].body_rec.x, enemies[i].body_rec.y}, WHITE);
+            if (enemies[i].reverse == false) DrawTextureRec(enemies[i].enemyState, (Rectangle){0,0, enemies[i].bodyRec.width, enemies[i].bodyRec.height}, (Vector2){enemies[i].bodyRec.x, enemies[i].bodyRec.y}, WHITE);
+            else DrawTextureRec(enemies[i].enemyState, (Rectangle){0, 0, -1*enemies[i].bodyRec.width, enemies[i].bodyRec.height}, (Vector2){enemies[i].bodyRec.x, enemies[i].bodyRec.y}, WHITE);
         }
     }
 }
