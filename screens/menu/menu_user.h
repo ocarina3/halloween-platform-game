@@ -2,7 +2,7 @@
 *
 *   raylib - Standard Game template
 *
-*   Gameplay Screen Functions Definitions (Init, Update, Draw, Unload)
+*   Gameplay Screen Functions DefInitions (Init, Update, Draw, Unload)
 *
 *   Copyright (c) 2014-2020 Ramon Santamaria (@raysan5)
 *
@@ -29,7 +29,7 @@
 #include <string.h>
 
 //----------------------------------------------------------------------------------
-// Global Variables Definition (local to this module)
+// Global Variables DefInition (local to this module)
 //----------------------------------------------------------------------------------
 
 #define MAX_INPUT_CHARS     10
@@ -48,28 +48,28 @@ static int letterCount;
 
 static char username[300];
 static char nick[100];
-static char nick_one[100];
-static char nick_two[100];
-static char nick_three[100];
+static char nickOne[100];
+static char nickTwo[100];
+static char nickThree[100];
 static char space[100];
 
 static Rectangle textBox = { 800/2 - 120, 280, 240, 50 };
 
-static Texture2D user_background;
+static Texture2D userBackground;
 
 //----------------------------------------------------------------------------------
-// Gameplay Screen Functions Definition
+// Gameplay Screen Functions DefInition
 //----------------------------------------------------------------------------------
 
 // Gameplay Screen Initialization logic
-void initMenuUserScreen(void)
+void InitMenuUserScreen(void)
 {
     // TODO: Initialize GAMEPLAY screen variables here!
     framesCounter = 0;
     finishScreen = 0;
     level = 0;
 
-    user_background = LoadTexture("resources/textures/menu_user_screen/menu_user.png");
+    userBackground = LoadTexture("resources/textures/menu_user_screen/menu_user.png");
 
     letterCount = 0;
 
@@ -82,7 +82,7 @@ void initMenuUserScreen(void)
 }
 
 // Gameplay Screen Update logic
-void updateMenuUserScreen(void)
+void UpdateMenuUserScreen(void)
 {
     framesCounter++;
     // TODO: Update GAMEPLAY screen variables here!
@@ -138,23 +138,23 @@ void updateMenuUserScreen(void)
                 }else{
                     strcpy(space, " ");
                     strcat(space, name);
-                    strcpy(nick_one, space);
-                    strcat(nick_one, " 1");
-                    strcpy(nick_two, space);
-                    strcat(nick_two, " 2");
-                    strcpy(nick_three, space);
-                    strcat(nick_three, " 3");
+                    strcpy(nickOne, space);
+                    strcat(nickOne, " 1");
+                    strcpy(nickTwo, space);
+                    strcat(nickTwo, " 2");
+                    strcpy(nickThree, space);
+                    strcat(nickThree, " 3");
                     
-                    if(strstr(username, nick_one) != NULL && strstr(username, nick_two) == NULL && strstr(username, nick_three) == NULL){
+                    if(strstr(username, nickOne) != NULL && strstr(username, nickTwo) == NULL && strstr(username, nickThree) == NULL){
                         level = 1;
                     }
 
 
-                    if (strstr(username, nick_two) != NULL){
+                    if (strstr(username, nickTwo) != NULL){
                         level = 2;
                     }
                     
-                    if(strstr(username, nick_three) != NULL){
+                    if(strstr(username, nickThree) != NULL){
                         level = 3;
                     }
                 } 
@@ -167,11 +167,11 @@ void updateMenuUserScreen(void)
 }
 
 // Gameplay Screen Draw logic
-void drawMenuUserScreen(void)
+void DrawMenuUserScreen(void)
 {
     ClearBackground(RAYWHITE);
     // TODO: Draw GAMEPLAY screen here!
-    DrawTexture(user_background, 0, 0, WHITE);
+    DrawTexture(userBackground, 0, 0, WHITE);
     DrawRectangleRec(textBox, ORANGE);
     DrawRectangleLines(textBox.x, textBox.y, textBox.width, textBox.height, DARKPURPLE);
     DrawText(name, textBox.x + 5, textBox.y + 8, 40, DARKPURPLE);
@@ -187,14 +187,14 @@ void drawMenuUserScreen(void)
 }
 
 // Gameplay Screen Unload logic
-void unloadMenuUserScreen(void)
+void UnloadMenuUserScreen(void)
 {
     // TODO: Unload GAMEPLAY screen variables here!
-    UnloadTexture(user_background);
+    UnloadTexture(userBackground);
 }
 
-// Gameplay Screen should finish?
-int finishMenuUserScreen(void)
+// Gameplay Screen should Finish?
+int FinishMenuUserScreen(void)
 {
     return finishScreen;
 }

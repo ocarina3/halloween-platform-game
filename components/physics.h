@@ -5,55 +5,55 @@
 #include "main_character.h"
 #include "get_map.h"
 
-Vector2 get_player_block()
+Vector2 GetPlayerBlock()
 {
     //variables
-    Vector2 player_block;
-    player_block.x = 0;
-    player_block.y = 0 ;
+    Vector2 playerBlock;
+    playerBlock.x = 0;
+    playerBlock.y = 0 ;
     
     //get the player block position
     for(int i = 0; i < 320 ; i++)
     {
         for(int j = 0; j < 9; j++)
         {
-            if(heroi.physic->position.y >= buildings[i][j].block.y && heroi.physic->position.y < buildings[i][j].block.y + buildings[i][j].block.height)
+            if(hero.physic->position.y >= buildings[i][j].block.y && hero.physic->position.y < buildings[i][j].block.y + buildings[i][j].block.height)
             {
-                player_block.y = j;
+                playerBlock.y = j;
             }
-            if(heroi.physic->position.x >= buildings[i][j].block.x && heroi.physic->position.x < buildings[i][j].block.x + buildings[i][j].block.width)
+            if(hero.physic->position.x >= buildings[i][j].block.x && hero.physic->position.x < buildings[i][j].block.x + buildings[i][j].block.width)
             {
-                player_block.x = i;
+                playerBlock.x = i;
             }    
         }
     }
-    return player_block;   
+    return playerBlock;   
 }
 
 
-void ativate_physics()
+void ActivatePhysics()
 {
     for(int i = 0; i < 320 ; i++)
     {
         for(int j = 0; j< 14; j++)
         {
-            if(buildings[i][j].physics == true)
+            if(buildings[i][j].physics == true && buildings[i][j].object == false)
             {
-                if((buildings[i][j].block.x < heroi.physic->position.x + screenWidth/10) && (buildings[i][j].block.x > heroi.physic->position.x - screenWidth/10)&&(buildings[i][j].block.y < heroi.physic->position.y + screenHeight/4) && (buildings[i][j].block.y > heroi.physic->position.y - screenHeight/4))
+                if((buildings[i][j].block.x < hero.physic->position.x + screenWidth/10) && (buildings[i][j].block.x > hero.physic->position.x - screenWidth/10)&&(buildings[i][j].block.y < hero.physic->position.y + screenHeight/4) && (buildings[i][j].block.y > hero.physic->position.y - screenHeight/4))
                 {
-                    if (buildings[i][j].physics_created == false)
+                    if (buildings[i][j].physicsCreated == false)
                     {
-                        buildings[i][j].physics_block = CreatePhysicsBodyRectangle((Vector2){buildings[i][j].block.x +25 ,buildings[i][j].block.y +25},buildings[i][j].block.width,buildings[i][j].block.height,10);
-                        buildings[i][j].physics_block->enabled = false;
-                        buildings[i][j].physics_created = true;
+                        buildings[i][j].physicsBlock = CreatePhysicsBodyRectangle((Vector2){buildings[i][j].block.x +25 ,buildings[i][j].block.y +25},buildings[i][j].block.width,buildings[i][j].block.height,10);
+                        buildings[i][j].physicsBlock->enabled = false;
+                        buildings[i][j].physicsCreated = true;
                     }
                 }
                 else
                 {
-                    if (buildings[i][j].physics_created == true)
+                    if (buildings[i][j].physicsCreated == true)
                     {
-                        DestroyPhysicsBody(buildings[i][j].physics_block);
-                        buildings[i][j].physics_created = false;
+                        DestroyPhysicsBody(buildings[i][j].physicsBlock);
+                        buildings[i][j].physicsCreated = false;
                     }
                 }
             }
@@ -63,7 +63,7 @@ void ativate_physics()
                         
 }
 
-void create_wall(int inicial, int final)
+void CreateWall(int inicial, int final)
 {
     wall[0] = CreatePhysicsBodyRectangle((Vector2){inicial*50 + 25, 200},1,600,10);
     wall[0]->enabled = false;
@@ -71,22 +71,22 @@ void create_wall(int inicial, int final)
     wall[1]->enabled = false;
 }
 
-void destroy_walls()
+void DestroyWalls()
 {
     DestroyPhysicsBody(wall[0]);
     DestroyPhysicsBody(wall[1]);
 }
 
-void destroy_all_physics()
+void DestroyAllPhysics()
 {
-    DestroyPhysicsBody(heroi.physic);
+    DestroyPhysicsBody(hero.physic);
     for(int i = 0; i < 320 ; i++)
     {
         for(int j = 0; j< 14; j++)
         {
             if(buildings[i][j].physics == true)
             {
-                DestroyPhysicsBody(buildings[i][j].physics_block);
+                DestroyPhysicsBody(buildings[i][j].physicsBlock);
             }
         }
     }

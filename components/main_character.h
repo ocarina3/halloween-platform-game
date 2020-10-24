@@ -19,7 +19,7 @@
 #define VELOCITY 0.4f
 
 //___________________________________STRUCTS_______________________________________________
-typedef struct player {
+typedef struct {
     PhysicsBody physic;
     Texture2D state;
     Rectangle body;
@@ -30,13 +30,13 @@ typedef struct player {
     bool reverse;
     bool isAlive;
     bool attacking;
-} player;
+} Player;
 
 //__________________________________________________________________________________________
 
 //___________________________________VARIABLES_______________________________________________
-Vector2 player_block;
-player heroi;
+Vector2 playerBlock;
+Player hero;
 PhysicsBody wall[2];
 Vector2 hit;
 
@@ -45,217 +45,223 @@ Vector2 hit;
 
 //________________________________FUNCTIONS DECLARATIONS_______________________________________
 
-Rectangle attack(player *heroi, bool reverse);
-void updatePhysicsBody(player *heroi);
-void updateGame(player *heroi);
-void updatePlayerState(player *heroi);
-void DrawEntities(player *heroi);
-void HandleInputs(player *heroi);
-void KillPlayer(player *heroi);
-bool CheckPlayerAttacked(player *heroi);
+Rectangle CharacterAttack(Player *hero, bool reverse);
+void UpdatePhysicsBody(Player *hero);
+void UpdateGame(Player *hero);
+void UpdatePlayerState(Player *hero);
+void DrawEntities(Player *hero);
+void HandleInputs(Player *hero);
+void KillPlayer(Player *hero);
+bool CheckPlayerAttacked(Player *hero);
 //_____________________________________________________________________________________________
 
 //___________________________________FUNCTIONS_________________________________________________
 
 // Retorna a área que está sendo atacada para checar colisões posteriormente
-Rectangle attack(player *heroi, bool reverse) {
+Rectangle CharacterAttack(Player *hero, bool reverse) {
     Rectangle attackArea;
     attackArea.width = 30;
-    attackArea.height = heroi->body.height;
-    attackArea.y = heroi->physic->position.y - (heroi->body.height / 2);
+    attackArea.height = hero->body.height;
+    attackArea.y = hero->physic->position.y - (hero->body.height / 2);
     if ( !reverse ) 
     {
-        attackArea.x = heroi->physic->position.x + (heroi->body.width / 2);
+        attackArea.x = hero->physic->position.x + (hero->body.width / 2);
     } else 
     {
-        attackArea.x = heroi->physic->position.x - (heroi->body.width / 2) - attackArea.width/2;
+        attackArea.x = hero->physic->position.x - (hero->body.width / 2) - attackArea.width;
     }
 
     return attackArea;
 }
 
 //Get the new position of all the physics body
-void updatePhysicsBody(player *heroi)
+void UpdatePhysicsBody(Player *hero)
 {
     //for the hero
-    heroi->body.x = heroi->physic->position.x - (heroi->body.width / 2);
-    heroi->body.y = heroi->physic->position.y - (heroi->body.height / 2);
+    hero->body.x = hero->physic->position.x - (hero->body.width / 2);
+    hero->body.y = hero->physic->position.y - (hero->body.height / 2);
 
 }
 
-void updatePlayerState(player *heroi) {
-    if ( !heroi->isAlive ) {
+void UpdatePlayerState(Player *hero) {
+    if ( !hero->isAlive ) {
         // Dying animation
 
-        int dyingFrame = heroi->currentAnimation / 3;
+        int dyingFrame = hero->currentAnimation / 3;
 
-        heroi->state = mc_dying[dyingFrame];
+        hero->state = characterDying[dyingFrame];
 
-        if ( heroi->currentAnimation < 44 ) heroi->currentAnimation = heroi->currentAnimation + 1;
+        if ( hero->currentAnimation < 44 ) hero->currentAnimation = hero->currentAnimation + 1;
     } 
-    else if ( heroi->attackCooldown != 0 ) {
+    else if ( hero->attackCooldown != 0 ) {
         // Attacking animation
 
-        if ( heroi->currentAnimation > 11 ) heroi->currentAnimation = 0;
+        if ( hero->currentAnimation > 11 ) hero->currentAnimation = 0;
 
-        heroi->state = mc_slashing[heroi->currentAnimation];
+        hero->state = characterSlashing[hero->currentAnimation];
 
-        if ( heroi->currentAnimation < 10 ) heroi->currentAnimation = heroi->currentAnimation + 1;
+        if ( hero->currentAnimation < 10 ) hero->currentAnimation = hero->currentAnimation + 1;
     } 
-    else if ( heroi->physic->velocity.y > 0.1 || heroi->physic->velocity.y < -0.1 ) {
+    else if ( hero->physic->velocity.y > 0.1 || hero->physic->velocity.y < -0.1 ) {
         // Jump animation
 
-        if ( heroi->currentAnimation > 10 ) heroi->currentAnimation = 0;
+        if ( hero->currentAnimation > 10 ) hero->currentAnimation = 0;
 
-        int jumpingFrame = heroi->currentAnimation / 2;
+        int jumpingFrame = hero->currentAnimation / 2;
 
-        heroi->state = mc_jumping[jumpingFrame];
+        hero->state = characterJumping[jumpingFrame];
 
-        if ( heroi->currentAnimation < 10 ) heroi->currentAnimation = heroi->currentAnimation + 1;
+        if ( hero->currentAnimation < 10 ) hero->currentAnimation = hero->currentAnimation + 1;
     } 
-    else if ( (heroi->physic->velocity.x > 0.1 || heroi->physic->velocity.x < -0.1) && heroi->damageCooldown < 18 ) {
+    else if ( (hero->physic->velocity.x > 0.1 || hero->physic->velocity.x < -0.1) && hero->damageCooldown < 18 ) {
         // Running animation
-        int runningFrame = heroi->currentAnimation / 3;
-        heroi->state = mc_running[runningFrame];
+        int runningFrame = hero->currentAnimation / 3;
+        hero->state = characterRunning[runningFrame];
 
-        heroi->currentAnimation = heroi->currentAnimation == 35 ? 0 : heroi->currentAnimation + 1;
-
+        hero->currentAnimation = hero->currentAnimation == 35 ? 0 : hero->currentAnimation + 1;
     }
-    else if ( heroi->damageCooldown != 0 ) {
+    else if ( hero->damageCooldown != 0 ) {
         // Damage Animation
         
-        int hurtingFrame = heroi->currentAnimation / 3;
+        int hurtingFrame = hero->currentAnimation / 3;
 
-        heroi->state = mc_hurting[hurtingFrame];
+        hero->state = characterHurt[hurtingFrame];
 
-        if ( heroi->currentAnimation < 35 ) heroi->currentAnimation++;
+        if ( hero->currentAnimation < 35 ) hero->currentAnimation++;
     }
-    else if (heroi->physic->velocity.y < 0.001 && heroi->physic->velocity.y > 0) {
-        // Stop player
-        heroi->state = mc_stop;
-        heroi->currentAnimation = 0;
+    else if (hero->physic->velocity.y < 0.001 && hero->physic->velocity.y > 0) {
+        // Stop Player
+        hero->state = characterIdle;
+        hero->currentAnimation = 0;
     }
 }
 
-void HandleInputs(player *heroi) {
+void HandleInputs(Player *hero) {
     if ( IsKeyDown(KEY_D) ) {
-        heroi->physic->velocity.x = VELOCITY;
-        heroi->reverse = false;
+        hero->physic->velocity.x = VELOCITY;
+        hero->reverse = false;
     }
     if ( IsKeyDown(KEY_A) ) {
-        heroi->physic->velocity.x = -VELOCITY;
-        heroi->reverse = true;
+        hero->physic->velocity.x = -VELOCITY;
+        hero->reverse = true;
     }
-    if ( IsKeyPressed(KEY_W) && heroi->physic->velocity.y < 0.001 && heroi->physic->velocity.y > 0 ) heroi->physic->velocity.y = -VELOCITY*5;
+    if ( IsKeyPressed(KEY_W) && hero->physic->velocity.y < 0.001 && hero->physic->velocity.y > 0 ) hero->physic->velocity.y = -VELOCITY*5;
 
     // Ataca
-    if ( IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !heroi->attackCooldown ) {
-        heroi->attacking = true;
-        attack(heroi, heroi->reverse);
-        heroi->attackCooldown = 12;
+    if ( IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !hero->attackCooldown ) {
+        hero->attacking = true;
+        CharacterAttack(hero, hero->reverse);
+        hero->attackCooldown = 12;
     }
 }
 
-void KillPlayer(player *heroi) {
-    heroi->currentAnimation = 0;
-    heroi->lives = 0;
-    heroi->isAlive = false;
-    heroi->physic->enabled = false;
+void KillPlayer(Player *hero) {
+    hero->currentAnimation = 0;
+    hero->lives = 0;
+    hero->isAlive = false;
+    hero->physic->enabled = false;
 }
 
-void DrawEntities(player *heroi) {
+void DrawLifeBar(Player *hero) {
+    // Desenha a borda da vida
+    DrawRectangleLines(50, 80, 100, 30, GRAY);
+    // Desenha a vida
+    DrawRectangle(51, 81, ((100 / 3) * hero->lives) - 2, 28, RED);
+}
+
+void DrawEntities(Player *hero) {
     // Desenha os 'PhysicBodies'
     int bodyCount = GetPhysicsBodiesCount();
     for ( int x = 0;  x < bodyCount; x++ ) {
-        PhysicsBody drawedBody = GetPhysicsBody(x);
+        PhysicsBody DrawedBody = GetPhysicsBody(x);
 
         //help indentification
-        int drawedBodyVertices = GetPhysicsShapeVerticesCount(x);
-        for ( int y = 0; y < drawedBodyVertices; y++ ) 
+        int DrawedBodyVertices = GetPhysicsShapeVerticesCount(x);
+        for ( int y = 0; y < DrawedBodyVertices; y++ ) 
         {
-            Vector2 pointA = GetPhysicsShapeVertex(drawedBody, y);
+            Vector2 pointA = GetPhysicsShapeVertex(DrawedBody, y);
 
-            int nextVertex = (y + 1) < drawedBodyVertices ? y + 1 : 0;
-            Vector2 pointB = GetPhysicsShapeVertex(drawedBody, nextVertex);
+            int nextVertex = (y + 1) < DrawedBodyVertices ? y + 1 : 0;
+            Vector2 pointB = GetPhysicsShapeVertex(DrawedBody, nextVertex);
 
-            //if ( drawedBody->id == heroi->physic->id ) continue;
+            //if ( DrawedBody->id == hero->physic->id ) continue;
             DrawLineV((Vector2) pointA, (Vector2) pointB, BLUE);
             
-            if (heroi->attacking ==true)
+            if (hero->attacking ==true)
             {
-                DrawRectangleRec(attack(heroi,heroi->reverse), BLUE);
+                DrawRectangleRec(CharacterAttack(hero,hero->reverse), BLUE);
             }
 
         }
 
         Color filteredColor = WHITE;
 
-        if ( heroi->damageCooldown != 0 ) {
-            int colorSelector = heroi->damageCooldown % 6;
+        if ( hero->damageCooldown != 0 ) {
+            int colorSelector = hero->damageCooldown % 6;
 
             if ( colorSelector < 3 ) filteredColor = RED;
             else filteredColor = GREEN;
         }
 
-        if ( drawedBody->id == heroi->physic->id ) DrawTextureRec(
-            heroi->state, 
-            heroi->reverse ?
-            (Rectangle) { 0, 0, -(heroi->body.width + 20), heroi->body.height + 15 } :
-            (Rectangle) { 0, 0, heroi->body.width + 20, heroi->body.height + 15 },
-            (Vector2) { heroi->body.x - 10, heroi->body.y - 10 },
-            heroi->isAlive ? filteredColor : GRAY
+        if ( DrawedBody->id == hero->physic->id ) DrawTextureRec(
+            hero->state, 
+            hero->reverse ?
+            (Rectangle) { 0, 0, -(hero->body.width + 20), hero->body.height + 15 } :
+            (Rectangle) { 0, 0, hero->body.width + 20, hero->body.height + 15 },
+            (Vector2) { hero->body.x - 10, hero->body.y - 10 },
+            hero->isAlive ? filteredColor : GRAY
         );
     }
 }
 
-//update the game variables
-void updateGame(player *heroi) 
+//Update the game variables
+void UpdateGame(Player *hero) 
 {
     //bug fix
-    heroi->physic->position.y -= 0.0005;
-    heroi->physic->velocity.y -= 0.008175;
+    hero->physic->position.y -= 0.0005;
+    hero->physic->velocity.y -= 0.008175;
     
     // Atualiza as animações
-    updatePlayerState(heroi);
+    UpdatePlayerState(hero);
 
     // Inputs
-    if ( heroi->isAlive && heroi->damageCooldown < 18 ) HandleInputs(heroi);
+    if ( hero->isAlive && hero->damageCooldown < 18 ) HandleInputs(hero);
 
-    if ( heroi->body.y > screenHeight ) KillPlayer(heroi);
+    if ( hero->body.y > screenHeight ) KillPlayer(hero);
 
-    bool didGotDamage = CheckPlayerAttacked(heroi);
-    if ( didGotDamage && heroi->damageCooldown == 0 && heroi->isAlive ) 
+    bool didGotDamage = CheckPlayerAttacked(hero);
+    if ( didGotDamage && hero->damageCooldown == 0 && hero->isAlive ) 
     {
-        heroi->lives = heroi->lives - 1;
+        hero->lives = hero->lives - 1;
 
-        if ( heroi->lives == 0 ) KillPlayer(heroi);
+        if ( hero->lives == 0 ) KillPlayer(hero);
         else {
-            // Heroi gets damage
-            heroi->damageCooldown = 36;
-            heroi->currentAnimation = 0;
-            heroi->physic->velocity.x = heroi->reverse ? 
+            // hero gets damage
+            hero->damageCooldown = 36;
+            hero->currentAnimation = 0;
+            hero->physic->velocity.x = hero->reverse ? 
             VELOCITY*1.8 :
             -(VELOCITY*1.8);
         }
     }
 
-    if ( heroi->damageCooldown > 0 ) heroi->damageCooldown = heroi->damageCooldown - 1;
+    if ( hero->damageCooldown > 0 ) hero->damageCooldown = hero->damageCooldown - 1;
 
 
-    if ( heroi->attackCooldown && heroi->isAlive ) 
+    if ( hero->attackCooldown && hero->isAlive ) 
     {
-        heroi->attacking = true;
-        heroi->attackCooldown--;
-        attack(heroi, heroi->reverse);
+        hero->attacking = true;
+        hero->attackCooldown--;
+        CharacterAttack(hero, hero->reverse);
     }
 
-    if (heroi->attackCooldown == 0) 
+    if (hero->attackCooldown == 0) 
     {
-        heroi->attacking = false;
+        hero->attacking = false;
     }
 
-    // makes sure player body rectangle coordenates is equal to player physics coordenates
-    updatePhysicsBody(heroi);
+    // makes sure Player body rectangle coordenates is equal to Player physics coordenates
+    UpdatePhysicsBody(hero);
 
 }
 
@@ -271,18 +277,18 @@ void updateGame(player *heroi)
 #include "../screens/screens.h"
 #endif
 
-bool CheckPlayerAttacked(player *heroi) {
+bool CheckPlayerAttacked(Player *hero) {
     bool didGotDamage = false;
     for ( int x = 0; x < 10; x++ ) {
-        if ( CheckCollisionRecs(heroi->body, enemies[x].body_rec) && enemies[x].gerated && currentScreen == LEVEL_ONE ) didGotDamage = true;
+        if ( CheckCollisionRecs(hero->body, enemies[x].body_rec) && enemies[x].gerated && currentScreen == LEVEL_ONE ) didGotDamage = true;
     }
 
-    if ( CheckCollisionRecs(boss.hitbox, heroi->body) && currentScreen == LEVEL_THREE ) didGotDamage = true;
+    if ( CheckCollisionRecs(boss.hitbox, hero->body) && currentScreen == LEVEL_THREE ) didGotDamage = true;
 
     for ( int x = 0; x < 2; x++ ) {
         if ( 
-            heroi->body.y <= ray[x].y + 30 && 
-            heroi->body.y + heroi->body.height >= ray[x].y &&
+            hero->body.y <= ray[x].y + 30 && 
+            hero->body.y + hero->body.height >= ray[x].y &&
             ray[x].mode == 2 &&
             !ray[x].alreadyHit && 
             currentScreen == LEVEL_THREE

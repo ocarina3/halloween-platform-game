@@ -12,14 +12,14 @@ typedef struct
 	Rectangle hitbox;
 	int life;
 	bool attacked;
-}main_enemy;
+} MainEnemy;
 
 typedef struct
 {
 	int y;
 	int mode;
 	bool alreadyHit;
-}laser;
+} Laser;
 
 //___________________________________VARIABLES_______________________________________________
 int randomOne;
@@ -30,20 +30,20 @@ int numberOfAttacks;
 
 //________________________________FUNCTIONS DECLARATIONS_______________________________________
 
-void bossAttack();
-void checkState();
-void startBoss();
-void updateBoss();
-void drawBoss();
-void check_boss_attaked();
+void BossAttack();
+void CheckState();
+void StartBoss();
+void UpdateBoss();
+void DrawBoss();
+void CheckBossAttacked();
 
 
 
 int frameAttackCounter;
-main_enemy boss;
-laser ray[2];
+MainEnemy boss;
+Laser ray[2];
 
-void bossAttack()
+void BossAttack()
 {
 	if (frameAttackCounter <= fps * 2)
 	{
@@ -153,7 +153,7 @@ void bossAttack()
 
 }
 
-void checkState()
+void CheckState()
 {
 	//boss parado
 	if (state == 0)
@@ -185,7 +185,7 @@ void checkState()
 	
 	if (state == 2)
 	{
-		bossAttack();
+		BossAttack();
 	
 	}
 	// boss descendo
@@ -203,7 +203,7 @@ void checkState()
 	}
 }
 
-void startBoss()
+void StartBoss()
 {
     fps = 60;
 
@@ -228,14 +228,14 @@ void startBoss()
     frameAttackCounter = 0;
 }
 
-void updateBoss()
+void UpdateBoss()
 {
-	check_boss_attaked();
+	CheckBossAttacked();
 	if(boss.life > 0)
 	{
 		frameAttackCounter++;
 		
-		checkState();
+		CheckState();
 
 	}
 	else if (boss.life <= 0)
@@ -247,7 +247,7 @@ void updateBoss()
 	}
 }
 
-void drawBoss()
+void DrawBoss()
 {
 	if(ray[1].mode == 1)
 	{
@@ -277,34 +277,19 @@ void drawBoss()
 	}
 }
 	
-void check_boss_attaked()
+void CheckBossAttacked()
 {
-    Rectangle attack_area = attack(&heroi,heroi.reverse);
+    Rectangle attack_area = CharacterAttack(&hero,hero.reverse);
 
-	if (boss.attacked == true && heroi.attackCooldown == 0) boss.attacked = false;
+	if (boss.attacked == true && hero.attackCooldown == 0) boss.attacked = false;
     
-    if(heroi.attacking == true && boss.attacked == false)
-    {
-        if(heroi.reverse == false)
-        {
-            //if enemy is on attack area
-            if((boss.hitbox.x <= attack_area.x + attack_area.width && boss.hitbox.x + boss.hitbox.width >= attack_area.x + attack_area.width) && (boss.hitbox.y <= attack_area.y && boss.hitbox.y + boss.hitbox.height >= attack_area.y))
-            {
-                boss.attacked = true;
-                boss.life--;
-            }
-        }
-        else
-        {
-            //if enemy is on attack area
-            if((boss.hitbox.x >= attack_area.x + attack_area.width && boss.hitbox.x + boss.hitbox.width <= attack_area.x + attack_area.width) && (boss.hitbox.y >= attack_area.y && boss.hitbox.y + boss.hitbox.height <= attack_area.y))
-            {
-                boss.attacked = true;
-                boss.life--;
-            }    
-        }
-    }
-    
+    if(hero.attacking == true && boss.attacked == false) {
+		if ( CheckCollisionRecs(boss.hitbox, attack_area) )
+		{
+			boss.attacked = true;
+			boss.life--;
+		}
+	}
 }
 
 #endif

@@ -2,7 +2,7 @@
 *
 *   raylib - Standard Game template
 *
-*   Gameplay Screen Functions Definitions (Init, Update, Draw, Unload)
+*   Gameplay Screen Functions DefInitions (Init, Update, Draw, Unload)
 *
 *   Copyright (c) 2014-2020 Ramon Santamaria (@raysan5)
 *
@@ -26,42 +26,42 @@
 #include "../../components/boss.h"
 
 //----------------------------------------------------------------------------------
-// Global Variables Definition (local to this module)
+// Global Variables DefInition (local to this module)
 //----------------------------------------------------------------------------------
 
 // Gameplay screen global variables
-Vector2 camera_pos;
+Vector2 cameraPosition;
 static int framesCounter;
 static int finishScreen;
 static int isAlive;
-bool wall_created;
+bool wallCreated;
 
 static FILE *fileWriteLevelThree;
 static FILE *fileReadLevelThreeCurrentUser;
 static FILE *fileReadLevelThree;
 
-static char username_lvl_three[300];
-static char nick_lvl_three[100];
-static char current_user_lvl_three[100];
-static char space_lvl_three[100];
+static char usernameLevelThree[300];
+static char nickLevelThree[100];
+static char currentUserLevelThree[100];
+static char spaceLevelThree[100];
 
 //----------------------------------------------------------------------------------
-// Gameplay Screen Functions Definition
+// Gameplay Screen Functions DefInition
 //----------------------------------------------------------------------------------
 
 // Gameplay Screen Initialization logic
-void initLevelThreeScreen(void)
+void InitLevelThreeScreen(void)
 {
     framesCounter = 0;
     finishScreen = 0;
     isAlive = 1;
-    wall_created = false;
-    loadAllTextures();
-    startBoss();
-    start_variables();
-    load_texture();
-    create_map(3);
-    create_wall(7,92);
+    wallCreated = false;
+    LoadCharacterTextures();
+    StartBoss();
+    StartVariables();
+    LoadAllTextures();
+    CreateMap(3);
+    CreateWall(7,92);
     
     fileWriteLevelThree = fopen("save/save.txt", "a");
     fileReadLevelThreeCurrentUser = fopen("save/current_player.txt", "r");
@@ -69,48 +69,48 @@ void initLevelThreeScreen(void)
 }
 
 // Gameplay Screen Update logic
-void updateLevelThreeScreen(void)
+void UpdateLevelThreeScreen(void)
 {
     framesCounter++;
-    player_block = get_player_block();
-    updateGame(&heroi);
+    playerBlock = GetPlayerBlock();
+    UpdateGame(&hero);
 
     //ajust camera position
-    if(wall_created == false)
+    if(wallCreated == false)
     {
-        camera.target = (Vector2){heroi.physic->position.x + 20, heroi.physic->position.y > 100 ? 200 : heroi.physic->position.y + 100};
-        if(boss.life <= 0) updateBoss();
+        camera.target = (Vector2){hero.physic->position.x + 20, hero.physic->position.y > 100 ? 200 : hero.physic->position.y + 100};
+        if(boss.life <= 0) UpdateBoss();
     }
     else
     {
-        updateBoss();
-        if(camera_pos.x < 1550) camera_pos.x += 5;
-        if(camera_pos.y > 200) camera_pos.y -= 1;
-        camera.target = (Vector2){camera_pos.x,camera_pos.y};
+        UpdateBoss();
+        if(cameraPosition.x < 1550) cameraPosition.x += 5;
+        if(cameraPosition.y > 200) cameraPosition.y -= 1;
+        camera.target = (Vector2){cameraPosition.x,cameraPosition.y};
     }
-    if(player_block.x >= 23 && wall_created == false && boss.life > 0)
+    if(playerBlock.x >= 23 && wallCreated == false && boss.life > 0)
     {
-        camera_pos.x = heroi.physic->position.x;
-        camera_pos.y = heroi.physic->position.y;
-        create_wall(22,38);
-        wall_created = true;
+        cameraPosition.x = hero.physic->position.x;
+        cameraPosition.y = hero.physic->position.y;
+        CreateWall(22,38);
+        wallCreated = true;
     }
-    if(boss.life <= 0 && wall_created == true)
+    if(boss.life <= 0 && wallCreated == true)
     {
-        destroy_walls();
-        create_wall(2,92);
-        wall_created = false;
+        DestroyWalls();
+        CreateWall(2,92);
+        wallCreated = false;
     }    
     //_________________________________________________________
     
 
-    if(heroi.isAlive == false && isAlive != 0){
+    if(hero.isAlive == false && isAlive != 0){
         isAlive = 0; 
         framesCounter = 0;
     }
 
     if(framesCounter > 2*fps && isAlive == 0){
-            finishScreen = 1;
+        finishScreen = 1;
     }
        
     
@@ -120,28 +120,28 @@ void updateLevelThreeScreen(void)
 
 
     //get the physical part of map
-    ativate_physics();
+    ActivatePhysics();
 
-    fgets(current_user_lvl_three, 300, fileReadLevelThreeCurrentUser);
+    fgets(currentUserLevelThree, 300, fileReadLevelThreeCurrentUser);
     fclose(fileReadLevelThreeCurrentUser);
 
     if(fileWriteLevelThree == NULL){
 
     }else{
-        while(fgets(username_lvl_three, 300, fileReadLevelThree)!= NULL){
+        while(fgets(usernameLevelThree, 300, fileReadLevelThree)!= NULL){
 
         }
         fclose(fileReadLevelThree);
 
-        strcpy(space_lvl_three, " ");
-        strcat(space_lvl_three, current_user_lvl_three);
-        strcpy(nick_lvl_three, space_lvl_three);
-        strcat(nick_lvl_three, " 3");
+        strcpy(spaceLevelThree, " ");
+        strcat(spaceLevelThree, currentUserLevelThree);
+        strcpy(nickLevelThree, spaceLevelThree);
+        strcat(nickLevelThree, " 3");
 
-        if (strstr(username_lvl_three, nick_lvl_three) != NULL){
+        if (strstr(usernameLevelThree, nickLevelThree) != NULL){
                 
         }else{
-            fprintf(fileWriteLevelThree, " %s %i ", current_user_lvl_three, 3);
+            fprintf(fileWriteLevelThree, " %s %i ", currentUserLevelThree, 3);
             fclose(fileWriteLevelThree);
         }
     }
@@ -154,35 +154,35 @@ void updateLevelThreeScreen(void)
 }
 
 // Gameplay Screen Draw logic
-void drawLevelThreeScreen(void)
+void DrawLevelThreeScreen(void)
 {
     DrawTexture(background, 0, 0, WHITE);
     BeginMode2D(camera);
-        draw_texture_map();
-        DrawEntities(&heroi);
-        drawBoss();
+        DrawTextureMap();
+        DrawEntities(&hero);
+        DrawBoss();
     EndMode2D();    
-    DrawText(FormatText("Lives: %i", heroi.lives), screenWidth - 80, 80, 14, YELLOW);
-    DrawText(TextFormat("bloco: [%i,%i]\ncoordenada: [%f,%f]", (int)(player_block.x), (int)(player_block.y),(heroi.physic->position.x),(heroi.physic->position.y)), 315, 250, 20, DARKGRAY);
+    DrawLifeBar(&hero);
+    DrawText(TextFormat("bloco: [%i,%i]\ncoordenada: [%f,%f]", (int)(playerBlock.x), (int)(playerBlock.y),(hero.physic->position.x),(hero.physic->position.y)), 315, 250, 20, DARKGRAY);
     DrawFPS(screenWidth - 90, screenHeight - 30);
 }
 
 // Gameplay Screen Unload logic
-void unloadLevelThreeScreen(void)
+void UnloadLevelThreeScreen(void)
 {
-    destroy_walls();
-    unloadAllTextures();
-    destroy_all_physics();
-    unload_texture();
+    DestroyWalls();
+    UnloadCharacterTextures();
+    DestroyAllPhysics();
+    UnloadAllTextures();
 }
 
-// Gameplay Screen should finish?
-int finishLevelThreeScreen(void)
+// Gameplay Screen should Finish?
+int FinishLevelThreeScreen(void)
 {
     return finishScreen;
 }
 
-int isAliveLevelThree(void)
+int IsAliveLevelThree(void)
 {
     return isAlive;
 }
