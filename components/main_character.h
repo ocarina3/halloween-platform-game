@@ -119,7 +119,6 @@ void UpdatePlayerState(Player *hero) {
         hero->state = characterRunning[runningFrame];
 
         hero->currentAnimation = hero->currentAnimation == 35 ? 0 : hero->currentAnimation + 1;
-
     }
     else if ( hero->damageCooldown != 0 ) {
         // Damage Animation
@@ -161,6 +160,13 @@ void KillPlayer(Player *hero) {
     hero->lives = 0;
     hero->isAlive = false;
     hero->physic->enabled = false;
+}
+
+void DrawLifeBar(Player *hero) {
+    // Desenha a borda da vida
+    DrawRectangleLines(50, 80, 100, 30, GRAY);
+    // Desenha a vida
+    DrawRectangle(51, 81, ((100 / 3) * hero->lives) - 2, 28, RED);
 }
 
 void DrawEntities(Player *hero) {

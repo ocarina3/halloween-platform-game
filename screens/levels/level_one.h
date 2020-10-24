@@ -88,7 +88,7 @@ void DrawLevelOneScreen(void)
         DrawEntities(&hero);
 
     EndMode2D();    
-    DrawText(FormatText("Lives: %i", hero.lives), screenWidth - 80, 80, 14, YELLOW);
+    DrawLifeBar(&hero);
     DrawText(TextFormat("bloco: [%i,%i]\ncoordenada: [%f,%f]", (int)(playerBlock.x), (int)(playerBlock.y),(hero.physic->position.x),(hero.physic->position.y)), 315, 250, 20, DARKGRAY);
     DrawFPS(screenWidth - 90, screenHeight - 30);
 }
