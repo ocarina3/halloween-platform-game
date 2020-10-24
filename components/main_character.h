@@ -279,7 +279,7 @@ void UpdateGame(Player *hero)
 
 bool CheckPlayerAttacked(Player *hero) {
     bool didGotDamage = false;
-    for ( int x = 0; x < 10; x++ ) {
+    for ( int x = 0; x < 13; x++ ) {
         if ( CheckCollisionRecs(hero->body, enemies[x].body_rec) && enemies[x].gerated && enemies[x].bodyLife != 0 ) {
             if ( enemies[x].currentPhase == 1 && currentScreen == LEVEL_ONE ) didGotDamage = true;
             if ( enemies[x].currentPhase == 2 && currentScreen == LEVEL_TWO ) didGotDamage = true;

@@ -20,7 +20,7 @@ typedef struct
     bool attacked;
 } Enemy;
 
-Enemy enemies[10];
+Enemy enemies[13];
 int counterEnemies = 0;
 
 void StartEnemyVariables();
@@ -45,7 +45,7 @@ void StartEnemyVariables()
 
 void CreateEnemy(Vector2 inicial,Vector2 final,int lifes, int phase)
 {
-    if ( counterEnemies == 10 ) return;
+    if ( counterEnemies == 13 ) return;
 
     enemies[counterEnemies].detect=0;
     enemies[counterEnemies].bodyLife = lifes;
@@ -64,7 +64,7 @@ void CreateEnemy(Vector2 inicial,Vector2 final,int lifes, int phase)
 void UpdateEnemy()
 {
     UpdateEnemyState();
-    for(int i = 0; i < 10; i++)
+    for(int i = 0; i < 13; i++)
     {
         if(enemies[i].gerated == true && enemies[i].reverse == false)
         {
@@ -130,7 +130,7 @@ void CheckEnemyAttacked(int i)
 
 void DrawEnemy()
 {
-    for(int i = 0; i < 10; i++)
+    for(int i = 0; i < 13; i++)
     {
         if(enemies[i].gerated == true)
         {
@@ -151,23 +151,23 @@ void CreateEnemiesMap(int phase)
     };
     if(phase == 2)
     {
-        CreateEnemy((Vector2){10,6},(Vector2){15,6},1);
-        CreateEnemy((Vector2){22,5},(Vector2){24,5},1);
-        CreateEnemy((Vector2){30,3},(Vector2){32,3},2);
-        CreateEnemy((Vector2){48,4},(Vector2){50,4},1);    
-        CreateEnemy((Vector2){56,3},(Vector2){58,3},1);
-        CreateEnemy((Vector2){73,0},(Vector2){75,0},1);
-        CreateEnemy((Vector2){85,0},(Vector2){87,0},2);     
-        CreateEnemy((Vector2){93,1},(Vector2){95,1},1);              
+        CreateEnemy((Vector2){10,6},(Vector2){15,6},1, 2);
+        CreateEnemy((Vector2){22,5},(Vector2){24,5},1, 2);
+        CreateEnemy((Vector2){30,3},(Vector2){32,3},2, 2);
+        CreateEnemy((Vector2){48,4},(Vector2){50,4},1, 2);    
+        CreateEnemy((Vector2){56,3},(Vector2){58,3},1, 2);
+        CreateEnemy((Vector2){73,0},(Vector2){75,0},1, 2);
+        CreateEnemy((Vector2){85,0},(Vector2){87,0},2, 2);     
+        CreateEnemy((Vector2){93,1},(Vector2){95,1},1, 2);              
     };
     if(phase == 3)
     {
-        CreateEnemy((Vector2){18,1},(Vector2){20,1},1);  
+        CreateEnemy((Vector2){18,1},(Vector2){20,1},1, 3);  
     };
 }
 
 void UpdateEnemyState(){
-    for(int i = 0; i < 10; i++){
+    for(int i = 0; i < 13; i++){
         if(enemies[i].bodyLife == 0){
 
             int enemyDyingFrame = enemies[i].enemyAnimation /3;
