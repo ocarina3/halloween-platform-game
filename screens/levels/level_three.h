@@ -182,7 +182,7 @@ int FinishLevelThreeScreen(void)
     return finishScreen;
 }
 
-int isAliveLevelThree(void)
+int IsAliveLevelThree(void)
 {
     return isAlive;
 }

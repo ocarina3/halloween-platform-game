@@ -166,7 +166,7 @@ int FinishLevelTwoScreen(void)
     return finishScreen;
 }
 
-int isAliveLevelTwo(void)
+int IsAliveLevelTwo(void)
 {
     return isAlive;
 }

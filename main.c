@@ -51,7 +51,7 @@ int main(void)
                 
                 if (FinishLevelOneScreen())
                 {
-                    if(isAliveLevelOne() == 0){
+                    if(IsAliveLevelOne() == 0){
                         UnloadLevelOneScreen();
                         currentScreen = GAME_OVER;
                         InitGameOverScreen();   
@@ -70,7 +70,7 @@ int main(void)
                 
                 if (FinishLevelTwoScreen())
                 {
-                    if(isAliveLevelTwo() == 0){
+                    if(IsAliveLevelTwo() == 0){
                         UnloadLevelTwoScreen();
                         currentScreen = GAME_OVER;
                         InitGameOverScreen();   
@@ -88,7 +88,7 @@ int main(void)
                 
                 if (FinishLevelThreeScreen())
                 {
-                    if(isAliveLevelThree() == 0){
+                    if(IsAliveLevelThree() == 0){
                         UnloadLevelThreeScreen();
                         currentScreen = GAME_OVER;
                         InitGameOverScreen();   

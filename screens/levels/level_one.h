@@ -107,7 +107,7 @@ int FinishLevelOneScreen(void)
     return finishScreen;
 }
 
-int isAliveLevelOne(void)
+int IsAliveLevelOne(void)
 {
     return isAlive;
 }
