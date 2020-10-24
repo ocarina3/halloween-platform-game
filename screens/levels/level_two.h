@@ -68,6 +68,7 @@ void InitLevelTwoScreen(void)
     LoadCharacterTextures();
     StartVariables();
     LoadAllTextures();
+    CreateEnemiesMap(2);
     CreateMap(2);
     CreateWall(7,106);
     

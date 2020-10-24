@@ -62,6 +62,7 @@ void InitLevelThreeScreen(void)
     LoadAllTextures();
     CreateMap(3);
     CreateWall(7,92);
+    CreateEnemiesMap(3);
     
     fileWriteLevelThree = fopen("save/save.txt", "a");
     fileReadLevelThreeCurrentUser = fopen("save/current_player.txt", "r");
