@@ -139,8 +139,10 @@ void CreateEnemiesMap(int phase)
 {
     if(phase == 1)
     {
-        CreateEnemy((Vector2){20,7},(Vector2){25,7} ,1);
-        CreateEnemy((Vector2){41,6},(Vector2){44,6} ,2);
+        CreateEnemy((Vector2){16,7},(Vector2){25,7},1);
+        CreateEnemy((Vector2){41,6},(Vector2){44,6},2);
+        CreateEnemy((Vector2){60,6},(Vector2){64,6},2);
+        CreateEnemy((Vector2){75,5},(Vector2){78,5},1);
     };
     if(phase == 2)
     {
@@ -155,6 +157,7 @@ void CreateEnemiesMap(int phase)
 void UpdateEnemyState(){
     for(int i = 0; i < 10; i++){
         if(enemies[i].bodyLife == 0){
+
             int enemyDyingFrame = enemies[i].enemyAnimation /3;
 
             if(enemies[i].detect==2) enemies[i].enemyState = strongDying[enemyDyingFrame];
@@ -162,15 +165,18 @@ void UpdateEnemyState(){
 
             enemies[i].enemyState = strongDying[enemyDyingFrame];
             if (enemies[i].enemyAnimation < 44) enemies[i].enemyAnimation++;
+
         } 
 
         else if (enemies[i].damageDuration != 0) {
+
             int enemyHurtFrame = enemies[i].enemyAnimation /3;
 
             enemies[i].enemyState = strongHurt[enemyHurtFrame];
             enemies[i].damageDuration--;
 
             if (enemies[i].enemyAnimation < 35) enemies[i].enemyAnimation++;
+
         }
         else {
 
@@ -182,6 +188,7 @@ void UpdateEnemyState(){
 
             if (enemies[i].enemyAnimation < 35) enemies[i].enemyAnimation++;
             else if (enemies[i].enemyAnimation == 35) enemies[i].enemyAnimation = 0;
+
         }
 
     }
