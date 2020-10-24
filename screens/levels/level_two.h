@@ -84,6 +84,8 @@ void UpdateLevelTwoScreen(void)
     // TODO: Update GAMEPLAY screen variables here!
     camera.target = (Vector2){cameraTarget, hero.physic->position.y > 100 ? 200 : hero.physic->position.y + 100};
     cameraTarget += 2.5;
+
+    if ( hero.body.x + hero.body.width < cameraTarget - (screenWidth / 2) ) KillPlayer(&hero);
     //_________________________________________________________
     UpdateGame(&hero);
 
