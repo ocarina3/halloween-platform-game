@@ -13,6 +13,7 @@ typedef struct
     int enemyAnimation;
     int damageDuration;
     int BodyLife;
+    int detect;
     bool reverse;
     bool gerated;
     bool attaked;
@@ -46,7 +47,10 @@ void CreateEnemy(Vector2 inicial,Vector2 final,int lifes)
     {
         if(enemies[i].gerated == false)
         {
+            enemies[i].detect=0;
             enemies->BodyLife = lifes;
+            if(enemies[i].BodyLife==2)enemies[i].detect=2;
+            else enemies[i].detect=1;
             enemies[i].body_rec = (Rectangle){(inicial.x*50) + 1,(inicial.y*50),60,60};
             enemies[i].gerated = true;
             enemies[i].limits = (Vector2){inicial.x*50,final.x*50};
@@ -128,8 +132,8 @@ void DrawEnemy()
     {
         if(enemies[i].gerated == true)
         {
-            DrawTextureRec(enemies[i].enemyState, enemies[i].body_rec, (Vector2){enemies[i].body_rec.x, enemies[i].body_rec.y}, WHITE);
-
+            if (enemies[i].reverse == false) DrawTextureRec(enemies[i].enemyState, (Rectangle){0,0, enemies[i].body_rec.width, enemies[i].body_rec.height}, (Vector2){enemies[i].body_rec.x, enemies[i].body_rec.y}, WHITE);
+            else DrawTextureRec(enemies[i].enemyState, (Rectangle){0, 0, -1*enemies[i].body_rec.width, enemies[i].body_rec.height}, (Vector2){enemies[i].body_rec.x, enemies[i].body_rec.y}, WHITE);
         }
     }
 }
@@ -152,32 +156,37 @@ void CreateEnemiesMap(int phase)
 
 void UpdateEnemyState(){
     for(int i = 0; i < 10; i++){
-
         if(enemies[i].BodyLife == 0){
             int enemyDyingFrame = enemies[i].enemyAnimation /3;
 
-            enemies[i].enemyState = strongDying[enemyDyingFrame];
+            if(enemies[i].detect==2) enemies[i].enemyState = strongDying[enemyDyingFrame];
+            else enemies[i].enemyState = weakDying[enemyDyingFrame];
 
+            enemies[i].enemyState = strongDying[enemyDyingFrame];
             if (enemies[i].enemyAnimation < 44) enemies[i].enemyAnimation++;
-        } else if (enemies[i].damageDuration != 0) {
+        } 
+
+        else if (enemies[i].damageDuration != 0) {
             int enemyHurtFrame = enemies[i].enemyAnimation /3;
 
             enemies[i].enemyState = strongHurt[enemyHurtFrame];
             enemies[i].damageDuration--;
+
             if (enemies[i].enemyAnimation < 35) enemies[i].enemyAnimation++;
-        } else {
+        }
+        else {
 
             int enemyRunningFrame = enemies[i].enemyAnimation /3;
-
             enemies[i].enemyState = strongRunning[enemyRunningFrame];
 
-            if (enemies[i].enemyAnimation < 44) enemies[i].enemyAnimation++;
-            else if (enemies[i].enemyAnimation = 44) enemies[i].enemyAnimation = 0;
+            if(enemies[i].detect==2) enemies[i].enemyState = strongRunning[enemyRunningFrame];
+            else enemies[i].enemyState = weakRunning[enemyRunningFrame];
+
+            if (enemies[i].enemyAnimation < 35) enemies[i].enemyAnimation++;
+            else if (enemies[i].enemyAnimation == 35) enemies[i].enemyAnimation = 0;
         }
 
     }
     
-
-
 }
 #endif
