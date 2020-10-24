@@ -35,7 +35,7 @@ static Texture2D tree;
 //get the texture
 void LoadAllTextures()
 {
-    loadEnemyTextures();
+    LoadEnemyTextures();
     LoadCharacterTextures();
     background = LoadTexture("resources/textures/map_tiles/Background.png");
     for ( int x = 1; x < 17; x++ ) 
