@@ -22,7 +22,7 @@ void LoadCharacterTextures() {
     }
 
     for ( int x = 0; x < 6; x++ ) {
-        characterJumping[x] = LoadTexture("resources/textures/main_character/Jump Start/0_Fallen_Angels_Jump Start_00%i.png", x);
+        characterJumping[x] = LoadTexture(FormatText("resources/textures/main_character/Jump Start/0_Fallen_Angels_Jump Start_00%i.png", x));
     }
 
     for ( int x = 0; x < 12; x++ ) {
@@ -44,8 +44,8 @@ void LoadCharacterTextures() {
     for ( int x = 0; x < 12; x++ ) {
         characterHurt[x] = LoadTexture(
             x > 9 ? 
-            FormatText("resources/textures/main_character/Slashing/Hurt/0_Fallen_Angels_Hurt_0%i.png", x) :
-            FormatText("resources/textures/main_character/Slashing/Hurt/0_Fallen_Angels_Hurt_00%i.png", x)
+            FormatText("resources/textures/main_character/Hurt/0_Fallen_Angels_Hurt_0%i.png", x) :
+            FormatText("resources/textures/main_character/Hurt/0_Fallen_Angels_Hurt_00%i.png", x)
         );
     }
 }
