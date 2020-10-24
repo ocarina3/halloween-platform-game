@@ -11,7 +11,7 @@ static Texture2D strongDying[15];
 static Texture2D strongHurt[12];
 
 
-void loadEnemyTextures() {
+void LoadEnemyTextures() {
 
     weakRunning[0] = LoadTexture("resources/textures/main_weakenemy/Running/0_Goblin_Running_000.png");
     weakRunning[1] = LoadTexture("resources/textures/main_weakenemy/Running/0_Goblin_Running_001.png");

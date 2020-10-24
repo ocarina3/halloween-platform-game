@@ -12,14 +12,15 @@ typedef struct
     Texture2D enemyState;
     int enemyAnimation;
     int damageDuration;
-    int BodyLife;
+    int bodyLife;
     int detect;
     bool reverse;
     bool gerated;
-    bool attaked;
+    bool attacked;
 } Enemy;
 
 Enemy enemies[10];
+int counterEnemies = 0;
 
 void StartEnemyVariables();
 void CreateEnemy(Vector2 inicial,Vector2 final,int lifes);
@@ -35,7 +36,7 @@ void StartEnemyVariables()
 {
     for (int i = 0; i < 10; i++)
     {
-        enemies[i].attaked = false;
+        enemies[i].attacked = false;
         enemies[i].reverse = false;
         enemies[i].gerated = false;
     }
@@ -43,22 +44,18 @@ void StartEnemyVariables()
 
 void CreateEnemy(Vector2 inicial,Vector2 final,int lifes)
 {
-    for(int i = 0; i < 10; i++)
-    {
-        if(enemies[i].gerated == false)
-        {
-            enemies[i].detect=0;
-            enemies->BodyLife = lifes;
-            if(enemies[i].BodyLife==2)enemies[i].detect=2;
-            else enemies[i].detect=1;
-            enemies[i].body_rec = (Rectangle){(inicial.x*50) + 1,(inicial.y*50),60,60};
-            enemies[i].gerated = true;
-            enemies[i].limits = (Vector2){inicial.x*50,final.x*50};
-            enemies[i].enemyState = strongRunning[0];
-            enemies[i].enemyAnimation = 0;
-            enemies[i].damageDuration = 0;        
-        }
-    }
+    
+    enemies[counterEnemies].detect=0;
+    enemies[counterEnemies].bodyLife = lifes;
+    if(enemies[counterEnemies].bodyLife==2)enemies[counterEnemies].detect=2;
+    else enemies[counterEnemies].detect=1;
+    enemies[counterEnemies].body_rec = (Rectangle){(inicial.x*50) + 1,(inicial.y*50),60,60};
+    enemies[counterEnemies].gerated = true;
+    enemies[counterEnemies].limits = (Vector2){inicial.x*50,final.x*50};
+    enemies[counterEnemies].enemyState = strongRunning[0];
+    enemies[counterEnemies].enemyAnimation = 0;
+    enemies[counterEnemies].damageDuration = 0;       
+    counterEnemies++;
 }
 
 void UpdateEnemy()
@@ -68,7 +65,7 @@ void UpdateEnemy()
     {
         if(enemies[i].gerated == true && enemies[i].reverse == false)
         {
-            enemies[i].body_rec.x += 3;
+            if(enemies[i].damageDuration == 0) enemies[i].body_rec.x += 3;
             if(enemies[i].body_rec.x >= enemies[i].limits.y)
             {
                 enemies[i].reverse = true;
@@ -76,7 +73,7 @@ void UpdateEnemy()
         }
         else if(enemies[i].gerated == true && enemies[i].reverse == true)
         {
-            enemies[i].body_rec.x -= 3;
+            if(enemies[i].damageDuration == 0) enemies[i].body_rec.x -= 3;
             if(enemies[i].body_rec.x <= enemies[i].limits.x)
             {
                 enemies[i].reverse = false;
@@ -85,9 +82,9 @@ void UpdateEnemy()
 
         CheckEnemyAttacked(i);
 
-        if(enemies[i].BodyLife <= 0)
+        if(enemies[i].bodyLife <= 0)
         {
-            enemies[i].gerated = false;
+            if(enemies[i].enemyAnimation==44) enemies[i].gerated = false;
         }
 
         //check_enemy_physics(i);
@@ -98,9 +95,9 @@ void CheckEnemyAttacked(int i)
 {
     Rectangle attack_area = CharacterAttack(&hero,hero.reverse);
 
-    if (enemies[i].attaked == true && hero.attackCooldown == 0) enemies[i].attaked = false;
+    if (enemies[i].attacked == true && hero.attackCooldown == 0) enemies[i].attacked = false;
     
-    if(hero.attacking == true && enemies[i].attaked == false)
+    if(hero.attacking == true && enemies[i].attacked == false)
     {
         enemies[i].damageDuration=36;
         enemies[i].enemyAnimation=0;
@@ -109,8 +106,8 @@ void CheckEnemyAttacked(int i)
             //if Enemy is on CharacterAttack area
             if((enemies[i].body_rec.x <= attack_area.x + attack_area.width && enemies[i].body_rec.x + enemies[i].body_rec.width >= attack_area.x + attack_area.width) && (enemies[i].body_rec.y <= attack_area.y && enemies[i].body_rec.y + enemies[i].body_rec.height >= attack_area.y))
             {
-                enemies[i].attaked = true;
-                enemies[i].BodyLife--;
+                enemies[i].attacked = true;
+                enemies[i].bodyLife--;
             }
         }
         else
@@ -118,8 +115,8 @@ void CheckEnemyAttacked(int i)
             //if Enemy is on CharacterAttack area
             if((enemies[i].body_rec.x >= attack_area.x + attack_area.width && enemies[i].body_rec.x + enemies[i].body_rec.width <= attack_area.x + attack_area.width) && (enemies[i].body_rec.y >= attack_area.y && enemies[i].body_rec.y + enemies[i].body_rec.height <= attack_area.y))
             {
-                enemies[i].attaked = true;
-                enemies[i].BodyLife--;
+                enemies[i].attacked = true;
+                enemies[i].bodyLife--;
             }    
         }
     }
@@ -142,7 +139,8 @@ void CreateEnemiesMap(int phase)
 {
     if(phase == 1)
     {
-        CreateEnemy((Vector2){20,7},(Vector2){25,7} ,2);
+        CreateEnemy((Vector2){20,7},(Vector2){25,7} ,1);
+        CreateEnemy((Vector2){41,6},(Vector2){44,6} ,2);
     };
     if(phase == 2)
     {
@@ -156,7 +154,7 @@ void CreateEnemiesMap(int phase)
 
 void UpdateEnemyState(){
     for(int i = 0; i < 10; i++){
-        if(enemies[i].BodyLife == 0){
+        if(enemies[i].bodyLife == 0){
             int enemyDyingFrame = enemies[i].enemyAnimation /3;
 
             if(enemies[i].detect==2) enemies[i].enemyState = strongDying[enemyDyingFrame];
