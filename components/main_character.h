@@ -171,9 +171,9 @@ void KillPlayer(Player *hero) {
 
 void DrawLifeBar(Player *hero) {
     // Desenha a borda da vida
-    DrawRectangleLines(50, 80, 100, 30, GRAY);
+    DrawRectangleLines(50, screenHeight - 60, 100, 30, GRAY);
     // Desenha a vida
-    DrawRectangle(51, 81, ((100 / 3) * hero->lives) - 2, 28, RED);
+    DrawRectangle(51, screenHeight - 59, ((100 / 3) * hero->lives) - 2, 28, RED);
 }
 
 void DrawEntities(Player *hero) {

@@ -38,7 +38,8 @@ void StartBoss();
 void UpdateBoss();
 void DrawBoss();
 void CheckBossAttacked();
-
+void DrawRayAttacked(int ray);
+void DrawRayPrepared(int ray);
 
 
 int frameAttackCounter;
@@ -259,24 +260,42 @@ void UpdateBoss()
 	}
 }
 
+int rayPreparedAnimation = 0;
+void DrawRayPrepared(int iRay) {
+	Color animationColor = GRAY;
+	if (rayPreparedAnimation > 8) animationColor = BLACK;
+	rayPreparedAnimation = rayPreparedAnimation == 15 ? 0 : rayPreparedAnimation + 1;
+
+	DrawCircle(1650, ray[iRay].y + 20, 20, animationColor);
+}
+
+int rayAttackedAnimation = 0;
+void DrawRayAttacking(int iRay) {
+	Color animationColor = ORANGE;
+	if (rayAttackedAnimation > 8) animationColor = RED;
+	rayAttackedAnimation = rayAttackedAnimation == 15 ? 0 : rayAttackedAnimation + 1;
+
+	DrawRectangle(0, ray[iRay].y, 3000, 40, animationColor);
+}
+
 void DrawBoss()
 {
 	if(ray[1].mode == 1)
 	{
-			DrawRectangle(1650, ray[1].y, 40, 40, BLUE);
+		DrawRayPrepared(1);
 	}
 	else if(ray[1].mode == 2)
 	{
-		DrawRectangle(1650, ray[1].y, 40, 40, RED);
+		DrawRayAttacking(1);
 	}
 
 	if(ray[0].mode == 1)
 	{
-			DrawRectangle(1650, ray[0].y, 40, 40, BLUE);
+		DrawRayPrepared(0);
 	}
 	else if(ray[0].mode == 2)
 	{
-		DrawRectangle(1650, ray[0].y, 40, 40, RED);
+		DrawRayAttacking(0);
 	}
 	
 	
