@@ -156,14 +156,14 @@ void CreateEnemiesMap(int phase)
         CreateEnemy((Vector2){22,5},(Vector2){24,5},1, 2);
         CreateEnemy((Vector2){30,3},(Vector2){32,3},2, 2);
         CreateEnemy((Vector2){48,4},(Vector2){50,4},1, 2);    
-        CreateEnemy((Vector2){56,3},(Vector2){58,3},1, 2);
-        CreateEnemy((Vector2){73,0},(Vector2){75,0},1, 2);
+        CreateEnemy((Vector2){57,3},(Vector2){59,3},1, 2);
+        CreateEnemy((Vector2){75,0},(Vector2){77,0},1, 2);
         CreateEnemy((Vector2){85,0},(Vector2){87,0},2, 2);     
         CreateEnemy((Vector2){93,1},(Vector2){95,1},1, 2);              
     };
     if(phase == 3)
     {
-        CreateEnemy((Vector2){18,1},(Vector2){20,1},1, 3);  
+        CreateEnemy((Vector2){18,5},(Vector2){20,5},1, 3);  
     };
 }
 
@@ -188,8 +188,20 @@ void UpdateEnemyState(){
             enemies[i].damageDuration--;
 
             //enemies kick
-            if(hero.physic->position.x > enemies[i].bodyRec.x) enemies[i].bodyRec.x -= 2;
+            if(hero.physic->position.x > enemies[i].bodyRec.x) 
+            {   if(enemies[i].bodyRec.x < enemies[i].limits.y)
+                {
+                    enemies[i].bodyRec.x -= 2;    
+                }
+            }
             else { enemies[i].bodyRec.x += 2;}
+            {
+                 if(enemies[i].bodyRec.x > enemies[i].limits.y)
+                {
+                    enemies[i].bodyRec.x += 2;    
+                }
+                
+            }
             
 
             if (enemies[i].enemyAnimation < 35) enemies[i].enemyAnimation++;

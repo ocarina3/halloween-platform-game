@@ -98,7 +98,7 @@ void CreateMap(int phase)
         CreatePlatforms(62,3);
         CreatePlatforms(66,2);
         CreatePlatforms(71,3);
-        CreatePlatforms(75,0);
+        CreatePlatforms(75,1);
         CreatePlatforms(80,0);
         CreatePlatforms(85,1);
         CreatePlatforms(89,2);
