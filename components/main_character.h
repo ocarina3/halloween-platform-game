@@ -259,7 +259,7 @@ void UpdateGame(Player *hero)
             // hero gets damage
             hero->damageCooldown = 36;
             hero->currentAnimation = 0;
-            if(hero->physic->position.x > enemies[CheckPlayerAttacked(hero).enemy].bodyRec.x)
+            if(hero->physic->position.x > (enemies[CheckPlayerAttacked(hero).enemy].bodyRec.x + enemies[CheckPlayerAttacked(hero).enemy].bodyRec.width))
             {
                 hero->physic->velocity.x = VELOCITY*1.8;
             }
