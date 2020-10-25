@@ -30,6 +30,7 @@ static Texture2D skeleton;
 static Texture2D tombStoneOne;
 static Texture2D tombStoneTwo;
 static Texture2D tree;
+static Texture2D bone;
 
 //_____________________________________________________________________________________________
 
@@ -60,6 +61,7 @@ void LoadAllTextures()
     tombStoneOne = LoadTexture("resources/textures/map_objects/TombStone (1).png");
     tombStoneTwo = LoadTexture("resources/textures/map_objects/TombStone (2).png");
     tree = LoadTexture("resources/textures/map_objects/Tree.png");
+    bone = LoadTexture("resources/textures/map_tiles/Bone (1).png");
 }
 
 //Draw the map
@@ -71,19 +73,44 @@ void DrawTextureMap()
         {
             if(buildings[i][j].draw == true)
             {
+                
+
                 if((buildings[i][j].block.x < hero.physic->position.x + screenWidth/2) + 25 && (buildings[i][j].block.x > hero.physic->position.x - screenWidth/2) - 25)
                 {
                     for (int x = 1; x < 17; x++) 
                     {
                         if (buildings[i][j].sprite == x) 
                             DrawTexture(mapTiles[x], buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                        else if (buildings[i][j].sprite == 17)
-                            DrawTexture(arrowSign, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
                     }
                 }
+
+                if (buildings[i][j].sprite == 17)
+                    DrawTexture(arrowSign, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                if (buildings[i][j].sprite == 18)
+                    DrawTexture(bushOne, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                if (buildings[i][j].sprite == 19)
+                    DrawTexture(bushTwo, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                if (buildings[i][j].sprite == 20)
+                    DrawTexture(crate, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                if (buildings[i][j].sprite == 21)
+                    DrawTexture(deadBush, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                if (buildings[i][j].sprite == 22)
+                    DrawTexture(sign, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                if (buildings[i][j].sprite == 23)
+                    DrawTexture(skeleton, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                if (buildings[i][j].sprite == 24)
+                    DrawTexture(tombStoneOne, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                if (buildings[i][j].sprite == 25)
+                    DrawTexture(tombStoneTwo, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                if (buildings[i][j].sprite == 26)
+                    DrawTexture(tree, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
+                    
             }
+            
         }
+
     }
+
 }
 
 

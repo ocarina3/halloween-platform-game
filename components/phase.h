@@ -48,7 +48,6 @@ void StartVariables()
             buildings[i][j].block.height = buildings_height;
             buildings[i][j].physics = false;
             buildings[i][j].physicsCreated = false;
-            buildings[i][j].object = false;
         }
     }
 

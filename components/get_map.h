@@ -24,7 +24,6 @@ typedef struct
     PhysicsBody physicsBlock;
     bool physics;
     bool physicsCreated;
-    bool object;
 }blocks;
 
 
@@ -318,7 +317,9 @@ void CreateObjects(int phase)
     if(phase == 1)
     {
         CreateLine((Vector2){12, 6}, (Vector2){12, 6}, 17); 
-        buildings[12][6].object = true;
+        CreateLine((Vector2){19, 7}, (Vector2){19, 7}, 18); 
+        CreateLine((Vector2){30, 2}, (Vector2){30, 2}, 26); 
+
     }
     else if(phase == 2)
     {
