@@ -77,6 +77,8 @@ void UpdateLevelThreeScreen(void)
     playerBlock = GetPlayerBlock();
     UpdateGame(&hero);
     UpdateEnemy();
+    //get the physical part of map
+    ActivatePhysics();
 
     //ajust camera position
     if(wallCreated == false)
@@ -122,8 +124,7 @@ void UpdateLevelThreeScreen(void)
     
 
 
-    //get the physical part of map
-    ActivatePhysics();
+    
 
     fgets(currentUserLevelThree, 300, fileReadLevelThreeCurrentUser);
     fclose(fileReadLevelThreeCurrentUser);

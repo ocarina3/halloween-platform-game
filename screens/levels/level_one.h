@@ -54,7 +54,9 @@ void UpdateLevelOneScreen(void)
     //_________________________________________________________
     UpdateGame(&hero);
     UpdateEnemy();
-
+    //get the physical part of map
+    ActivatePhysics();
+    
     if(hero.isAlive == false && isAlive != 0){
         isAlive = 0; 
         framesCounter = 0;
@@ -67,8 +69,7 @@ void UpdateLevelOneScreen(void)
     //_________________________________________________
     //get the player coordinate in blocks
     playerBlock = GetPlayerBlock();
-    //get the physical part of map
-    ActivatePhysics();
+    
 
     // Press enter or tap to change to ENDING screen
     if (playerBlock.x == 91)

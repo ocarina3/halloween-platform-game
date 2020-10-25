@@ -90,6 +90,8 @@ void UpdateLevelTwoScreen(void)
     //_________________________________________________________
     UpdateGame(&hero);
     UpdateEnemy();
+    //get the physical part of map
+    ActivatePhysics();
 
     if(hero.isAlive == false && isAlive != 0){
         isAlive = 0; 
@@ -103,8 +105,7 @@ void UpdateLevelTwoScreen(void)
     //_________________________________________________
     //get the player coordinate in blocks
     playerBlock = GetPlayerBlock();
-    //get the physical part of map
-    ActivatePhysics();
+
     fgets(currentUserLevelTwo, 300, fileReadLevelTwoCurrentUser);
     fclose(fileReadLevelTwoCurrentUser);
 
