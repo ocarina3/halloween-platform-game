@@ -51,11 +51,14 @@ int main(void)
                 
                 if (FinishLevelOneScreen())
                 {
-                    if(IsAliveLevelOne() == 0){
+                    if(IsAliveLevelOne() == 0)
+                    {
                         UnloadLevelOneScreen();
                         currentScreen = GAME_OVER;
                         InitGameOverScreen();   
-                    }else{
+                    }
+                    else
+                    {
                         UnloadLevelOneScreen();
                         currentScreen = LEVEL_TWO;
                         InitLevelTwoScreen();  
@@ -70,11 +73,14 @@ int main(void)
                 
                 if (FinishLevelTwoScreen())
                 {
-                    if(IsAliveLevelTwo() == 0){
+                    if(IsAliveLevelTwo() == 0)
+                    {
                         UnloadLevelTwoScreen();
                         currentScreen = GAME_OVER;
                         InitGameOverScreen();   
-                    }else{
+                    }
+                    else
+                    {
                         UnloadLevelTwoScreen();
                         currentScreen = LEVEL_THREE;
                         InitLevelThreeScreen(); 
@@ -88,11 +94,14 @@ int main(void)
                 
                 if (FinishLevelThreeScreen())
                 {
-                    if(IsAliveLevelThree() == 0){
+                    if(IsAliveLevelThree() == 0)
+                    {
                         UnloadLevelThreeScreen();
                         currentScreen = GAME_OVER;
                         InitGameOverScreen();   
-                    }else{
+                    }
+                    else
+                    {
                         UnloadLevelThreeScreen();
                         currentScreen = WIN_GAME;
                         InitWinScreen();
@@ -106,13 +115,18 @@ int main(void)
                 if (FinishGameOverScreen())
                 {
                     UnloadGameOverScreen();
-                    if(continueLevel == 1){
+                    if(continueLevel == 1)
+                    {
                         currentScreen = LEVEL_ONE;
                         InitLevelOneScreen();
-                    }else if (continueLevel == 2){
+                    }
+                    else if (continueLevel == 2)
+                    {
                         currentScreen = LEVEL_TWO;
                         InitLevelTwoScreen();
-                    }else if (continueLevel == 3){
+                    }
+                    else if (continueLevel == 3)
+                    {
                         currentScreen = LEVEL_THREE;
                         InitLevelThreeScreen();
                     }
@@ -159,21 +173,31 @@ int main(void)
                 if (FinishMenuOneScreen())
                 {
                     UnloadMenuOneScreen();
-                    if(loadOption() == 1){
+                    if(loadOption() == 1)
+                    {
                         currentScreen = LEVEL_ONE;
                         InitLevelOneScreen();
-                    }else if(loadOption() == 2){
-                        if(loadLevel() == 1){
+                    }
+                    else if(loadOption() == 2)
+                    {
+                        if(loadLevel() == 1)
+                        {
                             currentScreen = LEVEL_ONE;
                             InitLevelOneScreen();  
-                        }else if(loadLevel() == 2){
+                        }
+                        else if(loadLevel() == 2)
+                        {
                             currentScreen = LEVEL_TWO;
                             InitLevelTwoScreen();
-                        }else if(loadLevel() == 3){
+                        }
+                        else if(loadLevel() == 3)
+                        {
                             currentScreen = LEVEL_THREE;
                             InitLevelThreeScreen();
                         }
-                    }else{
+                    }
+                    else
+                    {
                         CloseWindow();
                     }
                         
