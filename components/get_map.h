@@ -309,6 +309,18 @@ void CreateFloor(int phase)
         // Direita
         CreatePlatforms(35, 4);
 
+        CreatePlatforms(41,6);
+
+        // Terra flutuante
+        CreateLine((Vector2){46,6}, (Vector2){46,6}, 1);
+        CreateLine((Vector2){47,6}, (Vector2){51,6}, 2);
+        CreateLine((Vector2){52,6}, (Vector2){52,6}, 3);
+
+        // Terra embaixo
+        CreateLine((Vector2){46,7}, (Vector2){46,7}, 12);
+        CreateLine((Vector2){47,7}, (Vector2){51,7}, 9);
+        CreateLine((Vector2){52,7}, (Vector2){52,7}, 13);
+
     }   
 }
 
