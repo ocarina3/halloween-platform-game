@@ -41,6 +41,7 @@ void StartEnemyVariables()
         enemies[i].reverse = false;
         enemies[i].gerated = false;
     }
+    counterEnemies = 0;
 }
 
 void CreateEnemy(Vector2 inicial,Vector2 final,int lifes, int phase)
@@ -91,7 +92,6 @@ void UpdateEnemy()
             if(enemies[i].enemyAnimation == 44) enemies[i].gerated = false;
         }
 
-        //check_enemy_physics(i);
     }
 }
 
