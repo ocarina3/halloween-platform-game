@@ -318,7 +318,12 @@ void CreateObjects(int phase)
     {
         CreateLine((Vector2){12, 6}, (Vector2){12, 6}, 17); 
         CreateLine((Vector2){19, 7}, (Vector2){19, 7}, 18); 
-        CreateLine((Vector2){30, 2}, (Vector2){30, 2}, 26); 
+        CreateLine((Vector2){30, 2}, (Vector2){30, 2}, 25); 
+        CreateLine((Vector2){47, 5}, (Vector2){47, 5}, 23); 
+        CreateLine((Vector2){62, 6}, (Vector2){62, 6}, 20); 
+        CreateLine((Vector2){66, 5}, (Vector2){66, 5}, 24); 
+        CreateLine((Vector2){76, 5}, (Vector2){76, 5}, 19); 
+        CreateLine((Vector2){88, 5}, (Vector2){88, 5}, 21); 
 
     }
     else if(phase == 2)

@@ -25,8 +25,8 @@ void LoadBossTextures(){
     for ( int x = 0; x < MAX_FRAME_CASTING; x++ ) {
         bossCasting[x] = LoadTexture(
             x > 9 ? 
-            FormatText("resources/textures/boss/Casting/Wraith_01_Casting Speels_0%i.png", x) :
-            FormatText("resources/textures/boss/Casting/Wraith_01_Casting Speels_00%i.png", x)
+            FormatText("resources/textures/boss/Casting/Wraith_01_Casting Spells_0%i.png", x) :
+            FormatText("resources/textures/boss/Casting/Wraith_01_Casting Spells_00%i.png", x)
         );
     }
 

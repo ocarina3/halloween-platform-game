@@ -23,7 +23,6 @@ static Texture2D mapTiles[17];
 static Texture2D arrowSign;
 static Texture2D bushOne;
 static Texture2D bushTwo;
-static Texture2D crate;
 static Texture2D deadBush;
 static Texture2D sign;
 static Texture2D skeleton;
@@ -54,7 +53,6 @@ void LoadAllTextures()
     arrowSign = LoadTexture("resources/textures/map_objects/ArrowSign.png"); 
     bushOne = LoadTexture("resources/textures/map_objects/Bush (1).png");
     bushTwo = LoadTexture("resources/textures/map_objects/Bush (2).png");
-    crate = LoadTexture("resources/textures/map_objects/Crate.png");
     deadBush = LoadTexture("resources/textures/map_objects/DeadBush.png");
     sign = LoadTexture("resources/textures/map_objects/Sign.png");
     skeleton = LoadTexture("resources/textures/map_objects/Skeleton.png");
@@ -91,18 +89,16 @@ void DrawTextureMap()
                 if (buildings[i][j].sprite == 19)
                     DrawTexture(bushTwo, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
                 if (buildings[i][j].sprite == 20)
-                    DrawTexture(crate, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                if (buildings[i][j].sprite == 21)
                     DrawTexture(deadBush, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                if (buildings[i][j].sprite == 22)
+                if (buildings[i][j].sprite == 21)
                     DrawTexture(sign, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                if (buildings[i][j].sprite == 23)
+                if (buildings[i][j].sprite == 22)
                     DrawTexture(skeleton, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                if (buildings[i][j].sprite == 24)
+                if (buildings[i][j].sprite == 23)
                     DrawTexture(tombStoneOne, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                if (buildings[i][j].sprite == 25)
+                if (buildings[i][j].sprite == 24)
                     DrawTexture(tombStoneTwo, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
-                if (buildings[i][j].sprite == 26)
+                if (buildings[i][j].sprite == 25)
                     DrawTexture(tree, buildings[i][j].block.x, buildings[i][j].block.y, WHITE);
                     
             }
@@ -131,7 +127,6 @@ void UnloadAllTextures()
     UnloadTexture(arrowSign);  
     UnloadTexture(bushOne);
     UnloadTexture(bushTwo);
-    UnloadTexture(crate);
     UnloadTexture(deadBush);
     UnloadTexture(sign);
     UnloadTexture(skeleton);
