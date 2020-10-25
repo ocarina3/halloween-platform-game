@@ -30,7 +30,7 @@ void UpdateEnemy();
 void CheckEnemyAttacked(int i);
 void DrawEnemy();
 void CreateEnemiesMap(int phase);
-
+void UpdateEnemyState();
 
 
 void StartEnemyVariables()
@@ -185,6 +185,11 @@ void UpdateEnemyState(){
 
             enemies[i].enemyState = strongHurt[enemyHurtFrame];
             enemies[i].damageDuration--;
+
+            //enemies kick
+            if(hero.physic->position.x > enemies[i].bodyRec.x) enemies[i].bodyRec.x -= 2;
+            else { enemies[i].bodyRec.x += 2;}
+            
 
             if (enemies[i].enemyAnimation < 35) enemies[i].enemyAnimation++;
 
