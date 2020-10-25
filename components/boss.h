@@ -307,8 +307,9 @@ void DrawBoss()
 		DrawRayAttacking(0);
 	}
 	
-	
-	DrawTextureRec(boss.bossState, (Rectangle){0,0, boss.hitbox.width + 10, boss.hitbox.height}, (Vector2){boss.hitbox.x - 15, boss.hitbox.y - 10}, WHITE);
+	if ( !(boss.hitbox.x > hero.body.x) ) DrawTextureRec(boss.bossState,(Rectangle){0,0, boss.hitbox.width + 15, boss.hitbox.height}, (Vector2){boss.hitbox.x - 15, boss.hitbox.y - 5}, WHITE);
+	else DrawTextureRec(boss.bossState, (Rectangle) { 0, 0, -(boss.hitbox.width + 15), boss.hitbox.height }, (Vector2){ boss.hitbox.x, boss.hitbox.y - 5 }, WHITE);
+
 	DrawRectangleLines(boss.hitbox.x,boss.hitbox.y,boss.hitbox.width,boss.hitbox.height,BLACK);
 }
 	
