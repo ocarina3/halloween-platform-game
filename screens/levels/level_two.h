@@ -65,7 +65,6 @@ void InitLevelTwoScreen(void)
 
     cameraTarget = 200;
 
-    LoadCharacterTextures();
     StartVariables();
     LoadAllTextures();
     CreateEnemiesMap(2);
@@ -161,7 +160,6 @@ void DrawLevelTwoScreen(void)
 void UnloadLevelTwoScreen(void)
 {
     DestroyWalls();
-    UnloadCharacterTextures();
     DestroyAllPhysics();
     UnloadAllTextures();
 }

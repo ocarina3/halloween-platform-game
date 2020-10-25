@@ -57,7 +57,6 @@ void InitLevelThreeScreen(void)
     finishScreen = 0;
     isAlive = 1;
     wallCreated = false;
-    LoadCharacterTextures();
     StartBoss();
     StartVariables();
     LoadAllTextures();
@@ -176,7 +175,6 @@ void DrawLevelThreeScreen(void)
 void UnloadLevelThreeScreen(void)
 {
     DestroyWalls();
-    UnloadCharacterTextures();
     DestroyAllPhysics();
     UnloadAllTextures();
 }
