@@ -314,7 +314,7 @@ HeroHitted CheckPlayerAttacked(Player *hero) {
         }
     }
 
-    if ( CheckCollisionRecs(boss.hitbox, hero->body) && currentScreen == LEVEL_THREE ) didGotDamage = true;
+    if ( CheckCollisionRecs(boss.hitbox, hero->body) && currentScreen == LEVEL_THREE && !boss.life <= 0 ) didGotDamage = true;
 
     for ( int x = 0; x < 2; x++ ) {
         if ( 
