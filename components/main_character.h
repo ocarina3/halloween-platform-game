@@ -32,6 +32,13 @@ typedef struct {
     bool attacking;
 } Player;
 
+typedef struct
+{
+    bool hitted;
+    int enemy;
+}HeroHitted;
+
+
 //__________________________________________________________________________________________
 
 //___________________________________VARIABLES_______________________________________________
@@ -52,7 +59,7 @@ void UpdatePlayerState(Player *hero);
 void DrawEntities(Player *hero);
 void HandleInputs(Player *hero);
 void KillPlayer(Player *hero);
-bool CheckPlayerAttacked(Player *hero);
+HeroHitted CheckPlayerAttacked(Player *hero);
 //_____________________________________________________________________________________________
 
 //___________________________________FUNCTIONS_________________________________________________
@@ -214,6 +221,19 @@ void DrawEntities(Player *hero) {
     }
 }
 
+
+#ifndef ENEMY_H
+#include "enemy.h"
+#endif
+
+#ifndef BOSS_H
+#include "boss.h"
+#endif
+
+#ifndef SCREENS_H
+#include "../screens/screens.h"
+#endif
+
 //Update the game variables
 void UpdateGame(Player *hero) 
 {
@@ -229,7 +249,7 @@ void UpdateGame(Player *hero)
 
     if ( hero->body.y > screenHeight ) KillPlayer(hero);
 
-    bool didGotDamage = CheckPlayerAttacked(hero);
+    bool didGotDamage = CheckPlayerAttacked(hero).hitted;
     if ( didGotDamage && hero->damageCooldown == 0 && hero->isAlive ) 
     {
         hero->lives = hero->lives - 1;
@@ -239,9 +259,14 @@ void UpdateGame(Player *hero)
             // hero gets damage
             hero->damageCooldown = 36;
             hero->currentAnimation = 0;
-            hero->physic->velocity.x = hero->reverse ? 
-            VELOCITY*1.8 :
-            -(VELOCITY*1.8);
+            if(hero->physic->position.x > enemies[CheckPlayerAttacked(hero).enemy].bodyRec.x)
+            {
+                hero->physic->velocity.x = VELOCITY*1.8;
+            }
+            else 
+            {
+                hero->physic->velocity.x = -VELOCITY*1.8;
+            }
         }
     }
 
@@ -265,25 +290,27 @@ void UpdateGame(Player *hero)
 
 }
 
-#ifndef ENEMY_H
-#include "enemy.h"
-#endif
 
-#ifndef BOSS_H
-#include "boss.h"
-#endif
-
-#ifndef SCREENS_H
-#include "../screens/screens.h"
-#endif
-
-bool CheckPlayerAttacked(Player *hero) {
+HeroHitted CheckPlayerAttacked(Player *hero) {
     bool didGotDamage = false;
+    int enemyHitted = 99;
     for ( int x = 0; x < 13; x++ ) {
-        if ( CheckCollisionRecs(hero->body, enemies[x].bodyRec) && enemies[x].gerated && enemies[x].bodyLife != 0 ) {
-            if ( enemies[x].currentPhase == 1 && currentScreen == LEVEL_ONE ) didGotDamage = true;
-            if ( enemies[x].currentPhase == 2 && currentScreen == LEVEL_TWO ) didGotDamage = true;
-            if ( enemies[x].currentPhase == 3 && currentScreen == LEVEL_THREE ) didGotDamage = true;
+        if ( CheckCollisionRecs(hero->body, enemies[x].bodyRec) && enemies[x].gerated && enemies[x].bodyLife > 0 ) {
+            if ( enemies[x].currentPhase == 1 && currentScreen == LEVEL_ONE )
+            {
+                didGotDamage = true;
+                enemyHitted = x;
+            } 
+            if ( enemies[x].currentPhase == 2 && currentScreen == LEVEL_TWO )
+            {
+                didGotDamage = true;
+                enemyHitted = x;
+            }
+            if ( enemies[x].currentPhase == 3 && currentScreen == LEVEL_THREE )
+            {
+                didGotDamage = true;
+                enemyHitted = x;
+            }
         }
     }
 
@@ -301,7 +328,7 @@ bool CheckPlayerAttacked(Player *hero) {
         if ( didGotDamage ) ray[x].alreadyHit = 1;
     }
 
-    return didGotDamage;
+    return (HeroHitted){didGotDamage, enemyHitted};
 }
 
 #endif
