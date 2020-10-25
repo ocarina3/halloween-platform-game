@@ -11,6 +11,7 @@
 typedef struct
 {
 	Rectangle hitbox;
+	Texture2D bossState;
 	int life;
 	bool attacked;
 } MainEnemy;
@@ -48,6 +49,7 @@ void BossAttack()
 {
 	if (frameAttackCounter <= fps * 2)
 	{
+		
 		//Carregando o ataque
 		if(randomOne == 3 && randomTwo == 3)
 		{
@@ -159,8 +161,8 @@ void CheckState()
 	//boss parado
 	if (state == 0)
 	{  
-		if(frameAttackCounter <= fps * 5);
-		
+		int idleFrame = frameAttackCounter%MAX_FRAME_IDLE;
+		if(frameAttackCounter <= fps * 5) boss.bossState = bossIdle[idleFrame];
 		else
 		{
 			frameAttackCounter = 0;
@@ -171,8 +173,10 @@ void CheckState()
 	//boss subindo
 	if (state == 1)
 	{
+		int idleFrame = frameAttackCounter%MAX_FRAME_IDLE;
 		if (frameAttackCounter <= fps * 3)
 		{
+			boss.bossState = bossIdle[idleFrame];
 			boss.hitbox.y -= 1.6f;
 		}
 		else
@@ -181,17 +185,19 @@ void CheckState()
 			state = 2;
 		} 
 	}
-	// boss atacando
 
-	
+	// boss atacando
 	if (state == 2)
 	{
+		int frameCasting = frameAttackCounter%MAX_FRAME_CASTING;
+		boss.bossState = bossCasting[frameCasting];
 		BossAttack();
-	
 	}
 	// boss descendo
 	if (state == 3)
 	{
+		int idleFrame = frameAttackCounter%MAX_FRAME_IDLE;
+		boss.bossState = bossIdle[idleFrame];
 		if (frameAttackCounter <= fps * 3)
 		{
 			boss.hitbox.y += 1.6f;
@@ -231,19 +237,24 @@ void StartBoss()
 
 void UpdateBoss()
 {
+	
 	CheckBossAttacked();
 	if(boss.life > 0)
 	{
-		frameAttackCounter++;
+		
 		
 		CheckState();
 
 	}
 	else if (boss.life <= 0)
 	{
+		
+		int frameDying = frameAttackCounter%MAX_FRAME_DYING;
+		boss.bossState = bossDying[frameDying];
+
 		ray[0].mode = 0;
 		ray[1].mode = 0;
-		boss.hitbox.y -= 3.0;
+		if (boss.hitbox.y < 250) boss.hitbox.y++;
 
 	}
 }
@@ -268,14 +279,8 @@ void DrawBoss()
 		DrawRectangle(1650, ray[0].y, 40, 40, RED);
 	}
 	
-	if(boss.attacked == true)
-	{
-		DrawRectangleRec(boss.hitbox, RED);
-	}
-	else
-	{
-		DrawRectangleRec(boss.hitbox, BLACK);
-	}
+	DrawTextureRec(boss.bossState, (Rectangle){0,0, boss.hitbox.width, boss.hitbox.height}, (Vector2){boss.hitbox.x, boss.hitbox.y}, WHITE);
+	
 }
 	
 void CheckBossAttacked()
