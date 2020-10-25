@@ -168,6 +168,7 @@ void DrawLevelThreeScreen(void)
         DrawBoss();
     EndMode2D();    
     DrawLifeBar(&hero);
+    if ( wallCreated ) DrawBossLifeBar();
     DrawText(TextFormat("bloco: [%i,%i]\ncoordenada: [%f,%f]", (int)(playerBlock.x), (int)(playerBlock.y),(hero.physic->position.x),(hero.physic->position.y)), 315, 250, 20, DARKGRAY);
     DrawFPS(screenWidth - 90, screenHeight - 30);
 }

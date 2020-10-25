@@ -42,6 +42,7 @@ void DrawBoss();
 void CheckBossAttacked();
 void DrawRayAttacked(int ray);
 void DrawRayPrepared(int ray);
+void DrawBossLifeBar();
 
 
 int frameAttackCounter;
@@ -240,7 +241,7 @@ void StartBoss()
 
 void UpdateBoss()
 {
-	
+
 	CheckBossAttacked();
 	if(boss.life > 0)
 	{
@@ -258,8 +259,14 @@ void UpdateBoss()
 		ray[0].mode = 0;
 		ray[1].mode = 0;
 		boss.hitbox.y--;
-
 	}
+}
+
+void DrawBossLifeBar() {
+    // Desenha a borda da vida
+    DrawRectangleLines(screenWidth - 300, screenHeight - 60, 200, 30, GRAY);
+    // Desenha a vida
+    DrawRectangle(screenWidth - 299, screenHeight - 59, ((200 / (float)(MAX_HEALTH_BOSS)) * boss.life) - 2, 28, YELLOW);
 }
 
 int rayPreparedAnimation = 0;
