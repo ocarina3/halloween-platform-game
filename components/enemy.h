@@ -87,7 +87,8 @@ void UpdateEnemy()
 
         if(enemies[i].bodyLife <= 0)
         {
-            if(enemies[i].enemyAnimation==44) enemies[i].gerated = false;
+            enemies[i].attacked = true;
+            if(enemies[i].enemyAnimation == 44) enemies[i].gerated = false;
         }
 
         //check_enemy_physics(i);
