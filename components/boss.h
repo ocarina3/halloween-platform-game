@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define MAX_HEALTH_BOSS 30
+
 //___________________________________STRUCTS_______________________________________________
 
 typedef struct
@@ -110,7 +112,7 @@ void BossAttack()
 				break;
 		}
 		ray[0].mode = 1;
-		if(boss.life <= 5)
+		if(boss.life <= MAX_HEALTH_BOSS / 2)
 		{
 			ray[1].mode = 1;
 		}
@@ -121,7 +123,7 @@ void BossAttack()
 		//Ataque
 		ray[0].mode = 2;
 		
-		if(boss.life <= 5)
+		if(boss.life <= MAX_HEALTH_BOSS / 2)
 		{
 			ray[1].mode = 2;
 		}
@@ -178,7 +180,7 @@ void CheckState()
 		if (frameAttackCounter <= fps * 3)
 		{
 			boss.bossState = bossIdle[idleFrame];
-			boss.hitbox.y -= 1.6f;
+			boss.hitbox.y -= 1.5f;
 		}
 		else
 		{
@@ -201,7 +203,7 @@ void CheckState()
 		boss.bossState = bossIdle[idleFrame];
 		if (frameAttackCounter <= fps * 3)
 		{
-			boss.hitbox.y += 1.6f;
+			boss.hitbox.y += 1.5f;
 		}
 		else
 		{
@@ -221,7 +223,7 @@ void StartBoss()
     numberOfAttacks = 3;
 
 	boss.attacked = false;
-    boss.life = 10;
+    boss.life = MAX_HEALTH_BOSS;
     boss.hitbox = (Rectangle){1550, 250, 50, 50};
 
     ray[0].mode = 0;
@@ -231,7 +233,7 @@ void StartBoss()
 	ray[0].alreadyHit = 0;
 	ray[1].alreadyHit = 0;
 
-    state = 0;
+    state = 1;
 
     frameAttackCounter = 0;
 }
