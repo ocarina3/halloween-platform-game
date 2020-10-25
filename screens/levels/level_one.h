@@ -90,8 +90,8 @@ void DrawLevelOneScreen(void)
 
     EndMode2D();    
     DrawLifeBar(&hero);
-    DrawText(TextFormat("bloco: [%i,%i]\ncoordenada: [%f,%f]", (int)(playerBlock.x), (int)(playerBlock.y),(hero.physic->position.x),(hero.physic->position.y)), 315, 250, 20, DARKGRAY);
-    DrawFPS(screenWidth - 90, screenHeight - 30);
+    //DrawText(TextFormat("bloco: [%i,%i]\ncoordenada: [%f,%f]", (int)(playerBlock.x), (int)(playerBlock.y),(hero.physic->position.x),(hero.physic->position.y)), 315, 250, 20, DARKGRAY);
+    //DrawFPS(screenWidth - 90, screenHeight - 30);
 }
 
 // Gameplay Screen Unload logic
