@@ -90,6 +90,7 @@ void UpdateLevelThreeScreen(void)
         UpdateBoss();
         if(cameraPosition.x < 1550) cameraPosition.x += 5;
         if(cameraPosition.y > 200) cameraPosition.y -= 1;
+        if(cameraPosition.y < 200) cameraPosition.y += 1;
         camera.target = (Vector2){cameraPosition.x,cameraPosition.y};
     }
     if(playerBlock.x >= 23 && wallCreated == false && boss.life > 0)
