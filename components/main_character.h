@@ -16,7 +16,7 @@
 #define screenWidth 800
 #define screenHeight 450
 
-#define VELOCITY 0.4f
+#define VELOCITY 0.3f
 
 //___________________________________STRUCTS_______________________________________________
 typedef struct {
@@ -152,7 +152,7 @@ void HandleInputs(Player *hero) {
         hero->physic->velocity.x = -VELOCITY;
         hero->reverse = true;
     }
-    if ( IsKeyPressed(KEY_W) && hero->physic->velocity.y < 0.001 && hero->physic->velocity.y > 0 ) hero->physic->velocity.y = -VELOCITY*5;
+    if ( IsKeyPressed(KEY_W) && hero->physic->velocity.y < 0.001 && hero->physic->velocity.y > 0 ) hero->physic->velocity.y = -VELOCITY*7;
 
     // Ataca
     if ( IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !hero->attackCooldown ) {
@@ -181,7 +181,7 @@ void DrawEntities(Player *hero) {
     int bodyCount = GetPhysicsBodiesCount();
     for ( int x = 0;  x < bodyCount; x++ ) {
         PhysicsBody DrawedBody = GetPhysicsBody(x);
-
+        /*
         //help indentification
         int DrawedBodyVertices = GetPhysicsShapeVerticesCount(x);
         for ( int y = 0; y < DrawedBodyVertices; y++ ) 
@@ -199,7 +199,7 @@ void DrawEntities(Player *hero) {
                 DrawRectangleRec(CharacterAttack(hero,hero->reverse), BLUE);
             }
 
-        }
+        }*/
 
         Color filteredColor = WHITE;
 
@@ -260,6 +260,15 @@ void UpdateGame(Player *hero)
             hero->damageCooldown = 36;
             hero->currentAnimation = 0;
             if(hero->physic->position.x > (enemies[CheckPlayerAttacked(hero).enemy].bodyRec.x + enemies[CheckPlayerAttacked(hero).enemy].bodyRec.width))
+            {
+                hero->physic->velocity.x = VELOCITY*1.8;
+            }
+            else 
+            {
+                hero->physic->velocity.x = -VELOCITY*1.8;
+            }
+
+            if(hero->physic->position.x > boss.hitbox.x + boss.hitbox.width)
             {
                 hero->physic->velocity.x = VELOCITY*1.8;
             }
