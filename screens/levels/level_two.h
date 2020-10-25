@@ -39,7 +39,7 @@
 static int framesCounter;
 static int finishScreen;
 static int isAlive;
-
+Vector2 playerBlock;
 static int cameraTarget;
 
 static FILE *fileWriteLevelTwo;

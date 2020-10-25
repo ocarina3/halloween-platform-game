@@ -24,7 +24,7 @@
 **********************************************************************************************/
 
 #include "../../components/phase.h"
-
+Vector2 playerBlock;
 static int framesCounter;
 static int finishScreen;
 static int isAlive;

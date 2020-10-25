@@ -30,6 +30,7 @@
 //----------------------------------------------------------------------------------
 
 // Gameplay screen global variables
+Vector2 playerBlock;
 Vector2 cameraPosition;
 static int framesCounter;
 static int finishScreen;
