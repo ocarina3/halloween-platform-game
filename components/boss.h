@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX_HEALTH_BOSS 30
+#define MAX_HEALTH_BOSS 40
 
 //___________________________________STRUCTS_______________________________________________
 
@@ -51,7 +51,7 @@ Laser ray[2];
 
 void BossAttack()
 {
-	if (frameAttackCounter <= fps * 2)
+	if (frameAttackCounter <= fps * 1)
 	{
 		
 		//Carregando o ataque
@@ -119,7 +119,7 @@ void BossAttack()
 		}
 		
 	}
-	else if(frameAttackCounter <= fps * 4)
+	else if(frameAttackCounter <= fps * 2)
 	{
 		//Ataque
 		ray[0].mode = 2;
@@ -166,7 +166,7 @@ void CheckState()
 	if (state == 0)
 	{  
 		int idleFrame = frameAttackCounter%MAX_FRAME_IDLE;
-		if(frameAttackCounter <= fps * 5) boss.bossState = bossIdle[idleFrame];
+		if(frameAttackCounter <= fps * 3) boss.bossState = bossIdle[idleFrame];
 		else
 		{
 			frameAttackCounter = 0;
@@ -225,7 +225,7 @@ void StartBoss()
 
 	boss.attacked = false;
     boss.life = MAX_HEALTH_BOSS;
-    boss.hitbox = (Rectangle){1550, 250, 50, 50};
+    boss.hitbox = (Rectangle){1550, 250, 40, 50};
 
     ray[0].mode = 0;
     ray[1].mode = 0;
@@ -308,7 +308,7 @@ void DrawBoss()
 	}
 	
 	
-	DrawTextureRec(boss.bossState, (Rectangle){0,0, boss.hitbox.width, boss.hitbox.height}, (Vector2){boss.hitbox.x, boss.hitbox.y}, WHITE);
+	DrawTextureRec(boss.bossState, (Rectangle){0,0, boss.hitbox.width + 10, boss.hitbox.height}, (Vector2){boss.hitbox.x - 15, boss.hitbox.y - 10}, WHITE);
 	DrawRectangleLines(boss.hitbox.x,boss.hitbox.y,boss.hitbox.width,boss.hitbox.height,BLACK);
 }
 	
