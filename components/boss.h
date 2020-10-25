@@ -242,7 +242,7 @@ void UpdateBoss()
 	if(boss.life > 0)
 	{
 		
-		
+		frameAttackCounter++;
 		CheckState();
 
 	}
@@ -254,7 +254,7 @@ void UpdateBoss()
 
 		ray[0].mode = 0;
 		ray[1].mode = 0;
-		if (boss.hitbox.y < 250) boss.hitbox.y++;
+		boss.hitbox.y--;
 
 	}
 }
@@ -279,8 +279,9 @@ void DrawBoss()
 		DrawRectangle(1650, ray[0].y, 40, 40, RED);
 	}
 	
-	DrawTextureRec(boss.bossState, (Rectangle){0,0, boss.hitbox.width, boss.hitbox.height}, (Vector2){boss.hitbox.x, boss.hitbox.y}, WHITE);
 	
+	DrawTextureRec(boss.bossState, (Rectangle){0,0, boss.hitbox.width, boss.hitbox.height}, (Vector2){boss.hitbox.x, boss.hitbox.y}, WHITE);
+	DrawRectangleLines(boss.hitbox.x,boss.hitbox.y,boss.hitbox.width,boss.hitbox.height,BLACK);
 }
 	
 void CheckBossAttacked()
