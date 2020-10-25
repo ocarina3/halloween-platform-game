@@ -64,7 +64,7 @@ HeroHitted CheckPlayerAttacked(Player *hero);
 
 //___________________________________FUNCTIONS_________________________________________________
 
-// Retorna a área que está sendo atacada para checar colisões posteriormente
+// Returns the area being attacked to check for collisions later
 Rectangle CharacterAttack(Player *hero, bool reverse) {
     Rectangle attackArea;
     attackArea.width = 30;
@@ -90,28 +90,30 @@ void UpdatePhysicsBody(Player *hero)
 
 }
 
-void UpdatePlayerState(Player *hero) {
-    if ( !hero->isAlive ) {
+//Update the hero animation
+void UpdatePlayerState(Player *hero) 
+{
+    if ( !hero->isAlive ) 
+    {        
         // Dying animation
-
         int dyingFrame = hero->currentAnimation / 3;
 
         hero->state = characterDying[dyingFrame];
 
         if ( hero->currentAnimation < 44 ) hero->currentAnimation = hero->currentAnimation + 1;
     } 
-    else if ( hero->attackCooldown != 0 ) {
+    else if ( hero->attackCooldown != 0 ) 
+    {    
         // Attacking animation
-
         if ( hero->currentAnimation > 11 ) hero->currentAnimation = 0;
 
         hero->state = characterSlashing[hero->currentAnimation];
 
         if ( hero->currentAnimation < 10 ) hero->currentAnimation = hero->currentAnimation + 1;
     } 
-    else if ( hero->physic->velocity.y > 0.1 || hero->physic->velocity.y < -0.1 ) {
+    else if ( hero->physic->velocity.y > 0.1 || hero->physic->velocity.y < -0.1 ) 
+    { 
         // Jump animation
-
         if ( hero->currentAnimation > 10 ) hero->currentAnimation = 0;
 
         int jumpingFrame = hero->currentAnimation / 2;
@@ -120,66 +122,84 @@ void UpdatePlayerState(Player *hero) {
 
         if ( hero->currentAnimation < 10 ) hero->currentAnimation = hero->currentAnimation + 1;
     } 
-    else if ( (hero->physic->velocity.x > 0.1 || hero->physic->velocity.x < -0.1) && hero->damageCooldown < 18 ) {
+    else if ( (hero->physic->velocity.x > 0.1 || hero->physic->velocity.x < -0.1) && hero->damageCooldown < 18 ) 
+    {    
         // Running animation
         int runningFrame = hero->currentAnimation / 3;
         hero->state = characterRunning[runningFrame];
 
         hero->currentAnimation = hero->currentAnimation == 35 ? 0 : hero->currentAnimation + 1;
     }
-    else if ( hero->damageCooldown != 0 ) {
+    else if ( hero->damageCooldown != 0 ) 
+    {   
         // Damage Animation
-        
         int hurtingFrame = hero->currentAnimation / 3;
 
         hero->state = characterHurt[hurtingFrame];
 
         if ( hero->currentAnimation < 35 ) hero->currentAnimation++;
     }
-    else if (hero->physic->velocity.y < 0.001 && hero->physic->velocity.y > 0) {
+    else if (hero->physic->velocity.y < 0.001 && hero->physic->velocity.y > 0) 
+    {      
         // Stop Player
         hero->state = characterIdle;
         hero->currentAnimation = 0;
     }
 }
 
-void HandleInputs(Player *hero) {
-    if ( IsKeyDown(KEY_D) ) {
+void HandleInputs(Player *hero) 
+{
+    //left
+    if ( IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT)) 
+    {
         hero->physic->velocity.x = VELOCITY;
         hero->reverse = false;
     }
-    if ( IsKeyDown(KEY_A) ) {
+
+    //right
+    if ( IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT)) 
+    {
         hero->physic->velocity.x = -VELOCITY;
         hero->reverse = true;
     }
-    if ( IsKeyPressed(KEY_W) && hero->physic->velocity.y < 0.001 && hero->physic->velocity.y > 0 ) hero->physic->velocity.y = -VELOCITY*7;
+    
+    //jump
+    if ( (IsKeyPressed(KEY_W) || IsKeyPressed(KEY_UP)) && hero->physic->velocity.y < 0.001 && hero->physic->velocity.y > 0 ) hero->physic->velocity.y = -VELOCITY*7;
 
-    // Ataca
-    if ( IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && !hero->attackCooldown ) {
+    // Attack
+    if ( (IsMouseButtonPressed(MOUSE_LEFT_BUTTON) || IsKeyPressed(KEY_J)) && !hero->attackCooldown ) 
+    {
         hero->attacking = true;
         CharacterAttack(hero, hero->reverse);
         hero->attackCooldown = 12;
     }
 }
 
-void KillPlayer(Player *hero) {
+//if the hero died
+void KillPlayer(Player *hero) 
+{
     hero->currentAnimation = 0;
     hero->lives = 0;
     hero->isAlive = false;
     hero->physic->enabled = false;
 }
 
-void DrawLifeBar(Player *hero) {
-    // Desenha a borda da vida
+//Draw hero life bar
+void DrawLifeBar(Player *hero) 
+{
+    // draw the border
     DrawRectangleLines(50, screenHeight - 60, 100, 30, GRAY);
-    // Desenha a vida
+    // draw the life
     DrawRectangle(51, screenHeight - 59, ((100 / 3) * hero->lives) - 2, 28, RED);
 }
 
-void DrawEntities(Player *hero) {
+//Draw the hero
+void DrawEntities(Player *hero) 
+{
     // Desenha os 'PhysicBodies'
     int bodyCount = GetPhysicsBodiesCount();
-    for ( int x = 0;  x < bodyCount; x++ ) {
+    for ( int x = 0;  x < bodyCount; x++ ) 
+    {
         PhysicsBody DrawedBody = GetPhysicsBody(x);
         /*
         //help indentification
@@ -203,7 +223,8 @@ void DrawEntities(Player *hero) {
 
         Color filteredColor = WHITE;
 
-        if ( hero->damageCooldown != 0 ) {
+        if ( hero->damageCooldown != 0 ) 
+        {
             int colorSelector = hero->damageCooldown % 6;
 
             if ( colorSelector < 3 ) filteredColor = RED;
@@ -300,11 +321,14 @@ void UpdateGame(Player *hero)
 }
 
 
-HeroHitted CheckPlayerAttacked(Player *hero) {
+HeroHitted CheckPlayerAttacked(Player *hero) 
+{
     bool didGotDamage = false;
     int enemyHitted = 99;
-    for ( int x = 0; x < 13; x++ ) {
-        if ( CheckCollisionRecs(hero->body, enemies[x].bodyRec) && enemies[x].gerated && enemies[x].bodyLife > 0 ) {
+    for ( int x = 0; x < 13; x++ ) 
+    {
+        if ( CheckCollisionRecs(hero->body, enemies[x].bodyRec) && enemies[x].gerated && enemies[x].bodyLife > 0 ) 
+        {
             if ( enemies[x].currentPhase == 1 && currentScreen == LEVEL_ONE )
             {
                 didGotDamage = true;
