@@ -143,6 +143,7 @@ void DrawLevelThreeScreen(void)
         DrawEnemy();
         DrawEntities(&hero);
         DrawBoss();
+        DrawSign(playerBlock.x,playerBlock.y,3);
     EndMode2D();    
     DrawLifeBar(&hero);
     if ( wallCreated ) DrawBossLifeBar();

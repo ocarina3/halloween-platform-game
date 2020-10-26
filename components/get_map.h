@@ -27,13 +27,11 @@ typedef struct
 }blocks;
 
 
-//_________________________________________________________________________________________
-
 //___________________________________VARIABLES_______________________________________________
 
 blocks buildings[320][14];
-
-//____________________________________________________________________________________________
+char signText[5][200];
+int frameAnimation;
 
 //___________________________________FUNCTIONS DECLARATIONS____________________________________
 
@@ -42,8 +40,8 @@ void CreateMap(int phase);
 void CreateFloor(int phase);
 void CreateObjects(int phase);
 void CreatePlatforms(int pos_x, int pos_y);
-
-//____________________________________________________________________________________________
+int CheckSign(int posX, int posY);
+void DrawSign(int posX, int posY, int phase);
 
 
 //___________________________________FUNCTIONS_______________________________________________
@@ -85,29 +83,12 @@ void CreateMap(int phase)
     else if(phase == 2)
     {
         CreateFloor(2);
-        CreatePlatforms(18,7);
-        CreatePlatforms(22,6);
-        CreatePlatforms(26,5);
-        CreatePlatforms(30,4);
-        CreatePlatforms(35,4);
-        CreatePlatforms(39,4);
-        CreatePlatforms(44,4);
-        CreatePlatforms(48,5);
-        CreatePlatforms(53,6);
-        CreatePlatforms(57,4);
-        CreatePlatforms(62,3);
-        CreatePlatforms(66,2);
-        CreatePlatforms(71,3);
-        CreatePlatforms(75,1);
-        CreatePlatforms(80,0);
-        CreatePlatforms(85,1);
-        CreatePlatforms(89,2);
-        CreatePlatforms(93,2);
-        CreatePlatforms(98,2);
+        
     }
     else if(phase == 3)
     {
         CreateFloor(3);
+        CreateObjects(3);
                 
     }
     
@@ -266,6 +247,26 @@ void CreateFloor(int phase)
         CreateLine((Vector2){1,8}, (Vector2){15,10}, 5);
         CreateLine((Vector2){15,8}, (Vector2){15,8}, 10);
 
+        CreatePlatforms(18,7);
+        CreatePlatforms(22,6);
+        CreatePlatforms(26,5);
+        CreatePlatforms(30,4);
+        CreatePlatforms(35,4);
+        CreatePlatforms(39,4);
+        CreatePlatforms(44,4);
+        CreatePlatforms(48,5);
+        CreatePlatforms(53,6);
+        CreatePlatforms(57,4);
+        CreatePlatforms(62,3);
+        CreatePlatforms(66,2);
+        CreatePlatforms(71,3);
+        CreatePlatforms(75,1);
+        CreatePlatforms(80,0);
+        CreatePlatforms(85,1);
+        CreatePlatforms(89,2);
+        CreatePlatforms(93,2);
+        CreatePlatforms(98,2);
+
         CreateLine((Vector2){103,2}, (Vector2){103,2}, 1);
         CreateLine((Vector2){104,2}, (Vector2){117,2}, 2);
         CreateLine((Vector2){118,2}, (Vector2){118,2}, 3);
@@ -329,14 +330,19 @@ void CreateObjects(int phase)
     if(phase == 1)
     {
         // Placa: comandos
+        CreateLine((Vector2){10, 6}, (Vector2){10, 6}, 21);
         CreateLine((Vector2){12, 6}, (Vector2){12, 6}, 17); 
+        //planta
         CreateLine((Vector2){19, 7}, (Vector2){19, 7}, 18); 
+        //arvore
         CreateLine((Vector2){30, 2}, (Vector2){30, 2}, 25); 
         // Placa: 2 vidas
         CreateLine((Vector2){39, 3}, (Vector2){39, 3}, 21); 
+        //object
         CreateLine((Vector2){47, 5}, (Vector2){47, 5}, 23); 
         // Placa: plataforma
-        CreateLine((Vector2){50, 5}, (Vector2){50, 5}, 21); 
+        CreateLine((Vector2){50, 5}, (Vector2){50, 5}, 21);
+        //objects
         CreateLine((Vector2){62, 6}, (Vector2){62, 6}, 20); 
         CreateLine((Vector2){66, 5}, (Vector2){66, 5}, 24); 
         CreateLine((Vector2){76, 5}, (Vector2){76, 5}, 19); 
@@ -355,15 +361,60 @@ void CreateObjects(int phase)
     }
 }
 
-void CreatePlatforms(int pos_x, int pos_y)
+void CreatePlatforms(int posX, int posY)
 {
     for(int i = 0; i < 3; i++)
     {
-        CreateLine((Vector2){pos_x + i,pos_y}, (Vector2){pos_x + i,pos_y}, 14 + i);
+        CreateLine((Vector2){posX + i,posY}, (Vector2){posX + i,posY}, 14 + i);
     }
 }
 
+void DrawSign(int posX, int posY, int phase)
+{
+    frameAnimation++;
+    char* message;
+    int sign = CheckSign(posX,posY);
+    if(sign == 0 && phase == 1)
+    {
+        message = "Bem vindo Viajante\nPara sua movimentação pressione:\nA ou Left para andar para a esquerda\nD ou Right para andar para a direita\nW ou Up para pular\nMouse_Left ou J para atacar";
+        DrawText(TextSubtext(message,0,frameAnimation/2),(posX - 1)*50, (posY - 2)*50,10,BROWN);   
+    }
+    else if(sign == 1 && phase == 1)
+    {
+        message = "Cuidado!!!!\nHá inimigos mais fortes pela frente\nEles podem precisar de mais de um golpe para serem derrotados";
+        DrawText(TextSubtext(message,0,frameAnimation/2),(posX - 1)*50, (posY - 1)*50,10,BROWN);
+    }
+    else if(sign == 2 && phase == 1)
+    {
+        message = "Plataformas flutuantes a frente\ncuidado para acabar não caindo delas\npois isso resultará na sua MORTE";
+        DrawText(TextSubtext(message,0,frameAnimation/2),(posX - 1)*50, (posY - 1)*50,10,BROWN);
+    }
+    else if(sign == 3 && phase == 1)
+    {
+        message = "Parabéns por passar do tuturial\nAgora as coisas ficarão um pouco mais rápidas";
+        DrawText(TextSubtext(message,0,frameAnimation/2),(posX - 1)*50, (posY - 1)*50,10,BROWN);
+    }
+    else if(sign == 4 && phase == 3)
+    {
+        message = "!!!!!!!!!!!!CUIDADO!!!!!!!!!!!!\nPERIGO IMINENTE      \n   RETORNE JÁ      \n!!!!!!!!!!!!CUIDADO!!!!!!!!!!!!";
+        DrawText(TextSubtext(message,0,frameAnimation/2),posX*50, (posY - 2)*50,10,BROWN);
+    }
+    else frameAnimation = 0;
+}
 
+int CheckSign(int posX, int posY)
+{
+    Vector2 heroPosition = {posX, posY};
+    Vector2 signPosition[5] = {{10,6}, {39,3}, {50,5}, {88,5}, {12,6}};
+    for (int i = 0; i < 5; i++)
+    {
+        if (heroPosition.x == signPosition[i].x && heroPosition.y == signPosition[i].y)
+        {
+          return i;  
+        }  
+    }
+    return 6;
+}
 
 //___________________________________________________________________________________________
 #endif

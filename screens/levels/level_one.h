@@ -64,7 +64,7 @@ void DrawLevelOneScreen(void)
         DrawTextureMap();
         DrawEnemy();
         DrawEntities(&hero);
-
+        DrawSign(playerBlock.x,playerBlock.y,1);
     EndMode2D();    
     DrawLifeBar(&hero);
     //DrawText(TextFormat("bloco: [%i,%i]\ncoordenada: [%f,%f]", (int)(playerBlock.x), (int)(playerBlock.y),(hero.physic->position.x),(hero.physic->position.y)), 315, 250, 20, DARKGRAY);

@@ -51,7 +51,6 @@ void StartVariables()
         }
     }
 
-    
 }
 
 #endif
