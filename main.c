@@ -21,7 +21,7 @@ int main(void)
     // Initialization (Note windowTitle is unused on Android)
     //---------------------------------------------------------
 
-    InitWindow(screenWidth, screenHeight, "raylib - testing transitions between screens");
+    InitWindow(screenWidth, screenHeight, "Project Omega");
     InitPhysics();
     InitAudioDevice();
     srand(time(NULL));
