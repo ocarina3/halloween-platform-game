@@ -328,13 +328,19 @@ void CreateObjects(int phase)
 {
     if(phase == 1)
     {
+        // Placa: comandos
         CreateLine((Vector2){12, 6}, (Vector2){12, 6}, 17); 
         CreateLine((Vector2){19, 7}, (Vector2){19, 7}, 18); 
         CreateLine((Vector2){30, 2}, (Vector2){30, 2}, 25); 
+        // Placa: 2 vidas
+        CreateLine((Vector2){39, 3}, (Vector2){39, 3}, 21); 
         CreateLine((Vector2){47, 5}, (Vector2){47, 5}, 23); 
+        // Placa: plataforma
+        CreateLine((Vector2){50, 5}, (Vector2){50, 5}, 21); 
         CreateLine((Vector2){62, 6}, (Vector2){62, 6}, 20); 
         CreateLine((Vector2){66, 5}, (Vector2){66, 5}, 24); 
         CreateLine((Vector2){76, 5}, (Vector2){76, 5}, 19); 
+        // Placa: correr na próxima fase
         CreateLine((Vector2){88, 5}, (Vector2){88, 5}, 21); 
 
     }
@@ -344,7 +350,8 @@ void CreateObjects(int phase)
     }
     else if (phase == 3)
     {
-
+        CreateLine((Vector2){12, 6}, (Vector2){12, 6}, 21);
+        CreateLine((Vector2){49, 5}, (Vector2){49, 5}, 21);
     }
 }
 
