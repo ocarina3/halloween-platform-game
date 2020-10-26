@@ -189,19 +189,15 @@ void UpdateEnemyState(){
 
             //enemies kick
             if(hero.physic->position.x > enemies[i].bodyRec.x) 
-            {   if(enemies[i].bodyRec.x < enemies[i].limits.y)
+            {   if(enemies[i].bodyRec.x > enemies[i].limits.x*50 - 2)
                 {
                     enemies[i].bodyRec.x -= 2;    
                 }
             }
-            else { enemies[i].bodyRec.x += 2;}
-            {
-                 if(enemies[i].bodyRec.x > enemies[i].limits.y)
+            else if(enemies[i].bodyRec.x < enemies[i].limits.y*50 + 2)
                 {
                     enemies[i].bodyRec.x += 2;    
                 }
-                
-            }
             
 
             if (enemies[i].enemyAnimation < 35) enemies[i].enemyAnimation++;

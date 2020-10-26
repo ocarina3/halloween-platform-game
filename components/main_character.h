@@ -201,7 +201,8 @@ void DrawEntities(Player *hero)
     for ( int x = 0;  x < bodyCount; x++ ) 
     {
         PhysicsBody DrawedBody = GetPhysicsBody(x);
-        /*
+        
+        /* DEBUG
         //help indentification
         int DrawedBodyVertices = GetPhysicsShapeVerticesCount(x);
         for ( int y = 0; y < DrawedBodyVertices; y++ ) 
@@ -280,7 +281,7 @@ void UpdateGame(Player *hero)
             // hero gets damage
             hero->damageCooldown = 36;
             hero->currentAnimation = 0;
-            if(hero->physic->position.x > (enemies[CheckPlayerAttacked(hero).enemy].bodyRec.x + enemies[CheckPlayerAttacked(hero).enemy].bodyRec.width))
+            if(hero->physic->position.x > (enemies[CheckPlayerAttacked(hero).enemy].bodyRec.x + enemies[CheckPlayerAttacked(hero).enemy].bodyRec.width/2))
             {
                 hero->physic->velocity.x = VELOCITY*1.8;
             }
@@ -289,11 +290,11 @@ void UpdateGame(Player *hero)
                 hero->physic->velocity.x = -VELOCITY*1.8;
             }
 
-            if(hero->physic->position.x > boss.hitbox.x + boss.hitbox.width)
+            if(hero->physic->position.x > boss.hitbox.x + boss.hitbox.width && CheckCollisionRecs(hero->body,boss.hitbox))
             {
                 hero->physic->velocity.x = VELOCITY*1.8;
             }
-            else 
+            else if (CheckCollisionRecs(hero->body,boss.hitbox))
             {
                 hero->physic->velocity.x = -VELOCITY*1.8;
             }
