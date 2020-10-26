@@ -20,7 +20,7 @@ It's a halloween platform game where you have to progress throught three levels 
 
 ## 🕹 Result
 
-🚧 In production...
+![Game demonstration](./.github/omega.gif)
 
 ## 🤔 How to use
 
