@@ -1,4 +1,4 @@
-# Ω Project Omega
+# 🎃 Halloween platform game
 
 ## ℹ About
 
